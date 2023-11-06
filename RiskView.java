@@ -18,7 +18,7 @@ public class RiskView extends JFrame{
 
 
 
-    private RiskView()
+    RiskView()
     {
         setTitle("Java-Risk");
 		setPreferredSize(new Dimension(300, 300));
@@ -26,9 +26,13 @@ public class RiskView extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(false);
         add(mainMenu());
+
+		pack();
+		setVisible(true);
+		toFront();
     }
 
-    private JPanel mainMenu()
+    protected JPanel mainMenu()
     {
 		mainPanel = new JPanel();
 
