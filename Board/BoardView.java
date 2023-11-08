@@ -101,15 +101,6 @@ public class BoardView extends JPanel {
             }
         }
     }
-    
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Galactic Map");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new BoardView());
-        frame.setSize(900, 700);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }
 
