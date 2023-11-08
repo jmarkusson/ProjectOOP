@@ -1,4 +1,4 @@
-public class Planet{
+public class Country{
 
 
 }
