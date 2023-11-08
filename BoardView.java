@@ -5,7 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 
-public class Board extends JPanel {
+public class BoardView extends JPanel {
 
     private final Point[] sunPositions = {
         new Point(150, 150), // Top-left sun moved closer to center
@@ -33,7 +33,7 @@ public class Board extends JPanel {
         "Sullust", "Fondor", "Ithor", "Anoat"
     };
 
-    public Board() {
+    public BoardView() {
         setToolTipText(""); // Enable tooltips
 
         addMouseListener(new MouseAdapter() {
@@ -61,12 +61,12 @@ public class Board extends JPanel {
                         Ellipse2D.Float planet = new Ellipse2D.Float(p.x, p.y, 30, 30);
                         if (planet.contains(e.getPoint())) {
                             int planetIndex = i * planetPositions[i].length + j;
-                            Board.this.setToolTipText(planetNames[planetIndex]);
+                            BoardView.this.setToolTipText(planetNames[planetIndex]);
                             return;
                         }
                     }
                 }
-                Board.this.setToolTipText(null);
+                BoardView.this.setToolTipText(null);
             }
         });
     }
@@ -101,14 +101,5 @@ public class Board extends JPanel {
         }
     }
     
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Galactic Map");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new Board());
-        frame.setSize(900, 700);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
 }
 

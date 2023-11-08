@@ -16,7 +16,7 @@ public class RiskModel {
 
     public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
-        Board board = new Board();
+        BoardView board = new BoardView();
         this.playerNames = playerNames;
         this.playerColors = playerColors;
 
