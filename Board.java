@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -110,3 +111,4 @@ public class Board extends JPanel {
         frame.setVisible(true);
     }
 }
+
