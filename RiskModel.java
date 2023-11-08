@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.util.List;
+
+import Board.BoardView;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
