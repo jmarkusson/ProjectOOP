@@ -5,7 +5,7 @@ public class Player
 {
 
 
-    int soldiers = 1; 
+    
 
 
     private Color color; 
