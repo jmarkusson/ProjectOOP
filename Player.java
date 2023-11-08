@@ -4,6 +4,7 @@ import java.awt.Color;
 public class Player
 {
 
+
     private Color color; 
     private String name;
     private int soldiers;

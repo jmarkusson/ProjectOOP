@@ -1,11 +1,5 @@
 public class SolarSystem{
 
 
-
-
-
-
-    
-
 }
 
