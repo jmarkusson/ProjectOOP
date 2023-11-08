@@ -100,6 +100,6 @@ public class BoardView extends JPanel {
             }
         }
     }
-    
+
 }
 
