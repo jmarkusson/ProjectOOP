@@ -5,27 +5,17 @@ public class Player
 {
 
 
-    
-
-
     private Color color; 
     private String name;
     private int soldiers;
     private List<Planet> planetsOwned;
 
-
-
-
- 
     public Player(Color color, String name) {
         this.color = color;
         this.name = name;
-        this.soldiers = 15;
-        
+        this.soldiers = 15;  
     }
     
-
-
         public Color getColor() {
             return color;
         }
