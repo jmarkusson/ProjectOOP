@@ -4,10 +4,15 @@ import java.awt.Color;
 public class Player
 {
 
+
+    int soldiers = 1; 
+
+
     private Color color; 
     private String name;
     private int soldiers;
     private List<Planet> planetsOwned;
+
 
 
 
