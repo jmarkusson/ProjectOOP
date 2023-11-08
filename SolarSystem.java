@@ -1,11 +1,4 @@
-public class Continent{
-
-
-
-
-
-
-    
+public class SolarSystem{
 
 }
 
