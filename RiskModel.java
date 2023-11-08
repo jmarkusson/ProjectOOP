@@ -20,18 +20,36 @@ public class RiskModel {
         this.playerNames = playerNames;
         this.playerColors = playerColors;
 
-        List<String> planets = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         String line;
 
         try {
+            // Reads and split planets into array
             BufferedReader reader = new BufferedReader(new FileReader("planets.txt"));
 
             while ((line = reader.readLine()) != null) {
-                planets.add(line);
+                list.add(line);
             }
-            String[] planetsArray = planets.toArray(new String[0]);
+            String[] planetsArray = list.toArray(new String[0]);
 
+            // Reads and split solar systems with its bonus number and planets
+            list.clear();
             reader = new BufferedReader(new FileReader("solarsystems.txt"));
+
+            while ((line = reader.readLine()) != null){
+                list.add(line);
+            }
+            String[] solarsystemsArray = list.toArray(new String[0]);
+
+            // Reads 
+            list.clear();
+            reader = new BufferedReader(new FileReader("adjacencies.txt"));
+
+            while ((line = reader.readLine()) != null){
+                list.add(line);
+            }
+            String[] adjacenciesArray = list.toArray(new String[0]);
+            
 
             reader.close();
         } catch (IOException e) {
