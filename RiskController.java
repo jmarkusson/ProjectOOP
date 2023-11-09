@@ -5,7 +5,7 @@ public class RiskController implements ActionListener {
 
     private RiskView view;
     private RiskModel model;
-    private Board.BoardView boardView;
+    private BoardView boardView;
     
     public RiskController(RiskModel model, RiskView view){
 
@@ -18,10 +18,10 @@ public class RiskController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
         if (e.getActionCommand() == "New Game"){
-            boardView = new Board.BoardView();
+            boardView = new BoardView();
 
             boardView.setVisible(true);
-            boardView.addAct
+            
         }
     }
 }
