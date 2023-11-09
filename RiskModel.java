@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.util.List;
+
+import Board.BoardView;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,13 +13,19 @@ public class RiskModel {
     private ArrayList<String> playerNames;
     private ArrayList<Color> playerColors;
 
+
+    private ArrayList<Player> players;
+    private Board board;
+
     protected RiskModel(){
+
          /* Nothing should happen when instance of Model is created */
     }
 
     public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
-        BoardView board = new BoardView();
+        Boolean succesfullLoad = false;
+        board = new Board();
         this.playerNames = playerNames;
         this.playerColors = playerColors;
 
@@ -41,7 +50,7 @@ public class RiskModel {
             }
             String[] solarsystemsArray = list.toArray(new String[0]);
 
-            // Reads 
+            // Reads and splits adjacencies
             list.clear();
             reader = new BufferedReader(new FileReader("adjacencies.txt"));
 
@@ -49,6 +58,17 @@ public class RiskModel {
                 list.add(line);
             }
             String[] adjacenciesArray = list.toArray(new String[0]);
+
+            //Create the board
+            succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray);
+
+            players = new ArrayList<Player>();
+
+            for(int i = 0; i < playerNames.size(); i++){
+
+                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+
+            }
             
 
             reader.close();
@@ -56,6 +76,8 @@ public class RiskModel {
             e.printStackTrace();
             System.out.println("due bajs");
         }
+
+
 
         return false;
     }
