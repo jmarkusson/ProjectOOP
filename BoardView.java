@@ -40,7 +40,7 @@ public class BoardView extends JPanel {
     public BoardView() {
         JFrame frame = new JFrame("risk");
         frame.setTitle("Java-Risk");
-		frame.setPreferredSize(new Dimension(800, 800));
+		frame.setPreferredSize(new Dimension(1000, 1000));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
@@ -100,7 +100,14 @@ public class BoardView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
-    
+
+        //Draw the stars
+        g.setColor(Color.WHITE);
+        for (int z = 0; z < 200; z++) { // Draw 200 stars
+        int x = (int)(Math.random() * getWidth());
+        int y = (int)(Math.random() * getHeight());
+        g.fillOval(x, y, 2, 2); // Each star is a small dot
+        }
         // Draw the suns
         g.setColor(Color.YELLOW);
         for (Point sunPosition : sunPositions) {
