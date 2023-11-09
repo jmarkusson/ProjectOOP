@@ -1,6 +1,3 @@
-
-import RiskModel;
-
 public class BoardViewController {
     
     private RiskModel model;
