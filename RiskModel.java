@@ -7,10 +7,6 @@ import java.util.ArrayList;
 
 public class RiskModel {
 
-    private ArrayList<String> playerNames;
-    private ArrayList<Color> playerColors;
-
-
     private ArrayList<Player> players;
     private Board board;
 
@@ -23,8 +19,6 @@ public class RiskModel {
         
         Boolean succesfullLoad = false;
         board = new Board();
-        this.playerNames = playerNames;
-        this.playerColors = playerColors;
 
         List<String> list = new ArrayList<>();
         String line;
