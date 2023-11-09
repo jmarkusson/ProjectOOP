@@ -21,6 +21,7 @@ public class RiskController implements ActionListener {
             boardView = new Board.BoardView();
 
             boardView.setVisible(true);
+            boardView.addAct
         }
     }
 }
