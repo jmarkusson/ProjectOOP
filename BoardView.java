@@ -2,6 +2,9 @@
 
 import javax.swing.*;
 import java.awt.*;
+
+import java.awt.event.ActionListener;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -37,7 +40,20 @@ public class BoardView extends JPanel {
     public BoardView() {
         setToolTipText(""); // Enable tooltips
 
+    }
+
+    @Override
+    public String getToolTipText(MouseEvent event) {
+        return super.getToolTipText(event);
+    }
+
+    protected void addActionListener(ActionListener e){
+        
+         addMouseListener(new MouseAdapter() {
+
+
         addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 for (int i = 0; i < planetPositions.length; i++) {
@@ -73,11 +89,13 @@ public class BoardView extends JPanel {
     }
 
     @Override
+
     public String getToolTipText(MouseEvent event) {
         return super.getToolTipText(event);
     }
 
     @Override
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
