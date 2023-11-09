@@ -8,11 +8,13 @@ public class Player
     private Color color; 
     private String name;
     private int soldiers;
+    private int playerNumber;
     private List<Planet> planetsOwned;
 
-    public Player(Color color, String name) {
-        this.color = color;
+    public Player(String name, Color color, int playerNumber) {
         this.name = name;
+        this.color = color;
+        this.playerNumber = playerNumber;
         this.soldiers = 15;  
     }
     
