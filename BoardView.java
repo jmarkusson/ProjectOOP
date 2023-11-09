@@ -30,14 +30,10 @@ public class BoardView extends JPanel {
     };
     
     
-    private final String[] planetNames = {
-        "Coruscant", "Tatooine", "Hoth", "Dagobah",
-        "Alderaan", "Bespin", "Endor", "Naboo",
-        "Kashyyyk", "Yavin IV", "Jakku", "Mustafar",
-        "Sullust", "Fondor", "Ithor", "Anoat"
-    };
+    private String[] planetNames;
 
-    public BoardView() {
+    public BoardView(String[] planetNames) {
+        this.planetNames = planetNames;
         JFrame frame = new JFrame("risk");
         frame.setTitle("Java-Risk");
 		frame.setPreferredSize(new Dimension(800, 800));

@@ -3,6 +3,8 @@ import java.util.HashMap;
 
 public class Board {
 
+
+    private String[] planetNames;
     private ArrayList<Planet> listofPlanets;
     private HashMap<String, Planet> planetMap;
     private HashMap<String, SolarSystem> solarsystemMap;
@@ -13,6 +15,8 @@ public class Board {
     }
 
     public boolean loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies){
+
+        this.planetNames = arrayofPlanets;
 
         boolean succesfullLoad = false;
 
@@ -64,6 +68,8 @@ public class Board {
 
     }
 
-    
+    public String[] getPlanetNames(){
+        return planetNames;
+    }
 
 }

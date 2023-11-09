@@ -21,7 +21,7 @@ public class MainMenuController implements ActionListener {
         if (e.getActionCommand() == "New Game"){
             view.setVisible(false);
             model.initGame(null, null);
-            boardView = new BoardView();
+            boardView = new BoardView(model.getPlanetNames());
             boardView.addActionListener(new BoardViewController(model, boardView));
             boardView.setVisible(true);
             

@@ -10,6 +10,7 @@ public class RiskModel {
     private ArrayList<Player> players;
     private Board board;
 
+    
     protected RiskModel(){
 
          /* Nothing should happen when instance of Model is created */
@@ -72,4 +73,18 @@ public class RiskModel {
 
         return false;
     }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public String[] getPlanetNames(){
+        return board.getPlanetNames();
+    }
+
+
 }
