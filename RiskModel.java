@@ -1,5 +1,8 @@
 import java.awt.Color;
 import java.util.List;
+
+import Board.BoardView;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -10,10 +13,12 @@ public class RiskModel {
     private ArrayList<String> playerNames;
     private ArrayList<Color> playerColors;
 
+
     private ArrayList<Player> players;
     private Board board;
 
     protected RiskModel(){
+
          /* Nothing should happen when instance of Model is created */
     }
 
