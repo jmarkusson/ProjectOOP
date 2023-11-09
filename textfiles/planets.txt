@@ -1,4 +1,16 @@
-        "Coruscant", "Tatooine", "Hoth", "Dagobah",
-        "Alderaan", "Bespin", "Endor", "Naboo",
-        "Kashyyyk", "Yavin IV", "Jakku", "Mustafar",
-        "Sullust", "Fondor", "Ithor", "Anoat"
+Coruscant
+Tatooine
+Hoth
+Dagobah
+Alderaan
+Bespin
+Endor
+Naboo
+Kashyyyk
+Yavin IV
+Jakku
+Mustafar
+Sullust
+Fondor
+Ithor
+Anoat

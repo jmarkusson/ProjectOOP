@@ -35,7 +35,7 @@ public class RiskModel {
 
             // Reads and split solar systems with its bonus number and planets
             list.clear();
-            reader = new BufferedReader(new FileReader("solarsystems.txt"));
+            reader = new BufferedReader(new FileReader("SolarSystems.txt"));
 
             while ((line = reader.readLine()) != null){
                 list.add(line);
@@ -44,7 +44,7 @@ public class RiskModel {
 
             // Reads and splits adjacencies
             list.clear();
-            reader = new BufferedReader(new FileReader("adjacencies.txt"));
+            reader = new BufferedReader(new FileReader("AdjacentPlanets.txt"));
 
             while ((line = reader.readLine()) != null){
                 list.add(line);
