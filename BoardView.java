@@ -115,8 +115,8 @@ public class BoardView extends JPanel {
                 g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
                 g.fillOval(planetPos.x - 15, planetPos.y - 15, 70, 70); // Planets are now larger
                 // Draw name
-                g.setColor(Color.WHITE);
-                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y - 5);
+                g.setColor(Color.BLACK);
+                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y +20);
             }
         }
     }
