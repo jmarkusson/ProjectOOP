@@ -38,17 +38,6 @@ public class BoardView extends JPanel {
     };
 
     public BoardView() {
-        JFrame frame = new JFrame("risk");
-        frame.setTitle("Java-Risk");
-		frame.setPreferredSize(new Dimension(1000, 1000));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-        frame.add(this);
-
-		frame.pack();
-		frame.setVisible(true);
-		frame.toFront();
 
     }
 
