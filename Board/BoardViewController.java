@@ -1,9 +1,12 @@
+
+import RiskModel;
+
 public class BoardViewController {
     
     private RiskModel model;
     private BoardView view;
 
-    protected BoardViewController(RiskModel model, BoardView view){
+    public BoardViewController(RiskModel model, BoardView view){
         
     }
 

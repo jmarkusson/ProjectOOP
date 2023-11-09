@@ -13,7 +13,7 @@ public class RiskModel {
     private ArrayList<String> playerNames;
     private ArrayList<Color> playerColors;
 
-    protected RiskModel(){
+    public RiskModel(){
          /* Nothing should happen when instance of Model is created */
     }
 
