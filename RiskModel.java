@@ -31,6 +31,7 @@ public class RiskModel {
             while ((line = reader.readLine()) != null) {
                 list.add(line);
             }
+            // Kanske onödigt på alla steg
             String[] planetsArray = list.toArray(new String[0]);
 
             // Reads and split solar systems with its bonus number and planets

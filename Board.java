@@ -27,7 +27,7 @@ public class Board {
             planetMap.put(arrayofPlanets[i], new Planet(arrayofPlanets[i]));    
         }
 
-        listofPlanets = new ArrayList<Planet>();
+        listofPlanets = new ArrayList<Planet>(planetMap.values());
 
         for (int i = 0; i < arrayofSolarsystems.length; i++){
 
