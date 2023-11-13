@@ -6,5 +6,6 @@ public class Risk {
         RiskModel model = new RiskModel();
 
         RiskController controller = new RiskController(model, view);
+        
     }
 }
