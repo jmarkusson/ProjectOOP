@@ -1,6 +1,10 @@
 
+
 import javax.swing.*;
 import java.awt.*;
+
+import java.awt.event.ActionListener;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -34,9 +38,14 @@ public class BoardView extends JPanel {
     };
 
     public BoardView() {
-        setToolTipText(""); // Enable tooltips
 
+    }
+
+    protected void addActionListener(ActionListener e){
+        
+       
         addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 for (int i = 0; i < planetPositions.length; i++) {
@@ -80,7 +89,14 @@ public class BoardView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
-    
+
+        //Draw the stars
+        g.setColor(Color.WHITE);
+        for (int z = 0; z < 200; z++) { // Draw 200 stars
+        int x = (int)(Math.random() * getWidth());
+        int y = (int)(Math.random() * getHeight());
+        g.fillOval(x, y, 2, 2); // Each star is a small dot
+        }
         // Draw the suns
         g.setColor(Color.YELLOW);
         for (Point sunPosition : sunPositions) {
@@ -95,8 +111,8 @@ public class BoardView extends JPanel {
                 g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
                 g.fillOval(planetPos.x - 15, planetPos.y - 15, 70, 70); // Planets are now larger
                 // Draw name
-                g.setColor(Color.WHITE);
-                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y - 5);
+                g.setColor(Color.BLACK);
+                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y +20);
             }
         }
     }

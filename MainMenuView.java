@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class RiskView extends JFrame{
+public class MainMenuView extends JFrame{
     private JPanel mainPanel;
     private GridLayout mainLayout;
     	
@@ -17,7 +17,7 @@ public class RiskView extends JFrame{
 
 
 
-    RiskView()
+    MainMenuView()
     {
         setTitle("Java-Risk");
 		setPreferredSize(new Dimension(300, 300));
@@ -41,8 +41,8 @@ public class RiskView extends JFrame{
 		newGameButton = new JButton("New Game");
 		quitButton = new JButton("Quit");
 
-		newGameButton.setActionCommand("NewGame");
-		quitButton.setActionCommand("QuitGame");
+		newGameButton.setActionCommand("New Game");
+		quitButton.setActionCommand("Quit Game");
 		
 		mainPanel.add(newGameButton);
 		mainPanel.add(quitButton);
