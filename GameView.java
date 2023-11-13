@@ -3,12 +3,17 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 
 public class GameView extends JFrame {
 
+    private BoardView boardView;
+    private PlayerView playerView;
     
-    public GameView(JPanel boardView, JPanel playerView){
+    public GameView(BoardView boardView, PlayerView playerView){
+
+        this.boardView = boardView;
+        this.playerView = playerView;
        
         setTitle("Java-Risk");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,8 +21,8 @@ public class GameView extends JFrame {
         setLayout(new BorderLayout());
 
         // Adding the BoardView to the center of the JFrame
-        add(boardView, BorderLayout.CENTER);
-        add(playerView, BorderLayout.EAST);
+        add(this.boardView, BorderLayout.CENTER);
+        add(this.playerView, BorderLayout.EAST);
 
         setSize(1200, 800);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
