@@ -1,15 +1,11 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 public class GameOptionsController implements ActionListener{
-
-    private ArrayList<Player> players = new ArrayList<>();
-    private int nmbrOfPlayers = 2;
 
     private RiskModel model;
     private GameOptionsView view;
@@ -25,26 +21,26 @@ public class GameOptionsController implements ActionListener{
 
         if (e.getActionCommand().equals("combobox")){
             JComboBox source = (JComboBox) e.getSource();
-            nmbrOfPlayers = source.getSelectedIndex() + 1;
+            model.setnmbOfPlayers(source.getSelectedIndex() +2);
         }
 
         else if (e.getActionCommand().equals("NEXT")){
             System.out.println("yes");
     
-            view.mainView(nmbrOfPlayers);
+            view.mainView(model.getnmbrOfPlayers());
         }
         else if (e.getActionCommand().equals("textfield")) {
             JTextField source = (JTextField) e.getSource();
             String playerName = source.getText();
-            players.add(new Player(playerName, new Color(players.size()+1), players.size()+1));
-
+            model.setPlayers(new Player(playerName, new Color(model.getnmbrOfPlayers()+1),
+            model.getnmbrOfPlayers()+1));
             } 
         else if (e.getActionCommand().equals("StartGame")) {
             view.dispose();
-            GameView gameView = new GameView(new BoardView(), new PlayerView(players));
+            GameView gameView = new GameView(new BoardView(), new PlayerView(model.getPlayers()));
             } 
         else if (e.getActionCommand().equals("Quit Game")) {
-
+            view.dispose();
             }
     }
 

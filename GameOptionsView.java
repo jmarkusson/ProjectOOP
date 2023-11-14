@@ -1,4 +1,7 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -7,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -30,7 +34,7 @@ public class GameOptionsView extends JFrame {
     GameOptionsView()
     {     
         setTitle("Risk-Options");
-		setPreferredSize(new Dimension(300, 300));
+		setPreferredSize(new Dimension(500, 500));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -47,6 +51,7 @@ public class GameOptionsView extends JFrame {
         // Create JTextFields for each player
         for (int i = 0; i < nmbrOfPlayers; i++) {
             JTextField playerNameField = new JTextField();
+            playerNameField.setPreferredSize(new Dimension(100, 10));
             playerNameField.setBorder(BorderFactory.createTitledBorder("Player " + (i + 1) + " Name"));
             playerNameField.setActionCommand("textfield");
             mainPanel.add(playerNameField);
@@ -66,33 +71,54 @@ public class GameOptionsView extends JFrame {
         mainPanel.add(startGameButton);
         mainPanel.add(quitButton);
 
-        removeAll();
-        add(mainPanel);
+        setContentPane(mainPanel);
+        revalidate();
     }
 
-    protected void initView(){
+    protected void initView() {
         initPanel = new JPanel();
-        iniLayout = new GridLayout(3, 1, 5, 5);
-        initPanel.setLayout(iniLayout);
-        String[] playersOpiton = {"2 Players", "3 Players", "4 Players"};
-
-        nmbrOfPlayers = new JComboBox<String>(playersOpiton);
+        initPanel.setLayout(new BorderLayout());
+    
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout(2, 1, 5, 5));
+    
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+    
+        String[] playersOption = {"2 Players", "3 Players", "4 Players"};
+    
+        nmbrOfPlayers = new JComboBox<String>(playersOption);
         nmbrOfPlayers.setSelectedItem(0);
         nmbrOfPlayers.setActionCommand("combobox");
         nmbrOfPlayers.addActionListener(controller);
-
+    
         nextButton = new JButton("Next");
         nextButton.setActionCommand("NEXT");
-
         nextButton.addActionListener(controller);
-
-        initPanel.add(nextButton);
-        initPanel.add(nmbrOfPlayers);
-
-        add(initPanel);
+    
+        buttonPanel.add(nextButton);
+    
+        centerPanel.add(createHeadingLabel("Select Number of Players:"));
+        centerPanel.add(nmbrOfPlayers);
+    
+        initPanel.add(centerPanel, BorderLayout.CENTER);
+        initPanel.add(buttonPanel, BorderLayout.SOUTH);
+    
+        setContentPane(initPanel);
+        pack();
+        setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
-		toFront();
-        
+        toFront();
+    }
+    
+    private JLabel createHeadingLabel(String text) {
+        JLabel headingLabel = new JLabel(text);
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Set font and style
+        headingLabel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder(""), // Empty border for spacing
+                BorderFactory.createEmptyBorder(10, 10, 10, 10) // Empty border for padding
+        ));
+        return headingLabel;
     }
 
     public void setController(ActionListener controller){
