@@ -9,6 +9,7 @@ public class RiskModel {
 
     private ArrayList<Player> players;
     private Board board;
+    private int nmbrOfPlayers = 2;
 
     protected RiskModel(){
 
@@ -71,5 +72,21 @@ public class RiskModel {
 
 
         return false;
+    }
+
+    public void setPlayers(Player player){
+        players.add(player);
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
+    public void setnmbOfPlayers(int nmbrOfPlayers){
+        this.nmbrOfPlayers = nmbrOfPlayers;
+    }
+
+    public int getnmbrOfPlayers(){
+        return this.nmbrOfPlayers;
     }
 }
