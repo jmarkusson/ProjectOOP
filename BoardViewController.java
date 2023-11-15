@@ -9,6 +9,7 @@ public class BoardViewController implements ActionListener{
     protected BoardViewController(RiskModel model, BoardView view){
         this.model = model;
         this.view = view;
+        view.addController(this);
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -48,7 +47,6 @@ public class GameOptionsView extends JFrame {
         mainLayout = new GridLayout(nmbrOfPlayers + 2, 1, 5, 5); 
         mainPanel.setLayout(mainLayout);
 
-        // Create JTextFields for each player
         for (int i = 0; i < nmbrOfPlayers; i++) {
             JTextField playerNameField = new JTextField();
             playerNameField.setPreferredSize(new Dimension(100, 10));
@@ -106,17 +104,17 @@ public class GameOptionsView extends JFrame {
     
         setContentPane(initPanel);
         pack();
-        setLocationRelativeTo(null); // Center the frame on the screen
+        setLocationRelativeTo(null); 
         setVisible(true);
         toFront();
     }
     
     private JLabel createHeadingLabel(String text) {
         JLabel headingLabel = new JLabel(text);
-        headingLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Set font and style
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 16)); 
         headingLabel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createTitledBorder(""), // Empty border for spacing
-                BorderFactory.createEmptyBorder(10, 10, 10, 10) // Empty border for padding
+                BorderFactory.createTitledBorder(""),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10) 
         ));
         return headingLabel;
     }

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PlayerView extends JPanel {
@@ -29,6 +30,10 @@ public class PlayerView extends JPanel {
             // Increment the y position for the next player
             y += 40;
         }
+    }
+
+    public void addController(ActionListener controller){
+        
     }
 }
 

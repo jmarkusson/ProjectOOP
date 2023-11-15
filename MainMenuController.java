@@ -1,8 +1,7 @@
-import java.awt.Color;
-import java.awt.List;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 public class MainMenuController implements ActionListener {
 
@@ -14,7 +13,7 @@ public class MainMenuController implements ActionListener {
 
         this.model = model;
         this.view = view;
-        view.mainMenuActionListener(this);
+        view.setController(this);
     }
 
     @Override

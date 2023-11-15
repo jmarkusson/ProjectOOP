@@ -50,7 +50,7 @@ public class MainMenuView extends JFrame{
 		return mainPanel;
     }
 
-	public void mainMenuActionListener(ActionListener e){
+	public void setController(ActionListener e){
 		
 		newGameButton.addActionListener(e);
 		quitButton.addActionListener(e);

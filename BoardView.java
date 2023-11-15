@@ -41,7 +41,7 @@ public class BoardView extends JPanel {
 
     }
 
-    protected void addActionListener(ActionListener e){
+    protected void addController(ActionListener e){
         
        
         addMouseListener(new MouseAdapter() {

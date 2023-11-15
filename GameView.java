@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
@@ -29,5 +30,10 @@ public class GameView extends JFrame {
         setLocation(dim.width / 2 - getSize().width / 2, dim.height / 2 - getSize().height / 2);
 
         setVisible(true);
+    }
+
+    public void addController(ActionListener controller){
+        boardView.addController(controller);
+        playerView.addController(controller);
     }
 }

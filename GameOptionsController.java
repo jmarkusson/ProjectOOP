@@ -29,16 +29,23 @@ public class GameOptionsController implements ActionListener{
     
             view.mainView(model.getnmbrOfPlayers());
         }
+
         else if (e.getActionCommand().equals("textfield")) {
             JTextField source = (JTextField) e.getSource();
             String playerName = source.getText();
             model.setPlayers(new Player(playerName, new Color(model.getnmbrOfPlayers()+1),
             model.getnmbrOfPlayers()+1));
             } 
+
         else if (e.getActionCommand().equals("StartGame")) {
             view.dispose();
-            GameView gameView = new GameView(new BoardView(), new PlayerView(model.getPlayers()));
+            BoardView boardView = new BoardView();
+            PlayerView playerView = new PlayerView(model.getPlayers());
+            GameView gameView = new GameView(boardView, playerView);
+            BoardViewController boardViewController = new BoardViewController(model, boardView);
+            
             } 
+            
         else if (e.getActionCommand().equals("Quit Game")) {
             view.dispose();
             }
