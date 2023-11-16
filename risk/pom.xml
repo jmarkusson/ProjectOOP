@@ -2,6 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+    <dependencies>
+        
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>group6</groupId>
@@ -14,13 +27,7 @@
     
     </properties>
     
-<dependencies>
+    
 
-<dependency>
-<groupId>org.junit.jupiter</groupId>
-<artifactId>junit-jupiter-engine</artifactId>
-<version>5.10.0</version>
-<scope>test</scope>
-</dependency>
 
 </project>
