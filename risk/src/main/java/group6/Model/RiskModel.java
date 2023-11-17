@@ -1,5 +1,8 @@
-import java.awt.Color;
+package group6.Model;
+
+
 import java.util.List;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,11 +10,11 @@ import java.util.ArrayList;
 
 public class RiskModel {
 
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private Board board;
+    private int nmbrOfPlayers = 2;
 
-    
-    protected RiskModel(){
+    public RiskModel(){
 
          /* Nothing should happen when instance of Model is created */
     }
@@ -67,7 +70,6 @@ public class RiskModel {
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("due bajs");
         }
 
 
@@ -75,17 +77,22 @@ public class RiskModel {
         return false;
     }
 
-    public ArrayList<Player> getPlayers() {
+    public void addPlayer(Player player){
+        players.add(player);
+    }
+
+    public ArrayList<Player> getPlayers(){
         return players;
     }
 
-    public Board getBoard() {
-        return board;
+    public Player getPlayer(int i){
+        return players.get(i);
+    }
+    public void setnmbOfPlayers(int nmbrOfPlayers){
+        this.nmbrOfPlayers = nmbrOfPlayers;
     }
 
-    public String[] getPlanetNames(){
-        return board.getPlanetNames();
+    public int getnmbrOfPlayers(){
+        return this.nmbrOfPlayers;
     }
-
-
 }

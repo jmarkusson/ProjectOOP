@@ -1,30 +1,41 @@
+package group6.Controller;
+
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
+import group6.Model.RiskModel;
+import group6.View.GameOptionsView;
+import group6.View.MainMenuView;
+
 
 public class MainMenuController implements ActionListener {
 
     private MainMenuView view;
     private RiskModel model;
-    private BoardView boardView;
+
     
     public MainMenuController(RiskModel model, MainMenuView view){
 
         this.model = model;
         this.view = view;
-        view.mainMenuActionListener(this);
+        view.setController(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         
         if (e.getActionCommand() == "New Game"){
-            view.setVisible(false);
-            model.initGame(null, null);
-            boardView = new BoardView(model.getPlanetNames());
-            boardView.addActionListener(new BoardViewController(model, boardView));
-            boardView.setVisible(true);
+            view.dispose();
             
+            GameOptionsView gameOptionsView = new GameOptionsView();
+            GameOptionsController controller = new GameOptionsController(model, gameOptionsView);
+            gameOptionsView.initView();
+     
+        }
+        else{
+            view.dispose();
         }
     }
 }

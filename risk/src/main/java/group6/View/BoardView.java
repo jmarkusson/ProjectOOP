@@ -1,3 +1,6 @@
+package group6.View;
+
+
 
 
 import javax.swing.*;
@@ -32,23 +35,11 @@ public class BoardView extends JPanel {
     
     private String[] planetNames;
 
-    public BoardView(String[] planetNames) {
-        this.planetNames = planetNames;
-        JFrame frame = new JFrame("risk");
-        frame.setTitle("Java-Risk");
-		frame.setPreferredSize(new Dimension(800, 800));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setResizable(false);
-        frame.add(this);
-
-		frame.pack();
-		frame.setVisible(true);
-		frame.toFront();
-
+    public BoardView() {
+        setPreferredSize(new Dimension(200,200));
     }
 
-    protected void addActionListener(ActionListener e){
+    public void addController(ActionListener e){
         
        
         addMouseListener(new MouseAdapter() {
@@ -96,7 +87,14 @@ public class BoardView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
-    
+
+        //Draw the stars
+        g.setColor(Color.WHITE);
+        for (int z = 0; z < 200; z++) { // Draw 200 stars
+        int x = (int)(Math.random() * getWidth());
+        int y = (int)(Math.random() * getHeight());
+        g.fillOval(x, y, 2, 2); // Each star is a small dot
+        }
         // Draw the suns
         g.setColor(Color.YELLOW);
         for (Point sunPosition : sunPositions) {

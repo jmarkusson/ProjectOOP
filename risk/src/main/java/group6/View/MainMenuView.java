@@ -1,4 +1,4 @@
-
+package group6.View;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -17,7 +17,7 @@ public class MainMenuView extends JFrame{
 
 
 
-    MainMenuView()
+    public MainMenuView()
     {
         setTitle("Java-Risk");
 		setPreferredSize(new Dimension(300, 300));
@@ -50,7 +50,7 @@ public class MainMenuView extends JFrame{
 		return mainPanel;
     }
 
-	public void mainMenuActionListener(ActionListener e){
+	public void setController(ActionListener e){
 		
 		newGameButton.addActionListener(e);
 		quitButton.addActionListener(e);
