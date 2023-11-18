@@ -21,6 +21,9 @@ public class GameOptionsController implements ActionListener{
     private RiskModel model;
     private GameOptionsView view;
 
+    private ArrayList<String> playerNames;
+    private ArrayList<Color> playerColors;
+
     public GameOptionsController(RiskModel model, GameOptionsView view){
         this.model = model;
         this.view = view;
@@ -43,16 +46,28 @@ public class GameOptionsController implements ActionListener{
         else if (e.getActionCommand().equals("StartGame")) {
             
             ArrayList<PlayerView> playerViews = new ArrayList<>();
+            
+            playerNames = new ArrayList<String>();
+            playerColors = new ArrayList<Color>();
 
             for (int i = 0; i < view.textfields.size(); i++) {
                 JTextField playerNameField = (JTextField) view.textfields.get(i);
                 String playerName = playerNameField.getText();
-                model.addPlayer(new Player(playerName, new Color(i), i));
-                playerViews.add(new PlayerView(model.getPlayer(i)));
+
+                playerNames.add(playerName);
+                // Hard coded colors for now
+                playerColors.add(Color.RED);
+                // model.addPlayer(new Player(playerName, new Color(i), i));
+                // playerViews.add(new PlayerView(model.getPlayer(i)));
             }
 
+            model.initGame(playerNames, playerColors);
+
+            for (int i = 0; i < model.getPlayers().size(); i++){
+                playerViews.add(new PlayerView(model.getPlayer(i)));
+            }
             view.dispose();
-            GameView gameView = new GameView(new BoardView(), playerViews);
+            GameView gameView = new GameView(new BoardView(model.getPlanetNames()), playerViews);
     
             } 
             

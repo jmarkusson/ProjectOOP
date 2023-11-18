@@ -33,17 +33,14 @@ public class BoardView extends JPanel {
     };
     
     
-    private final String[] planetNames = {
-        "Coruscant", "Tatooine", "Hoth", "Dagobah",
-        "Alderaan", "Bespin", "Endor", "Naboo",
-        "Kashyyyk", "Yavin IV", "Jakku", "Mustafar",
-        "Sullust", "Fondor", "Ithor", "Anoat"
-    };
+    private String[] planetNames;
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {50, 60, 70, 80}; // Four different sizes for planets
 
-    public BoardView() {
+    public BoardView(String[] planetNames){
+        this.planetNames = planetNames;
+
         setPreferredSize(new Dimension(200,200));
     }
 

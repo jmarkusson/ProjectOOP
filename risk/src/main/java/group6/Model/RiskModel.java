@@ -4,6 +4,7 @@ package group6.Model;
 import java.util.List;
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class RiskModel {
 
         try {
             // Reads and split planets into array
-            BufferedReader reader = new BufferedReader(new FileReader("planets.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("textfiles/planets.txt"));
 
             while ((line = reader.readLine()) != null) {
                 list.add(line);
@@ -38,7 +39,7 @@ public class RiskModel {
 
             // Reads and split solar systems with its bonus number and planets
             list.clear();
-            reader = new BufferedReader(new FileReader("solarsystems.txt"));
+            reader = new BufferedReader(new FileReader("textfiles/SolarSystems.txt"));
 
             while ((line = reader.readLine()) != null){
                 list.add(line);
@@ -47,7 +48,7 @@ public class RiskModel {
 
             // Reads and splits adjacencies
             list.clear();
-            reader = new BufferedReader(new FileReader("adjacencies.txt"));
+            reader = new BufferedReader(new FileReader("textfiles/AdjacentPlanets.txt"));
 
             while ((line = reader.readLine()) != null){
                 list.add(line);
@@ -67,9 +68,14 @@ public class RiskModel {
             
 
             reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    } catch (FileNotFoundException e) {
+        System.err.println("One or more files were not found: " + e.getMessage());
+        // Handle the case where a file wasn't found, such as logging or user notification
+    } catch (IOException e) {
+        System.err.println("An error occurred while reading from the file: " + e.getMessage());
+        // Handle other I/O errors
+    }
+    
 
 
 
@@ -94,4 +100,9 @@ public class RiskModel {
     public int getnmbrOfPlayers(){
         return this.nmbrOfPlayers;
     }
+
+    public String[] getPlanetNames(){
+        return board.getPlanetNames();
+    }
+    
 }
