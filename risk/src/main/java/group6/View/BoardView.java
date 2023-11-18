@@ -40,6 +40,9 @@ public class BoardView extends JPanel {
         "Sullust", "Fondor", "Ithor", "Anoat"
     };
 
+    private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
+    private int[] planetSizes = {50, 60, 70, 80}; // Four different sizes for planets
+
     public BoardView() {
         setPreferredSize(new Dimension(200,200));
     }
@@ -84,15 +87,9 @@ public class BoardView extends JPanel {
     }
 
     @Override
-    public String getToolTipText(MouseEvent event) {
-        return super.getToolTipText(event);
-    }
-
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
-
         //Draw the stars
         g.setColor(Color.WHITE);
         for (int z = 0; z < 200; z++) { // Draw 200 stars
@@ -102,17 +99,19 @@ public class BoardView extends JPanel {
         }
         // Draw the suns
         g.setColor(Color.YELLOW);
-        for (Point sunPosition : sunPositions) {
-            g.fillOval(sunPosition.x - 35, sunPosition.y - 35, 100, 100); // Suns are now larger
-        }
-    
-        // Draw the planets
         for (int i = 0; i < sunPositions.length; i++) {
+            Point sunPosition = sunPositions[i];
+            int size = sunSizes[i]; // Use the corresponding size from sunSizes array
+            g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
+        }
+        // Draw the planets
+        for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
-                // Draw planet
+                int size = planetSizes[j]; // Use the size based on the planet's index
+                // Draw planet with varying size
                 g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
-                g.fillOval(planetPos.x - 15, planetPos.y - 15, 70, 70); // Planets are now larger
+                g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
                 // Draw name
                 g.setColor(Color.BLACK);
                 g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y +20);
