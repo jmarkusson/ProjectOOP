@@ -74,4 +74,8 @@ public class Board {
         return this.planetNames;
     }
 
+   public ArrayList<Planet> getPlanets(){
+        return new ArrayList<>(planetMap.values());
+    }
+
 }

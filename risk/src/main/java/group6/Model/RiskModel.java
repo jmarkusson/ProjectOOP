@@ -2,6 +2,9 @@ package group6.Model;
 
 
 import java.util.List;
+
+import group6.Model.Interfaces.Ownable;
+
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,12 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RiskModel {
 
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
     private int nmbrOfPlayers = 2;
+    private PlayerOwnership playerOwnership = new PlayerOwnership();
 
     public RiskModel(){
 
@@ -82,11 +87,35 @@ public class RiskModel {
         System.err.println("An error occurred while reading from the file: " + e.getMessage());
         // Handle other I/O errors
     }
-    
-
-
 
         return false;
+
+    }
+
+    public void distributePlanets(){
+        ArrayList<Planet> planets = board.getPlanets();
+        Collections.shuffle(planets);
+
+        for (Player player : players){
+            player.setReinforceableSoldiers(player.getSoldiers());
+        }
+
+        for (int i = 0; i < planets.size(); i++){
+            playerOwnership.assignOwnership(planets.get(i), players.get(i % players.size()));
+            planets.get(i).addSoldiers(1);
+            players.get(i).removeReinforceableSoldiers(1);
+
+        }
+
+        for (int playerindex = 0; playerindex < players.size(); playerindex++){
+            for (Ownable ownable : playerOwnership.getPLayersOwnables(players.get(playerindex))){
+                if (ownable instanceof Planet){
+                    Planet planet = (Planet) ownable;
+                    
+                }
+            }
+
+        }
     }
 
     public void addPlayer(Player player){

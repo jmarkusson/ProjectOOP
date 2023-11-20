@@ -19,6 +19,8 @@ public class Planet implements Ownable{
         this.adjacentPlanets = adjacentPlanets;
     }
 
-
+    public void addSoldiers(int soldiers){
+        this.soldiers += soldiers;
+    }
 
 }
