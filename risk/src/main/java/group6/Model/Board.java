@@ -74,8 +74,4 @@ public class Board {
         return this.planetNames;
     }
 
-
-
-    
-
 }
