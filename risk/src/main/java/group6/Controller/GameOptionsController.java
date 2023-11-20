@@ -57,8 +57,6 @@ public class GameOptionsController implements ActionListener{
                 playerNames.add(playerName);
                 // Hard coded colors for now
                 playerColors.add(Color.RED);
-                // model.addPlayer(new Player(playerName, new Color(i), i));
-                // playerViews.add(new PlayerView(model.getPlayer(i)));
             }
 
             model.initGame(playerNames, playerColors);
