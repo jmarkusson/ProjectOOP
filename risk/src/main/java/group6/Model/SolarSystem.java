@@ -3,7 +3,9 @@ package group6.Model;
 
 import java.util.ArrayList;
 
-public class SolarSystem{
+import group6.Model.Interfaces.Ownable;
+
+public class SolarSystem implements Ownable{
 
     private String name;
     private int extraTroops;
