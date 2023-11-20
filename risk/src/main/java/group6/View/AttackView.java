@@ -27,8 +27,6 @@ AttackView(String[] nrOfSoldiers){
   public void setcontroller(ActionListener e){
         
 
-
-
     }
 }
     

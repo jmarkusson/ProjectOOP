@@ -1,7 +1,6 @@
-package group6.Model.Interfaces;
+package group6.Model;
 
-import group6.Model.Planet;
-import group6.Model.Player;
+import group6.Model.Interfaces.PlayerTurnState;
 
 public class PlacingSoldiersState implements PlayerTurnState{
 
@@ -12,8 +11,7 @@ public class PlacingSoldiersState implements PlayerTurnState{
 
     @Override
     public void attack(Player player, Planet fromPlanet, Planet toPlanet) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+        System.out.println("Place your soldiers first");
     }
     
 }

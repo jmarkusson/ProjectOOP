@@ -14,6 +14,7 @@ import group6.Model.RiskModel;
 import group6.View.BoardView;
 import group6.View.GameOptionsView;
 import group6.View.GameView;
+import group6.View.PlayerStateView;
 import group6.View.PlayerView;
 
 public class GameOptionsController implements ActionListener{
@@ -36,7 +37,6 @@ public class GameOptionsController implements ActionListener{
         }
 
         else if (e.getActionCommand().equals("NEXT")){
-            System.out.println("yes");
     
             view.mainView(model.getnmbrOfPlayers());
         }
@@ -52,7 +52,9 @@ public class GameOptionsController implements ActionListener{
             }
 
             view.dispose();
-            GameView gameView = new GameView(new BoardView(), playerViews);
+            PlayerStateView playerStateView = new PlayerStateView();
+            playerStateView.addController(new PlayerStateController(playerStateView, model));
+            GameView gameView = new GameView(new BoardView(), playerViews, playerStateView);
     
             } 
             

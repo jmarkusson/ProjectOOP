@@ -29,7 +29,7 @@ public class RiskModel {
 
         try {
             // Reads and split planets into array
-            BufferedReader reader = new BufferedReader(new FileReader("planets.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("group6/view/textfiles/planets.txt"));
 
             while ((line = reader.readLine()) != null) {
                 list.add(line);
@@ -80,6 +80,7 @@ public class RiskModel {
         players.add(player);
     }
 
+    
     public ArrayList<Player> getPlayers(){
         return players;
     }

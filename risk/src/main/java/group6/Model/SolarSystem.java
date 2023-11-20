@@ -3,6 +3,7 @@ package group6.Model;
 
 import java.util.ArrayList;
 
+
 public class SolarSystem{
 
     private String name;
@@ -14,7 +15,6 @@ public class SolarSystem{
         this.extraTroops = extraTroops;
         this.planetsinSolarsystem = planetsinSolarsystem;
     }
-
 
 
 }
