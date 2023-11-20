@@ -1,5 +1,5 @@
-Dagobah, Coruscant, Mustafar
-Coruscant, Dagobah, Tatooine
+Coruscant, Dagobah, Mustafar
+Dagobah, Dagobah, Tatooine
 Tatooine, Coruscant, Naboo, Hoth, Kashyyyk
 Hoth, Kashyyyk, Tatooine,
 Naboo, Tatooine, Sullust, Alderaan

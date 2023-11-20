@@ -14,6 +14,7 @@ import group6.Model.RiskModel;
 import group6.View.BoardView;
 import group6.View.GameOptionsView;
 import group6.View.GameView;
+import group6.View.PlayerStateView;
 import group6.View.PlayerView;
 
 public class GameOptionsController implements ActionListener{
@@ -65,7 +66,9 @@ public class GameOptionsController implements ActionListener{
                 playerViews.add(new PlayerView(model.getPlayer(i)));
             }
             view.dispose();
-            GameView gameView = new GameView(new BoardView(model.getPlanetNames()), playerViews);
+            PlayerStateView playerStateView = new PlayerStateView();
+            playerStateView.addController(new PlayerStateController(playerStateView, model));
+            GameView gameView = new GameView(new BoardView(model.getPlanetNames()), playerViews, playerStateView);
     
             } 
             
