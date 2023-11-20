@@ -12,6 +12,7 @@ public class Player
     private Color color; 
     private String name;
     private int soldiers;
+    private int reinforceableSoldiers;
     private int playerNumber;
     private List<Planet> planetsOwned;
 
@@ -46,6 +47,18 @@ public class Player
 
         public void setSoldiers(int soldiers) {
             this.soldiers = soldiers;
+        }
+
+        public void setReinforceableSoldiers(int reinforceableSoldiers){
+            this.reinforceableSoldiers = reinforceableSoldiers;
+        }
+
+        public int getReinforceableSoldiers(){
+            return this.reinforceableSoldiers;
+        }
+
+        public void removeReinforceableSoldiers(int reinforceableSoldiers){
+            this.reinforceableSoldiers -= reinforceableSoldiers;
         }
 
         public List<Planet> getPlanetsOwned() {
