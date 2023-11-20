@@ -2,17 +2,16 @@ package group6.Model;
 
 import group6.Model.Interfaces.PlayerTurnState;
 
-public class AttackingState implements PlayerTurnState {
+public class ReinforceState implements PlayerTurnState{
 
     @Override
     public void placeSoldiers(Player player, int numberOfSoldiers, Planet planet) {
-
-        throw new UnsupportedOperationException("Unimplemented method 'placeSoldiers'");
+        
     }
 
     @Override
     public void attack(Player player, Planet fromPlanet, Planet toPlanet) {
-
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'attack'");
     }
 
@@ -21,6 +20,5 @@ public class AttackingState implements PlayerTurnState {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'fortify'");
     }
-
     
 }

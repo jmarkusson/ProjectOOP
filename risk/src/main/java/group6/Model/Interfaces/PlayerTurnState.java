@@ -6,4 +6,5 @@ import group6.Model.Player;
 public interface PlayerTurnState {
     void placeSoldiers(Player player, int numberOfSoldiers, Planet planet);
     void attack(Player player, Planet fromPlanet, Planet toPlanet);
+    void fortify(Player player, Planet planet);
 }
