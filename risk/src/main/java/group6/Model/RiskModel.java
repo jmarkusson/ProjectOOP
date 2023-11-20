@@ -6,6 +6,7 @@ import java.util.List;
 import group6.Model.Interfaces.Ownable;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -26,6 +27,7 @@ public class RiskModel {
 
          /* Nothing should happen when instance of Model is created */
     }
+    
 
     public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
@@ -33,7 +35,11 @@ public class RiskModel {
         board = new Board();
 
         List<String> list = new ArrayList<>();
+        List<Point[]> listOfPointArrays = new ArrayList<>();
+        List<Point> listOfSunPositions = new ArrayList<>();
+        
         String line;
+        
 
         try {
             // Reads and split planets into array
@@ -44,7 +50,36 @@ public class RiskModel {
                 list.add(line);
             }
             String[] planetsArray = list.toArray(new String[0]);
+            
+            //Reand and splits SunPoints into array
+            InputStream sunpointStream = getClass().getClassLoader().getResourceAsStream("textfiles/solarPoints.txt");
+            BufferedReader sunreaderPoint = new BufferedReader(new InputStreamReader(sunpointStream));
+            while ((line = sunreaderPoint.readLine()) != null) {
+                String[] parts = line.split(",");
+                int x = Integer.parseInt(parts[0].trim());
+                int y = Integer.parseInt(parts[1].trim());
+                listOfSunPositions.add(new Point(x, y));
+            }
+            Point[] solarPointsArray = listOfSunPositions.toArray(new Point[0]);
+            
 
+            // Reads and splits PlanetPoints into array
+            
+            InputStream pointStream = getClass().getClassLoader().getResourceAsStream("textfiles/Points.txt");
+            BufferedReader readerPoint = new BufferedReader(new InputStreamReader(pointStream));
+            
+            
+
+            while ((line = readerPoint.readLine()) != null) {
+                String[] pointStrings = line.split("\\s+");
+                Point[] points = new Point[pointStrings.length];
+                for (int i = 0; i < pointStrings.length; i++) {
+                    points[i] = parsePoint(pointStrings[i]);
+                }
+                listOfPointArrays.add(points);
+            }
+            Point[][] pointsArray = listOfPointArrays.toArray(new Point[listOfPointArrays.size()][]);
+            
             // Reads and split solar systems with its bonus number and planets
             list.clear();
             InputStream solarSystemStream = getClass().getClassLoader().getResourceAsStream("textfiles/SolarSystems.txt");
@@ -66,7 +101,7 @@ public class RiskModel {
             String[] adjacenciesArray = list.toArray(new String[0]);
 
             //Create the board
-            succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray);
+            succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
 
             players = new ArrayList<Player>();
 
@@ -76,8 +111,10 @@ public class RiskModel {
 
             }
             
+            
 
             readerplanet.close();
+            readerPoint.close();
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
     } catch (FileNotFoundException e) {
@@ -140,5 +177,23 @@ public class RiskModel {
     public String[] getPlanetNames(){
         return board.getPlanetNames();
     }
+
+    public Point[][] getPlanetPositions() {
+        return board.getPlanetPositions();
+    }
+
+    public Point[] getSolarPositions(){
+        return board.getSolarPositions();
+    }
+        
+    
+
+    private Point parsePoint(String str) {
+        String[] parts = str.split(",");
+        int x = Integer.parseInt(parts[0].trim());
+        int y = Integer.parseInt(parts[1].trim());
+        return new Point(x, y);
+    }
+    
     
 }
