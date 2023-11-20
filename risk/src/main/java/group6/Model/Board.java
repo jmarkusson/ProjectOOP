@@ -1,6 +1,7 @@
 package group6.Model;
 
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,14 +12,19 @@ public class Board {
     private HashMap<String, SolarSystem> solarsystemMap;
 
     private String[] planetNames;
+    private Point[][] planetPositions;
+    private Point[] solarPositions;
     
     public Board(){
         // Nothing should happen when a new instance of board is created 
 
     }
 
-    public boolean loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies){
+    public boolean loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies, Point[][] arrayofPlanetPositions, Point[] arrayofSolarPoints){
         this.planetNames = arrayofPlanets;
+        this.planetPositions = arrayofPlanetPositions;
+        this.solarPositions = arrayofSolarPoints;
+
 
         boolean succesfullLoad = false;
 
@@ -72,6 +78,13 @@ public class Board {
 
     public String[] getPlanetNames(){
         return this.planetNames;
+    }
+    public Point[][] getPlanetPositions(){
+        return this.planetPositions;
+    }
+
+    public Point[] getSolarPositions(){
+        return this.solarPositions;
     }
 
 
