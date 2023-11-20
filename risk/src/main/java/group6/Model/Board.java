@@ -2,6 +2,7 @@ package group6.Model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Board {
@@ -29,7 +30,7 @@ public class Board {
             planetMap.put(arrayofPlanets[i], new Planet(arrayofPlanets[i]));    
         }
 
-        listofPlanets = new ArrayList<Planet>();
+        listofPlanets = new ArrayList<Planet>(planetMap.values());
 
         for (int i = 0; i < arrayofSolarsystems.length; i++){
 
@@ -75,7 +76,11 @@ public class Board {
     }
 
    public ArrayList<Planet> getPlanets(){
-        return new ArrayList<>(planetMap.values());
+        return listofPlanets;
+    }
+
+    public void shufflePlanets() {
+        Collections.shuffle(listofPlanets);
     }
 
 }
