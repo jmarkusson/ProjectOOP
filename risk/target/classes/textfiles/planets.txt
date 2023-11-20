@@ -1,7 +1,7 @@
-Coruscant
+Dagobah
 Tatooine
 Hoth
-Dagobah
+Coruscant
 Alderaan
 Bespin
 Endor
