@@ -111,7 +111,7 @@ public class BoardView extends JPanel {
                 g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
                 // Draw name
                 g.setColor(Color.BLACK);
-                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y +20);
+                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x-20, planetPos.y );
             }
         }
     }
