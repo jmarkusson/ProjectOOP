@@ -4,8 +4,11 @@ package group6.Model;
 import java.util.List;
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class RiskModel {
@@ -29,27 +32,30 @@ public class RiskModel {
 
         try {
             // Reads and split planets into array
-            BufferedReader reader = new BufferedReader(new FileReader("planets.txt"));
+            InputStream planetStream = getClass().getClassLoader().getResourceAsStream("textfiles/planets.txt");
+            BufferedReader readerplanet = new BufferedReader(new InputStreamReader(planetStream));
 
-            while ((line = reader.readLine()) != null) {
+            while ((line = readerplanet.readLine()) != null) {
                 list.add(line);
             }
             String[] planetsArray = list.toArray(new String[0]);
 
             // Reads and split solar systems with its bonus number and planets
             list.clear();
-            reader = new BufferedReader(new FileReader("solarsystems.txt"));
+            InputStream solarSystemStream = getClass().getClassLoader().getResourceAsStream("textfiles/SolarSystems.txt");
+            BufferedReader readerSolarSystems = new BufferedReader(new InputStreamReader(solarSystemStream));
 
-            while ((line = reader.readLine()) != null){
+            while ((line = readerSolarSystems.readLine()) != null){
                 list.add(line);
             }
             String[] solarsystemsArray = list.toArray(new String[0]);
 
             // Reads and splits adjacencies
             list.clear();
-            reader = new BufferedReader(new FileReader("adjacencies.txt"));
+            InputStream adjacenciesStream = getClass().getClassLoader().getResourceAsStream("textfiles/AdjacentPlanets.txt");
+            BufferedReader readerAdjacentPlanets = new BufferedReader(new InputStreamReader(adjacenciesStream));
 
-            while ((line = reader.readLine()) != null){
+            while ((line = readerAdjacentPlanets.readLine()) != null){
                 list.add(line);
             }
             String[] adjacenciesArray = list.toArray(new String[0]);
@@ -66,10 +72,17 @@ public class RiskModel {
             }
             
 
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            readerplanet.close();
+            readerSolarSystems.close();
+            readerAdjacentPlanets.close();
+    } catch (FileNotFoundException e) {
+        System.err.println("One or more files were not found: " + e.getMessage());
+        // Handle the case where a file wasn't found, such as logging or user notification
+    } catch (IOException e) {
+        System.err.println("An error occurred while reading from the file: " + e.getMessage());
+        // Handle other I/O errors
+    }
+    
 
 
 
@@ -94,4 +107,9 @@ public class RiskModel {
     public int getnmbrOfPlayers(){
         return this.nmbrOfPlayers;
     }
+
+    public String[] getPlanetNames(){
+        return board.getPlanetNames();
+    }
+    
 }

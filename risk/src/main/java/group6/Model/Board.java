@@ -9,6 +9,8 @@ public class Board {
     private ArrayList<Planet> listofPlanets;
     private HashMap<String, Planet> planetMap;
     private HashMap<String, SolarSystem> solarsystemMap;
+
+    private String[] planetNames;
     
     public Board(){
         // Nothing should happen when a new instance of board is created 
@@ -16,6 +18,7 @@ public class Board {
     }
 
     public boolean loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies){
+        this.planetNames = arrayofPlanets;
 
         boolean succesfullLoad = false;
 
@@ -66,6 +69,12 @@ public class Board {
 
 
     }
+
+    public String[] getPlanetNames(){
+        return this.planetNames;
+    }
+
+
 
     
 
