@@ -11,16 +11,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
+
 public class GameView extends JFrame {
 
     private BoardView boardView;
     private ArrayList<PlayerView> playerViews;
     private JPanel playerPanel;
+    private PlayerStateView playerStateView;
     
-    public GameView(BoardView boardView, ArrayList<PlayerView> playerViews){
+    public GameView(BoardView boardView, ArrayList<PlayerView> playerViews, PlayerStateView playerStateView){
 
         this.boardView = boardView;
         this.playerViews = playerViews;
+        this.playerStateView = playerStateView;
+
        
         setTitle("Java-Risk");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +37,8 @@ public class GameView extends JFrame {
         for (PlayerView playerView : this.playerViews) {
             playerPanel.add(playerView);
         }
-        add(playerPanel, BorderLayout.EAST);
+        add(this.playerPanel, BorderLayout.EAST);
+        add(this.playerStateView, BorderLayout.SOUTH);
 
         setSize(1200, 800);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -42,8 +47,10 @@ public class GameView extends JFrame {
         setVisible(true);
     }
 
+    
+
     public void addController(ActionListener controller){
-        boardView.addController(controller);
+        
         
     }
 }

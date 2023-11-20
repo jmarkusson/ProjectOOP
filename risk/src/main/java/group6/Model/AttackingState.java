@@ -1,7 +1,6 @@
-package group6.Model.Interfaces;
+package group6.Model;
 
-import group6.Model.Planet;
-import group6.Model.Player;
+import group6.Model.Interfaces.PlayerTurnState;
 
 public class AttackingState implements PlayerTurnState {
 
