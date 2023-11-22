@@ -13,11 +13,15 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
 
 public class GameOptionsView extends JFrame {
 
@@ -36,6 +40,7 @@ public class GameOptionsView extends JFrame {
     private ActionListener controller;
 
     public ArrayList<JTextField> textfields = new ArrayList<>();
+    public ArrayList<JColorChooser> colorChoosers = new ArrayList<>();
 
 
     public GameOptionsView()
@@ -59,6 +64,9 @@ public class GameOptionsView extends JFrame {
             JTextField playerNameField = new JTextField();
             playerNameField.setPreferredSize(new Dimension(100, 10));
             playerNameField.setBorder(BorderFactory.createTitledBorder("Player " + (i + 1) + " Name"));
+
+            
+
             mainPanel.add(playerNameField);
             textfields.add(playerNameField);
         }

@@ -6,7 +6,7 @@ package group6.View;
 import javax.swing.*;
 import java.awt.*;
 
-import java.awt.event.ActionListener;
+
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,37 +14,23 @@ import java.awt.geom.Ellipse2D;
 
 public class BoardView extends JPanel {
 
-    private final Point[] sunPositions = {
-        new Point(150, 150), // Top-left sun moved closer to center
-        new Point(550, 150), // Top-right sun moved closer to center
-        new Point(150, 400), // Bottom-left sun moved closer to center
-        new Point(550, 400)  // Bottom-right sun moved closer to center
-    };
+    private final Point[] sunPositions;
     
-    private final Point[][] planetPositions = {
-        // Planets around top-left sun
-        {new Point(150, 50), new Point(310, 110), new Point(200, 230), new Point(60, 110)}, 
-        // Planets around top-right sun
-        {new Point(610, 50), new Point(670, 110), new Point(610, 230), new Point(450, 110)}, 
-        // Planets around bottom-left sun
-        {new Point(280, 320), new Point(310, 440), new Point(250, 500), new Point(70, 440)}, 
-        // Planets around bottom-right sun
-        {new Point(450, 320), new Point(670, 350), new Point(610, 500), new Point(430, 440)}  
-    };
-    
-    
+    private Point[][] planetPositions;
     private String[] planetNames;
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {50, 60, 70, 80}; // Four different sizes for planets
 
-    public BoardView(String[] planetNames){
+    public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions){
         this.planetNames = planetNames;
+        this.planetPositions = planetPositions;
+        this.sunPositions = sunPositions;
 
         setPreferredSize(new Dimension(200,200));
     }
 
-    public void addController(ActionListener e){
+    public void addController(MouseAdapter e){
         
        
         addMouseListener(new MouseAdapter() {
@@ -111,7 +97,7 @@ public class BoardView extends JPanel {
                 g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
                 // Draw name
                 g.setColor(Color.BLACK);
-                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x, planetPos.y +20);
+                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x-20, planetPos.y );
             }
         }
     }

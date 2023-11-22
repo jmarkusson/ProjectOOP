@@ -1,16 +1,16 @@
-Dagobah, Coruscant, Mustafar
-Coruscant, Dagobah, Tatooine
-Tatooine, Coruscant, Naboo, Hoth, Kashyyyk
-Hoth, Kashyyyk, Tatooine,
-Naboo, Tatooine, Sullust, Alderaan
-Alderaan, Bespin, Naboo
-Bespin, Alderaan, Endor
-Endor, Bespin, Fondor, Sullust
+Coruscant, Dagobah, Mustafar
+Dagobah,Tatooine
+Tatooine, Naboo, Hoth, Kashyyyk
+Hoth, Kashyyyk,
+Naboo, Sullust, Alderaan
+Alderaan, Bespin
+Bespin, Endor
+Endor, Fondor, Sullust
 Sullust, Naboo, Endor, Fondor, Anoat, Kashyyyk
 Fondor, Endor, Sullust, Ithor
 Ithor, Fondor, Anoat
 Anoat, Ithor, Sullust, Yavin IV
 Yavin IV, Anoat, Jakku, Kashyyyk
 Jakku, Yavin IV, Mustafar
-Mustafar, Dagobah, Jakku
-Kashyyyk, Sullust, Hoth, Tatooine, Yavin IV
+Mustafar, Jakku
+Kashyyyk, Sullust, Tatooine, Yavin IV
