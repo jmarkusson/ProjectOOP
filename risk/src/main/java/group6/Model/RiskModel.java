@@ -164,9 +164,7 @@ public class RiskModel {
 
     }
 
-    public Player getCurrentPlayer(){
-        return players.get(currentPlayer);
-    }
+  
     private void distributeRemainingSoldiers(List<Planet> planets){
         int i = 0; // Start from the beginning of the planet list
         while (playersHaveReinforceableSoldiers()) {
@@ -188,6 +186,14 @@ public class RiskModel {
                 }
             }
             return false;
+    }
+
+    private void reinforce(){
+        
+    }
+
+    public boolean isOwned(Ownable ownable, Player player){
+        return playerOwnership.isOwned(ownable, player);
     }
 
     public void addPlayer(Player player){
@@ -221,7 +227,15 @@ public class RiskModel {
         return board.getSolarPositions();
     }
         
-    
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayer);
+    }
+
+    private void nextPlayer(Player currentPlayer){
+        int currentPlayerInt = currentPlayer.getPlayerNumber();
+        currentPlayer = getPlayer((currentPlayerInt + 1) % getnmbrOfPlayers());
+    }
+
 
     private Point parsePoint(String str) {
         String[] parts = str.split(",");

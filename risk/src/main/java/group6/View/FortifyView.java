@@ -19,7 +19,7 @@ public class FortifyView extends JFrame {
     GridLayout mainLayout;
 
     public FortifyView(String planetName, String[] soldiersAmount){
-        setTitle("Forify "+planetName);
+        setTitle("Fortify "+planetName);
 		setPreferredSize(new Dimension(300, 300));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
