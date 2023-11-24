@@ -23,6 +23,7 @@ public class RiskModel {
     private Board board;
     private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
+    private int currentPlayer;
 
     public RiskModel(){
 
@@ -163,6 +164,9 @@ public class RiskModel {
 
     }
 
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayer);
+    }
     private void distributeRemainingSoldiers(List<Planet> planets){
         int i = 0; // Start from the beginning of the planet list
         while (playersHaveReinforceableSoldiers()) {

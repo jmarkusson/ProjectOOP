@@ -27,4 +27,8 @@ public class Planet implements Ownable{
         this.soldiers -= soldiers;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
 }

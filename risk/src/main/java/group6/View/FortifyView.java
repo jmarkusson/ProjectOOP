@@ -3,7 +3,9 @@ package group6.View;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -12,7 +14,7 @@ import javax.swing.JPanel;
 public class FortifyView extends JFrame {
     
     JButton addButton;
-    JComboBox soldiersAmountBox;
+    DefaultComboBoxModel soldiersAmountBox;
     JPanel mainPanel;
     GridLayout mainLayout;
 
@@ -31,7 +33,7 @@ public class FortifyView extends JFrame {
         addButton = new JButton("Add soldiers");
         addButton.setActionCommand("addsoldiers");
        
-        soldiersAmountBox = new JComboBox<String>(soldiersAmount);
+        soldiersAmountBox = new DefaultComboBoxModel<String>(soldiersAmount);
         soldiersAmountBox.setSelectedItem(0);
         soldiersAmountBox.setActionCommand("combobox");
 
