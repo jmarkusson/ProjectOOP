@@ -18,6 +18,7 @@ public class BoardViewController extends MouseAdapter{
     private String[] planetNames;
     private Point[][] planetPositions;
     private Point[] solarPositions;
+
     
 
     protected BoardViewController(RiskModel model, BoardView view){
@@ -26,10 +27,10 @@ public class BoardViewController extends MouseAdapter{
         this.planetNames = model.getPlanetNames();
         this.planetPositions = model.getPlanetPositions();
         this.solarPositions = model.getSolarPositions();
+      
         view.addController(this);
     }
     
-
     
 
 }
