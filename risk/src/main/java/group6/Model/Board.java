@@ -1,7 +1,9 @@
 package group6.Model;
 
 
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Board {
@@ -9,13 +11,21 @@ public class Board {
     private ArrayList<Planet> listofPlanets;
     private HashMap<String, Planet> planetMap;
     private HashMap<String, SolarSystem> solarsystemMap;
+
+    private String[] planetNames;
+    private Point[][] planetPositions;
+    private Point[] solarPositions;
     
     public Board(){
         // Nothing should happen when a new instance of board is created 
 
     }
 
-    public boolean loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies){
+    public boolean loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies, Point[][] arrayofPlanetPositions, Point[] arrayofSolarPoints){
+        this.planetNames = arrayofPlanets;
+        this.planetPositions = arrayofPlanetPositions;
+        this.solarPositions = arrayofSolarPoints;
+
 
         boolean succesfullLoad = false;
 
@@ -26,7 +36,7 @@ public class Board {
             planetMap.put(arrayofPlanets[i], new Planet(arrayofPlanets[i]));    
         }
 
-        listofPlanets = new ArrayList<Planet>();
+        listofPlanets = new ArrayList<Planet>(planetMap.values());
 
         for (int i = 0; i < arrayofSolarsystems.length; i++){
 
@@ -67,6 +77,23 @@ public class Board {
 
     }
 
-    
+    public String[] getPlanetNames(){
+        return this.planetNames;
+    }
+    public Point[][] getPlanetPositions(){
+        return this.planetPositions;
+    }
+
+    public Point[] getSolarPositions(){
+        return this.solarPositions;
+    }
+
+   public ArrayList<Planet> getPlanets(){
+        return listofPlanets;
+    }
+
+    public void shufflePlanets() {
+        Collections.shuffle(listofPlanets);
+    }
 
 }

@@ -1,0 +1,16 @@
+Coruscant, Dagobah, Mustafar
+Dagobah,Tatooine
+Tatooine, Naboo, Hoth, Kashyyyk
+Hoth, Kashyyyk,
+Naboo, Sullust, Alderaan
+Alderaan, Bespin
+Bespin, Endor
+Endor, Fondor, Sullust
+Sullust, Naboo, Endor, Fondor, Anoat, Kashyyyk
+Fondor, Endor, Sullust, Ithor
+Ithor, Fondor, Anoat
+Anoat, Ithor, Sullust, Yavin IV
+Yavin IV, Anoat, Jakku, Kashyyyk
+Jakku, Yavin IV, Mustafar
+Mustafar, Jakku
+Kashyyyk, Sullust, Tatooine, Yavin IV

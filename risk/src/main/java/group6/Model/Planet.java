@@ -3,7 +3,9 @@ package group6.Model;
 
 import java.util.ArrayList;
 
-public class Planet{
+import group6.Model.Interfaces.Ownable;
+
+public class Planet implements Ownable{
 
     private String name;
     private ArrayList<Planet> adjacentPlanets;
@@ -17,6 +19,12 @@ public class Planet{
         this.adjacentPlanets = adjacentPlanets;
     }
 
+    public void addSoldiers(int soldiers){
+        this.soldiers += soldiers;
+    }
 
+    public void removeSoldiers(int soldiers){
+        this.soldiers -= soldiers;
+    }
 
 }
