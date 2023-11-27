@@ -21,9 +21,9 @@ public class RiskModel {
 
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
-    private int nmbrOfPlayers = 2;
+    private int nmbrOfPlayers;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
-    private int currentPlayer;
+    private int currentPlayerIndex;
 
     public RiskModel(){
 
@@ -110,15 +110,15 @@ public class RiskModel {
             for(int i = 0; i < playerNames.size(); i++){
 
                 players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+                nmbrOfPlayers++;
 
             }
-            
-            
 
             readerplanet.close();
             readerPoint.close();
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
+            
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
         // Handle the case where a file wasn't found, such as logging or user notification
@@ -228,7 +228,7 @@ public class RiskModel {
     }
         
     public Player getCurrentPlayer(){
-        return players.get(currentPlayer);
+        return players.get(currentPlayerIndex);
     }
 
     private void nextPlayer(Player currentPlayer){
@@ -243,6 +243,8 @@ public class RiskModel {
         int y = Integer.parseInt(parts[1].trim());
         return new Point(x, y);
     }
+
+    
     
     
 }

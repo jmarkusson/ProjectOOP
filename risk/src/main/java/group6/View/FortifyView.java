@@ -35,9 +35,9 @@ public class FortifyView extends JFrame {
        
         soldiersAmountBox = new DefaultComboBoxModel<String>(soldiersAmount);
         soldiersAmountBox.setSelectedItem(0);
-        soldiersAmountBox.setActionCommand("combobox");
+        //soldiersAmountBox.setActionCommand("combobox");
 
-        mainPanel.add(soldiersAmountBox);
+        //mainPanel.add(soldiersAmountBox);
         mainPanel.add(addButton);
 
 		pack();
@@ -46,7 +46,7 @@ public class FortifyView extends JFrame {
     }
 
     public void addController(ActionListener controller){
-        soldiersAmountBox.addActionListener(controller);
+        //soldiersAmountBox.addActionListener(controller);
         addButton.addActionListener(controller);
     }
 }
