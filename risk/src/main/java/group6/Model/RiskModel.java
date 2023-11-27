@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 public class RiskModel {
@@ -22,6 +23,7 @@ public class RiskModel {
     private Board board;
     private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
+    private int currentPlayer;
 
     public RiskModel(){
 
@@ -130,13 +132,29 @@ public class RiskModel {
     }
 
     public void distributePlanets(){
-        ArrayList<Planet> planets = board.getPlanets();
-        Collections.shuffle(planets);
+        List<Planet> shuffledPlanets = getShuffledPlanets();
 
+        initializePlayersReinforceableSoldiers();
+
+        evenlyDistributeInitalPlanets(shuffledPlanets);
+
+        distributeRemainingSoldiers(shuffledPlanets);
+    }
+
+    private List<Planet> getShuffledPlanets(){
+        List<Planet> shuffledPlanets = new ArrayList<>(board.getPlanets());
+        Collections.shuffle(shuffledPlanets);
+        return shuffledPlanets;
+    }
+
+    private void initializePlayersReinforceableSoldiers(){
         for (Player player : players){
             player.setReinforceableSoldiers(player.getSoldiers());
         }
 
+    }
+
+    private void evenlyDistributeInitalPlanets(List<Planet> planets){
         for (int i = 0; i < planets.size(); i++){
             playerOwnership.assignOwnership(planets.get(i), players.get(i % players.size()));
             planets.get(i).addSoldiers(1);
@@ -144,15 +162,32 @@ public class RiskModel {
 
         }
 
-        for (int playerindex = 0; playerindex < players.size(); playerindex++){
-            for (Ownable ownable : playerOwnership.getPLayersOwnables(players.get(playerindex))){
-                if (ownable instanceof Planet){
-                    Planet planet = (Planet) ownable;
-                    
+    }
+
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayer);
+    }
+    private void distributeRemainingSoldiers(List<Planet> planets){
+        int i = 0; // Start from the beginning of the planet list
+        while (playersHaveReinforceableSoldiers()) {
+            Player currentPlayer = players.get(i % players.size());
+            Planet currentPlanet = planets.get(i % planets.size());
+
+            if (currentPlayer.getReinforceableSoldiers() > 0) {
+                currentPlanet.addSoldiers(1);
+                currentPlayer.removeReinforceableSoldiers(1);
+            }
+            i++;
+        }
+    }
+
+    private boolean playersHaveReinforceableSoldiers(){
+            for (Player player : players){
+                if (player.getReinforceableSoldiers() > 0){
+                    return true;
                 }
             }
-
-        }
+            return false;
     }
 
     public void addPlayer(Player player){

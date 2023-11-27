@@ -15,6 +15,19 @@ public class Player
     private int reinforceableSoldiers;
     private int playerNumber;
     private List<Planet> planetsOwned;
+    private int fortifySoldiers;
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public int getFortifySoldiers() {
+        return fortifySoldiers;
+    }
+
+    public PlayerTurnState getCurrentState() {
+        return currentState;
+    }
 
     private PlayerTurnState currentState;
 
@@ -49,6 +62,19 @@ public class Player
             this.soldiers = soldiers;
         }
 
+        public void addFortifySoldiers(int soldiers){
+            this.fortifySoldiers += soldiers;
+        }
+
+        public Boolean removeFortifySoldiers(int soldiers){
+            if(this.fortifySoldiers - soldiers < 0){
+                return false;
+            }
+            else{
+            this.fortifySoldiers -= soldiers;
+            return true;
+            }
+        }
         public void setReinforceableSoldiers(int reinforceableSoldiers){
             this.reinforceableSoldiers = reinforceableSoldiers;
         }
