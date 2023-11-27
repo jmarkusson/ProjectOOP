@@ -70,7 +70,7 @@ public class GameOptionsView extends JFrame {
             mainPanel.add(playerNameField);
             textfields.add(playerNameField);
         }
-
+        
         startGameButton = new JButton("Start Game");
         quitButton = new JButton("Quit");
 

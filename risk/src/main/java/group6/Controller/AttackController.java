@@ -16,7 +16,7 @@ public class AttackController implements ActionListener {
     {
         this.attackView = attackView;
         this.rModel = rModel;
-        
+        attackView.setController(this);
     }
 
 

@@ -1,0 +1,4 @@
+Zephyrion Expanse,4,Coruscant,Tatooine,Hoth,Dagobah
+Vortexia Nebula,3,Alderaan,Bespin,Endor,Naboo
+Suntide Cluster,5,Kashyyyk,Yavin IV,Jakku,Mustafar
+Quasarion Reach,4,Sullust,Fondor,Ithor,Anoat

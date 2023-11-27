@@ -3,6 +3,8 @@ package group6.Model;
 
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import group6.Model.Interfaces.PlayerTurnState;
 
 import java.awt.Color;
@@ -28,6 +30,9 @@ public class Player
     public PlayerTurnState getCurrentState() {
         return currentState;
     }
+    private ImageIcon playerImage;
+
+
 
     private PlayerTurnState currentState;
 
@@ -106,6 +111,15 @@ public class Player
         public void attack(Planet fromPlanet, Planet toPlanet){
             currentState.attack(this, fromPlanet, toPlanet);
         }
+            public ImageIcon getPlayerImage() {
+        return playerImage;
+        }
+        
+        public void setPlayerImage(ImageIcon playerImage) {
+        this.playerImage = playerImage;
+        }
+                
+
 }
 
 
