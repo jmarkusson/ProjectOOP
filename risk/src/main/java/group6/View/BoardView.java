@@ -4,10 +4,11 @@ package group6.View;
 
 
 import javax.swing.*;
+
+import group6.Controller.BoardViewController;
+
 import java.awt.*;
-
-
-
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -18,6 +19,7 @@ public class BoardView extends JPanel {
     
     private Point[][] planetPositions;
     private String[] planetNames;
+    
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {50, 60, 70, 80}; // Four different sizes for planets
@@ -26,47 +28,32 @@ public class BoardView extends JPanel {
         this.planetNames = planetNames;
         this.planetPositions = planetPositions;
         this.sunPositions = sunPositions;
+        
 
         setPreferredSize(new Dimension(200,200));
     }
 
-    public void addController(MouseAdapter e){
+    public void add(JButton button) {
+        this.add(button);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void initializePlanets(ActionListener controller) {
+        for (int i = 0; i < planetPositions.length; i++) {
+            for (int j = 0; j < planetPositions[i].length; j++) {
+                Point planetPos = planetPositions[i][j];
+                String planetName = planetNames[i * planetPositions[i].length + j];
+                JButton planetButton = new JButton(planetName);
+                int buttonSize = 20; // Or calculate the size you need
+                planetButton.setBounds(planetPos.x - buttonSize / 2, planetPos.y - buttonSize / 2, buttonSize, buttonSize);
+                planetButton.addActionListener(controller);
+                this.add(planetButton);
+            }
+        }
+        this.revalidate();
+        this.repaint();
         
-       
-        addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                for (int i = 0; i < planetPositions.length; i++) {
-                    for (int j = 0; j < planetPositions[i].length; j++) {
-                        Point p = planetPositions[i][j];
-                        Ellipse2D.Float planet = new Ellipse2D.Float(p.x, p.y, 30, 30);
-                        if (planet.contains(e.getPoint())) {
-                            int planetIndex = i * planetPositions[i].length + j;
-                            JOptionPane.showMessageDialog(null, "Planet " + planetNames[planetIndex] + " clicked!");
-                        }
-                    }
-                }
-            }
-        });
-
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                for (int i = 0; i < planetPositions.length; i++) {
-                    for (int j = 0; j < planetPositions[i].length; j++) {
-                        Point p = planetPositions[i][j];
-                        Ellipse2D.Float planet = new Ellipse2D.Float(p.x, p.y, 30, 30);
-                        if (planet.contains(e.getPoint())) {
-                            int planetIndex = i * planetPositions[i].length + j;
-                            BoardView.this.setToolTipText(planetNames[planetIndex]);
-                            return;
-                        }
-                    }
-                }
-                BoardView.this.setToolTipText(null);
-            }
-        });
     }
 
     @Override
@@ -92,9 +79,12 @@ public class BoardView extends JPanel {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
                 int size = planetSizes[j]; // Use the size based on the planet's index
+                
                 // Draw planet with varying size
                 g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
                 g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
+                
+
                 // Draw name
                 g.setColor(Color.BLACK);
                 g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x-20, planetPos.y );
