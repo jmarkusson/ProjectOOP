@@ -10,9 +10,9 @@ public class GameStateFortify implements GameState{
     @Override
     public void initState(RiskModel model, Planet planet) {
         int soldiers = model.getCurrentPlayer().getReinforceableSoldiers();
-        String[] soldiersAmountList = {soldiers - ()}
+    
 
-        FortifyView fortifyView = new FortifyView(planet.getName(), soldiersAmountList);
+       // FortifyView fortifyView = new FortifyView(planet.getName(), soldiersAmountList);
     }
     
 }
