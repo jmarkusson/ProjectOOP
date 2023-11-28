@@ -1,6 +1,5 @@
 package group6.Model;
 
-import java.util.ArrayList;
 
 import group6.Model.Interfaces.GameState;
 import group6.View.FortifyView;
@@ -8,11 +7,15 @@ import group6.View.FortifyView;
 public class GameStateFortify implements GameState{
 
     @Override
-    public void initState(RiskModel model, Planet planet) {
-        int soldiers = model.getCurrentPlayer().getReinforceableSoldiers();
-    
+    public void initState(RiskModel model, String planet) {
+        
+        Integer[] soldiersArray = new Integer[model.getCurrentPlayersFortifySoldiers() + 1];
 
-       // FortifyView fortifyView = new FortifyView(planet.getName(), soldiersAmountList);
+        for (int i = 0; i < model.getCurrentPlayersFortifySoldiers(); i++) {
+            soldiersArray[i] = i;
+        }
+
+       FortifyView fortifyView = new FortifyView(planet, soldiersArray);
     }
     
 }

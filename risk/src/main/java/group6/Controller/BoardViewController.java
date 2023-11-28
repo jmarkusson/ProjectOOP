@@ -1,12 +1,7 @@
 package group6.Controller;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import javax.swing.JOptionPane;
 
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import group6.Model.RiskModel;
 import group6.View.BoardView;

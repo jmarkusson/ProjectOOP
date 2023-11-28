@@ -221,7 +221,9 @@ public class RiskModel {
         return board.getSolarPositions();
     }
         
-    
+    public int getCurrentPlayersFortifySoldiers(){
+        return this.getCurrentPlayer().getFortifySoldiers();
+    }
 
     private Point parsePoint(String str) {
         String[] parts = str.split(",");

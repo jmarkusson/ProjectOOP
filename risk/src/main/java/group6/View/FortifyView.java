@@ -18,7 +18,7 @@ public class FortifyView extends JFrame {
     JPanel mainPanel;
     GridLayout mainLayout;
 
-    public FortifyView(String planetName, String[] soldiersAmount){
+    public FortifyView(String planetName, Integer[] soldiersAmount){
         setTitle("Forify "+planetName);
 		setPreferredSize(new Dimension(300, 300));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class FortifyView extends JFrame {
         addButton = new JButton("Add soldiers");
         addButton.setActionCommand("addsoldiers");
        
-        soldiersAmountBox = new DefaultComboBoxModel<String>(soldiersAmount);
+        soldiersAmountBox = new DefaultComboBoxModel<Integer>(soldiersAmount);
         soldiersAmountBox.setSelectedItem(0);
        // soldiersAmountBox.setActionCommand("combobox");
 
