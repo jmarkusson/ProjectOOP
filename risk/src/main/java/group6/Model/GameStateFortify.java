@@ -2,7 +2,7 @@ package group6.Model;
 
 
 import group6.Model.Interfaces.GameState;
-import group6.View.FortifyView;
+import group6.View.ReinforceView;
 
 public class GameStateFortify implements GameState{
 
@@ -15,7 +15,7 @@ public class GameStateFortify implements GameState{
             soldiersArray[i] = i;
         }
 
-       FortifyView fortifyView = new FortifyView(planet, soldiersArray);
+       ReinforceView fortifyView = new ReinforceView(planet, soldiersArray);
     }
     
 }
