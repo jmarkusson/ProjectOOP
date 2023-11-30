@@ -32,12 +32,6 @@ public class BoardViewController implements ActionListener{
         view.initializePlanets(this);
     }
 
-    
-
-        
-    
-   
-
 
 
 
