@@ -7,6 +7,7 @@ public class GameStateReinforce implements GameState{
 
     @Override
     public void initState(RiskModel model, String planet) {
+        // check if country is owned??
         
         Integer[] soldiersArray = new Integer[model.getCurrentPlayersReinforcableSoldier() + 1];
 
