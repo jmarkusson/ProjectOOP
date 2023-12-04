@@ -27,11 +27,10 @@ public class PlayerOwnership{
         playersOwnablesMap.get(player).remove(ownable);
     }
 
-    public ArrayList<Ownable> getPLayersOwnables(Player player){
+    public ArrayList<Ownable> getPlayersOwnables(Player player){
 
         return playersOwnablesMap.get(player);
     }
 
-    
 
 }
