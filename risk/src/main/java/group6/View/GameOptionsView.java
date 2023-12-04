@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 public class GameOptionsView extends JFrame {
 
     JPanel mainPanel;

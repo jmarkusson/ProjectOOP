@@ -57,7 +57,7 @@ public class RiskModel {
             InputStream sunpointStream = getClass().getClassLoader().getResourceAsStream("textfiles/solarPoints.txt");
             BufferedReader sunreaderPoint = new BufferedReader(new InputStreamReader(sunpointStream));
             while ((line = sunreaderPoint.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = line.split(",");       
                 int x = Integer.parseInt(parts[0].trim());
                 int y = Integer.parseInt(parts[1].trim());
                 listOfSunPositions.add(new Point(x, y));
