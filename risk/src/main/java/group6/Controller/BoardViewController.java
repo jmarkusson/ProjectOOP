@@ -30,7 +30,7 @@ public class BoardViewController implements ActionListener{
         this.planetNames = model.getPlanetNames();
         this.planetPositions = model.getPlanetPositions();
         this.solarPositions = model.getSolarPositions();
-        view.initializePlanets(this);
+        view.initializePlanetButtons(this);
     }
 
 

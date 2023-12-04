@@ -42,7 +42,7 @@ public class BoardView extends JPanel {
         this.repaint();
     }
 
-    public void initializePlanets(ActionListener controller) {
+    public void initializePlanetButtons(ActionListener controller) {
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
