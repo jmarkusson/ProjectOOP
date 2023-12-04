@@ -158,10 +158,6 @@ public class RiskModel {
         }
     }
 
-    public Player getCurrentPlayer(){
-        return players.get(currentPlayer);
-    }
-
     private void distributeRemainingSoldiers(List<Planet> planets){
         int i = 0;
         while (playersHaveReinforceableSoldiers()) {
@@ -242,6 +238,29 @@ public class RiskModel {
         int x = Integer.parseInt(parts[0].trim());
         int y = Integer.parseInt(parts[1].trim());
         return new Point(x, y);
+    }
+
+    public ArrayList<Planet> getAdjecentPlanets(Planet planet){
+        return planet.getAdjecePlanets();
+    }
+
+
+    public String[] getOwnedAdjecentPlanets(String planet){
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(board.getPlanetByName(planet));
+        ArrayList<Ownable> playersOwnables = playerOwnership.getPlayersOwnables(this.getCurrentPlayer());
+        ArrayList<String> ownedAdjecentPlanets = new ArrayList<>();
+
+        for (Planet adjacentPlanet : adjacentPlanets) {
+            if (playersOwnables.contains(adjacentPlanet)) {
+                ownedAdjecentPlanets.add(adjacentPlanet.getName());
+            }
+        }
+
+        return ownedAdjecentPlanets.toArray(new String[0]);
+    }
+
+    public int getPlanetsSoldiers(String planet){
+        return board.getPlanetByName(planet).getSoldiers();
     }
     
     
