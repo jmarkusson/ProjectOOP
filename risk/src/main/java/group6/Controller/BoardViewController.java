@@ -1,4 +1,6 @@
 package group6.Controller;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -9,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.awt.Point;
 
 import group6.Model.RiskModel;
+import group6.Model.Interfaces.GameState;
 import group6.View.BoardView;
 
 public class BoardViewController implements ActionListener{
@@ -18,6 +21,7 @@ public class BoardViewController implements ActionListener{
     private String[] planetNames;
     private Point[][] planetPositions;
     private Point[] solarPositions;
+    private GameState state;
 
     
     
@@ -28,6 +32,7 @@ public class BoardViewController implements ActionListener{
         this.planetNames = model.getPlanetNames();
         this.planetPositions = model.getPlanetPositions();
         this.solarPositions = model.getSolarPositions();
+        this.state = state;
         view.initializePlanetButtons(this);
     }
 
