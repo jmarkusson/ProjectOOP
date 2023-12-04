@@ -3,9 +3,7 @@ package group6.View;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -46,7 +44,7 @@ public class ReinforceView extends JFrame {
     }
 
     public void addController(ActionListener controller){
-       // soldiersAmountBox.addActionListener(controller);
+        soldiersAmountBox.addActionListener(controller);
         addButton.addActionListener(controller);
     }
 }

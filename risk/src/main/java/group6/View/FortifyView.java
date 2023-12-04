@@ -21,6 +21,7 @@ public class FortifyView extends JFrame {
     JComboBox<String> adjecentPlanetsBox;
     JComboBox<Integer> amountOfSoldiersBox;
     JButton fortifyButton;
+    JLabel header;
 
     public FortifyView(String planetName, String[] adjecentPlanets, Integer[] amountOfSoldiers){
 
@@ -44,7 +45,7 @@ public class FortifyView extends JFrame {
 		this.mainLayout = new GridLayout(3, 1, 5, 5);
 		firstPanel.setLayout(mainLayout);
 
-        JLabel header = new JLabel("Select a country to fortify from: "+this.planetName);
+        header = new JLabel("Select a country to fortify from: "+this.planetName);
         this.fortifyButton = new JButton("Fortify");
         fortifyButton.setActionCommand("fortify");
 

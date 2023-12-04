@@ -31,4 +31,11 @@ public class Planet implements Ownable{
         return this.name;
     }
 
+    public int getSoldiers(){
+        return soldiers;
+    }
+
+    public ArrayList<Planet> getAdjecePlanets(){
+        return adjacentPlanets;
+    }
 }
