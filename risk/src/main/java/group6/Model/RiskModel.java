@@ -9,12 +9,10 @@ import java.awt.Color;
 import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class RiskModel {
@@ -133,11 +131,8 @@ public class RiskModel {
 
     public void distributePlanets(){
         List<Planet> shuffledPlanets = getShuffledPlanets();
-
         initializePlayersReinforceableSoldiers();
-
         evenlyDistributeInitalPlanets(shuffledPlanets);
-
         distributeRemainingSoldiers(shuffledPlanets);
     }
 
@@ -161,14 +156,14 @@ public class RiskModel {
             players.get(i).removeReinforceableSoldiers(1);
 
         }
-
     }
 
     public Player getCurrentPlayer(){
         return players.get(currentPlayer);
     }
+
     private void distributeRemainingSoldiers(List<Planet> planets){
-        int i = 0; // Start from the beginning of the planet list
+        int i = 0;
         while (playersHaveReinforceableSoldiers()) {
             Player currentPlayer = players.get(i % players.size());
             Planet currentPlanet = planets.get(i % planets.size());
@@ -221,7 +216,9 @@ public class RiskModel {
         return board.getSolarPositions();
     }
         
-    
+    public int getCurrentPlayersFortifySoldiers(){
+        return this.getCurrentPlayer().getFortifySoldiers();
+    }
 
     private Point parsePoint(String str) {
         String[] parts = str.split(",");
@@ -230,5 +227,26 @@ public class RiskModel {
         return new Point(x, y);
     }
     
-    
+    public ArrayList<Planet> getAdjecentPlanets(Planet planet){
+        return planet.getAdjecePlanets();
+    }
+
+
+    public String[] getOwnedAdjecentPlanets(String planet){
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(board.getPlanetByName(planet));
+        ArrayList<Ownable> playersOwnables = playerOwnership.getPlayersOwnables(this.getCurrentPlayer());
+        ArrayList<String> ownedAdjecentPlanets = new ArrayList<>();
+
+        for (Planet adjacentPlanet : adjacentPlanets) {
+            if (playersOwnables.contains(adjacentPlanet)) {
+                ownedAdjecentPlanets.add(adjacentPlanet.getName());
+            }
+        }
+
+        return ownedAdjecentPlanets.toArray(new String[0]);
+    }
+
+    public int getPlanetsSoldiers(String planet){
+        return board.getPlanetByName(planet).getSoldiers();
+    }
 }
