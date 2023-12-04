@@ -112,7 +112,6 @@ public class BoardView extends JPanel {
             "Bespin, Endor",
             "Endor, Fondor, Sullust",
             "Sullust, Endor",
-            
             "Ithor, Fondor",
             "Ithor, Anoat",
             "Anoat, Yavin IV",

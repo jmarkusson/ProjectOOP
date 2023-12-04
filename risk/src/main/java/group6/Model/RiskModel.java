@@ -186,6 +186,13 @@ public class RiskModel {
         return playerOwnership.isOwned(ownable, player);
     }
 
+    public void reinforce(int soldiersPlaced, String planet){
+        int soldiersLeft = this.getCurrentPlayersReinforcableSoldier();
+        soldiersLeft = soldiersLeft - soldiersPlaced;
+        this.setCurrentPlayersReinforcableSoldier(soldiersLeft);
+
+    }
+
     public void addPlayer(Player player){
         players.add(player);
     }
@@ -228,6 +235,14 @@ public class RiskModel {
 
     public int getCurrentPlayersFortifySoldiers(){
         return this.getCurrentPlayer().getFortifySoldiers();
+    }
+
+    public int getCurrentPlayersReinforcableSoldier(){
+        return this.getCurrentPlayer().getReinforceableSoldiers();
+    }
+
+    private void setCurrentPlayersReinforcableSoldier(int soldiers){
+        getCurrentPlayer().setReinforceableSoldiers(soldiers);
     }
 
     private Point parsePoint(String str) {
