@@ -180,10 +180,7 @@ public class RiskModel {
             }
             return false;
     }
-
-    private void reinforce(){
-        
-    }
+    
 
     public boolean isOwned(Ownable ownable, Player player){
         return playerOwnership.isOwned(ownable, player);
