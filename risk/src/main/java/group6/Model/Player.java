@@ -24,7 +24,7 @@ public class Player
 
     
 
-    private PlayerTurnState currentState;
+    
 
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
