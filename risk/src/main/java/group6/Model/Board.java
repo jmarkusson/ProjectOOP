@@ -88,12 +88,16 @@ public class Board {
         return this.solarPositions;
     }
 
-   public ArrayList<Planet> getPlanets(){
+    public ArrayList<Planet> getPlanets(){
         return listofPlanets;
     }
 
     public void shufflePlanets() {
         Collections.shuffle(listofPlanets);
+    }
+
+    public Planet getPlanetByName(String planet){
+        return planetMap.get(planet);
     }
 
 }
