@@ -203,9 +203,29 @@ public class RiskModel {
         }
 
     }
-    
-    public Planet getPlanetByName(String planetName){
-        return board.getPlanetByName(planetName);
+    public Boolean isReinforceDone(){
+        Boolean reinforceDone = false;
+        Player currentPlayer = getCurrentPlayer();
+
+        if(currentPlayer.getReinforceableSoldiers() == 0){
+            reinforceDone = true;
+            // Set Reinforcable Soldier back to the amount of bonustroops so it is correct at the start of the next round
+            currentPlayer.setReinforceableSoldiers(currentPlayer.getBonusSoldiers());
+
+        }
+
+        return reinforceDone;
+    }
+
+    public void attack(int attackSoldiers, int defendSoldiers, String attackPlanetName, String defendPlanetName){
+        Player currentPlayer = getCurrentPlayer();
+
+        Planet attackPlanet = getPlanetByName(attackPlanetName);
+        Planet defendPlanet = getPlanetByName(defendPlanetName);
+
+
+
+
     }
 
     public void addPlayer(Player player){
@@ -273,7 +293,7 @@ public class RiskModel {
 
 
     public String[] getOwnedAdjecentPlanets(String planet){
-        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(board.getPlanetByName(planet));
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(getPlanetByName(planet));
         ArrayList<Ownable> playersOwnables = playerOwnership.getPlayersOwnables(this.getCurrentPlayer());
         ArrayList<String> ownedAdjecentPlanets = new ArrayList<>();
 
