@@ -27,6 +27,7 @@ public class Player
 
     
 
+
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
         this.color = color;
