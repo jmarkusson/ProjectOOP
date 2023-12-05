@@ -13,29 +13,26 @@ public class Player
     private String name;
     private int soldiers;
     private int reinforceableSoldiers;
+    private int bonusSoldiers;
+
+    
+
     private int playerNumber;
     private List<Planet> planetsOwned;
     private int fortifySoldiers;
-
-    public int getPlayerNumber() {
-        return playerNumber;
-    }
-
-    public int getFortifySoldiers() {
-        return fortifySoldiers;
-    }
-
-    public PlayerTurnState getCurrentState() {
-        return currentState;
-    }
-
     private PlayerTurnState currentState;
+
+    
+
+    
 
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
         this.color = color;
         this.playerNumber = playerNumber;
         this.soldiers = 15;  
+        this.bonusSoldiers = 3;
+        this.reinforceableSoldiers = bonusSoldiers;
     }
     
         public Color getColor() {
@@ -105,6 +102,27 @@ public class Player
 
         public void attack(Planet fromPlanet, Planet toPlanet){
             currentState.attack(this, fromPlanet, toPlanet);
+        }
+
+        public int getBonusSoldiers() {
+            return bonusSoldiers;
+        }
+
+        public void setBonusSoldiers(int bonusSoldiers) {
+            this.bonusSoldiers = bonusSoldiers;
+        }
+
+        public int getPlayerNumber() {
+        return playerNumber;
+        }
+
+        public int getFortifySoldiers() {
+            return fortifySoldiers;
+        }
+        
+
+        public PlayerTurnState getCurrentState() {
+            return currentState;
         }
 }
 

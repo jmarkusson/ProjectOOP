@@ -22,7 +22,6 @@ public class BoardViewController implements ActionListener{
     private String[] planetNames;
     private Point[][] planetPositions;
     private Point[] solarPositions;
-    private GameState currentGameState;
 
     
     
@@ -33,6 +32,7 @@ public class BoardViewController implements ActionListener{
         this.planetNames = model.getPlanetNames();
         this.planetPositions = model.getPlanetPositions();
         this.solarPositions = model.getSolarPositions();
+        this.state = state;
         view.initializePlanetButtons(this);
         setCurrentGameState(new GameStateReinforce());
     }

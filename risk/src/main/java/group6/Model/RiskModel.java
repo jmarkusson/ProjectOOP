@@ -19,9 +19,9 @@ public class RiskModel {
 
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
-    private int nmbrOfPlayers = 2;
+    private int nmbrOfPlayers;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
-    private int currentPlayer;
+    private int currentPlayerIndex;
 
     public RiskModel(){
 
@@ -108,15 +108,15 @@ public class RiskModel {
             for(int i = 0; i < playerNames.size(); i++){
 
                 players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+                nmbrOfPlayers++;
 
             }
-            
-            
 
             readerplanet.close();
             readerPoint.close();
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
+            
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
         // Handle the case where a file wasn't found, such as logging or user notification
@@ -158,10 +158,6 @@ public class RiskModel {
         }
     }
 
-    public Player getCurrentPlayer(){
-        return players.get(currentPlayer);
-    }
-
     private void distributeRemainingSoldiers(List<Planet> planets){
         int i = 0;
         while (playersHaveReinforceableSoldiers()) {
@@ -183,6 +179,18 @@ public class RiskModel {
                 }
             }
             return false;
+    }
+    
+
+    public boolean isOwned(Ownable ownable, Player player){
+        return playerOwnership.isOwned(ownable, player);
+    }
+
+    public void reinforce(int soldiersPlaced, String planet){
+        int soldiersLeft = this.getCurrentPlayersReinforcableSoldier();
+        soldiersLeft = soldiersLeft - soldiersPlaced;
+        this.setCurrentPlayersReinforcableSoldier(soldiersLeft);
+
     }
 
     public void addPlayer(Player player){
@@ -216,8 +224,25 @@ public class RiskModel {
         return board.getSolarPositions();
     }
         
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayerIndex);
+    }
+
+    private void nextPlayer(Player currentPlayer){
+        int currentPlayerInt = currentPlayer.getPlayerNumber();
+        currentPlayer = getPlayer((currentPlayerInt + 1) % getnmbrOfPlayers());
+    }
+
     public int getCurrentPlayersFortifySoldiers(){
         return this.getCurrentPlayer().getFortifySoldiers();
+    }
+
+    public int getCurrentPlayersReinforcableSoldier(){
+        return this.getCurrentPlayer().getReinforceableSoldiers();
+    }
+
+    private void setCurrentPlayersReinforcableSoldier(int soldiers){
+        getCurrentPlayer().setReinforceableSoldiers(soldiers);
     }
 
     private Point parsePoint(String str) {
@@ -226,7 +251,7 @@ public class RiskModel {
         int y = Integer.parseInt(parts[1].trim());
         return new Point(x, y);
     }
-    
+
     public ArrayList<Planet> getAdjecentPlanets(Planet planet){
         return planet.getAdjecePlanets();
     }

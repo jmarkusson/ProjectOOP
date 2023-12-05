@@ -8,14 +8,14 @@ public class GameStateReinforce implements GameState{
     @Override
     public void initState(RiskModel model, String planet) {
         
-        Integer[] soldiersArray = new Integer[model.getCurrentPlayersFortifySoldiers() + 1];
+        Integer[] soldiersArray = new Integer[model.getCurrentPlayersReinforcableSoldier() + 1];
 
-        for (int i = 0; i < model.getCurrentPlayersFortifySoldiers(); i++) {
+        for (int i = 0; i < model.getCurrentPlayersReinforcableSoldier(); i++) {
             soldiersArray[i] = i;
         }
 
-       ReinforceView fortifyView = new ReinforceView(planet, soldiersArray);
-       ReinforceController controller = new ReinforceController(model, fortifyView);
+       ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
+       ReinforceController controller = new ReinforceController(model, reinforceView);
     }
     
 }
