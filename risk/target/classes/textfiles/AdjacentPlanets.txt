@@ -9,8 +9,8 @@ Endor,Fondor,Sullust,Bespin
 Sullust,Naboo,Endor,Fondor,Anoat
 Fondor,Endor,Sullust,Ithor
 Ithor,Fondor,Anoat
-Anoat,Ithor,Sullust,YavinIV
-YavinIV,Anoat,Jakku,Kashyyyk
-Jakku,YavinIV,Mustafar
+Anoat,Ithor,Sullust,Yavin IV
+Yavin IV,Anoat,Jakku,Kashyyyk
+Jakku,Yavin IV,Mustafar
 Mustafar,Jakku,Coruscant
-Kashyyyk,Hoth,YavinIV
+Kashyyyk,Hoth,Yavin IV
