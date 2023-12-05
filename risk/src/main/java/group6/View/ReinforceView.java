@@ -18,9 +18,9 @@ public class ReinforceView extends JFrame {
     String planetName;
     public ReinforceView(String planetName, Integer[] soldiersAmount){
         this.planetName = planetName;
-        setTitle("Forify "+this.planetName);
+        setTitle("Reinforce "+this.planetName);
 		setPreferredSize(new Dimension(300, 300));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 

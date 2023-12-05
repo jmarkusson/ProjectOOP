@@ -21,6 +21,7 @@ public class BoardView extends JPanel {
     
     private Point[][] planetPositions;
     private String[] planetNames;
+    private Map<String, JLabel> planetLabels;
     
     
 
@@ -31,6 +32,7 @@ public class BoardView extends JPanel {
         this.planetNames = planetNames;
         this.planetPositions = planetPositions;
         this.sunPositions = sunPositions;
+        planetLabels = new HashMap<>();
         this.setLayout(null);
 
         setPreferredSize(new Dimension(200,200));
@@ -54,6 +56,21 @@ public class BoardView extends JPanel {
                 planetButton.setBounds(planetPos.x - buttonSize / 2, planetPos.y - buttonSize / 2, buttonSize, buttonSize);
                 planetButton.addActionListener(controller);
                 this.add(planetButton);
+        for (int x = 0; x < planetPositions.length; x++) {
+            for (int y = 0; y < planetPositions[x].length; y++) {
+                Point planetPosLabel = planetPositions[x][y];
+                String planetNameLabel = planetNames[x * planetPositions[x].length + y];
+                int labelSize = 20; // Adjust as needed
+    
+                JLabel planetLabel = new JLabel("14"); // Default value
+                planetLabel.setBounds(planetPos.x -4, planetPos.y + 5, labelSize, labelSize);
+                planetLabel.setForeground(Color.WHITE); // Set the text color
+                this.add(planetLabel);
+    
+                planetLabels.put(planetName, planetLabel);
+            }
+        }
+        
                 
                 planetButton.setOpaque(false);
                 planetButton.setContentAreaFilled(false);
@@ -65,6 +82,13 @@ public class BoardView extends JPanel {
         }
         this.revalidate();
         this.repaint();
+    }
+    public void updatePlanetValue(String planetName, int newValue) {
+        JLabel label = planetLabels.get(planetName);
+        if (label != null) {
+            label.setText(String.valueOf(newValue));
+        }
+        this.repaint(); // Refresh the display
     }
 
     @Override
