@@ -186,12 +186,25 @@ public class RiskModel {
         return playerOwnership.isOwned(ownable, player);
     }
 
-    public void reinforce(int soldiersPlaced, String planet){
-        int soldiersLeft = this.getCurrentPlayersReinforcableSoldier();
-        soldiersLeft = soldiersLeft - soldiersPlaced;
-        this.setCurrentPlayersReinforcableSoldier(soldiersLeft);
+    public void reinforce(int soldiersPlaced, String planetName) {
+        Player currentPlayer = getCurrentPlayer();
+        
+        int soldiersLeft = currentPlayer.getReinforceableSoldiers() - soldiersPlaced;
+        currentPlayer.setReinforceableSoldiers(soldiersLeft);
+    
+        int totalSoldiers = currentPlayer.getSoldiers() + soldiersPlaced;
+        currentPlayer.setSoldiers(totalSoldiers);
+
+        Planet planet = getPlanetByName(planetName);
+        planet.addSoldiers(soldiersPlaced);
+
+        if(soldiersLeft == 0){
+            // Next state - Booleans?
+        }
 
     }
+    
+    
 
     public void addPlayer(Player player){
         players.add(player);
