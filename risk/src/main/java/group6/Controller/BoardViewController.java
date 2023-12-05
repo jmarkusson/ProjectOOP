@@ -33,7 +33,7 @@ public class BoardViewController implements ActionListener{
         this.planetNames = model.getPlanetNames();
         this.planetPositions = model.getPlanetPositions();
         this.solarPositions = model.getSolarPositions();
-        this.currentGameState = currentGameState;
+        
         view.initializePlanetButtons(this);
         setCurrentGameState(new GameStateReinforce());
     }
