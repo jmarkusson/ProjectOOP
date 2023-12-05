@@ -16,9 +16,10 @@ public class ReinforceView extends JFrame {
     JPanel mainPanel;
     GridLayout mainLayout;
     String planetName;
+    
     public ReinforceView(String planetName, Integer[] soldiersAmount){
         this.planetName = planetName;
-        setTitle("Forify "+this.planetName);
+        setTitle("Reinforce "+this.planetName);
 		setPreferredSize(new Dimension(300, 300));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
