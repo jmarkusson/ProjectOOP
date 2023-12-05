@@ -5,7 +5,7 @@ package group6.View;
 
 import javax.swing.*;
 
-import group6.Controller.BoardViewController;
+import group6.Controller.BoardController;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -34,7 +34,6 @@ public class BoardView extends JPanel {
         this.sunPositions = sunPositions;
         planetLabels = new HashMap<>();
         this.setLayout(null);
-
         setPreferredSize(new Dimension(200,200));
     }
 
@@ -80,6 +79,7 @@ public class BoardView extends JPanel {
                 planetButton.setVerticalTextPosition(SwingConstants.CENTER);
             }
         }
+
         this.revalidate();
         this.repaint();
     }
@@ -142,8 +142,7 @@ public class BoardView extends JPanel {
             "Hoth, Tatooine",
             "Jakku, Yavin IV",
             "Mustafar, Jakku",
-            "Anoat, Sullust"
-            
+            "Anoat, Sullust"     
             
         };
 

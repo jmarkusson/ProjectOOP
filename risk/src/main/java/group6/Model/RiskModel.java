@@ -19,7 +19,7 @@ public class RiskModel {
 
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
-    private int nmbrOfPlayers;
+    private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
 
