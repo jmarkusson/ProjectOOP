@@ -15,9 +15,10 @@ public class ReinforceView extends JFrame {
     JComboBox<Integer> soldiersAmountBox;
     JPanel mainPanel;
     GridLayout mainLayout;
-
+    String planetName;
     public ReinforceView(String planetName, Integer[] soldiersAmount){
-        setTitle("Reinforce "+ planetName);
+        this.planetName = planetName;
+        setTitle("Forify "+this.planetName);
 		setPreferredSize(new Dimension(300, 300));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -43,6 +44,9 @@ public class ReinforceView extends JFrame {
 		toFront();
     }
 
+    public String getplanetName(){
+        return planetName;
+    }
     public void addController(ActionListener controller){
         soldiersAmountBox.addActionListener(controller);
         addButton.addActionListener(controller);
