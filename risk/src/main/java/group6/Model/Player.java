@@ -3,8 +3,6 @@ package group6.Model;
 
 import java.util.List;
 
-import group6.Model.Interfaces.PlayerTurnState;
-
 import java.awt.Color;
 
 public class Player
@@ -20,7 +18,7 @@ public class Player
     private int playerNumber;
     private List<Planet> planetsOwned;
     private int fortifySoldiers;
-    private PlayerTurnState currentState;
+
 
     
 
@@ -92,17 +90,7 @@ public class Player
         this.planetsOwned = planetsOwned;
     }
 
-    public void setState(PlayerTurnState state){
-        this.currentState = state;
-    }
 
-    public void placeSoldiers(int numberOfSoldiers, Planet planet){
-        currentState.placeSoldiers(this, numberOfSoldiers, planet);
-    }
-
-    public void attack(Planet fromPlanet, Planet toPlanet){
-        currentState.attack(this, fromPlanet, toPlanet);
-    }
 
     public int getBonusSoldiers() {
         return bonusSoldiers;
@@ -121,9 +109,7 @@ public class Player
     }
     
 
-        public PlayerTurnState getCurrentState() {
-            return currentState;
-        }
+   
 }
 
 

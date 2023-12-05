@@ -8,5 +8,10 @@ public class GameStateAttack implements GameState {
     public void initState(RiskModel model, String planet) {
         
     }
+
+    @Override
+    public int getIndex() {
+        return 1;
+    }
     
 }
