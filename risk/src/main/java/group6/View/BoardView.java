@@ -4,13 +4,16 @@ package group6.View;
 
 
 import javax.swing.*;
+
+import group6.Controller.BoardController;
+
 import java.awt.*;
-
-
-
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BoardView extends JPanel {
 
@@ -18,55 +21,74 @@ public class BoardView extends JPanel {
     
     private Point[][] planetPositions;
     private String[] planetNames;
+    private Map<String, JLabel> planetLabels;
+    
+    
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
-    private int[] planetSizes = {50, 60, 70, 80}; // Four different sizes for planets
+    private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
 
     public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions){
         this.planetNames = planetNames;
         this.planetPositions = planetPositions;
         this.sunPositions = sunPositions;
-
+        planetLabels = new HashMap<>();
+        this.setLayout(null);
         setPreferredSize(new Dimension(200,200));
     }
 
-    public void addController(MouseAdapter e){
+    public void update() {
         
-       
-        addMouseListener(new MouseAdapter() {
+        this.revalidate();
+        this.repaint();
+    }
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                for (int i = 0; i < planetPositions.length; i++) {
-                    for (int j = 0; j < planetPositions[i].length; j++) {
-                        Point p = planetPositions[i][j];
-                        Ellipse2D.Float planet = new Ellipse2D.Float(p.x, p.y, 30, 30);
-                        if (planet.contains(e.getPoint())) {
-                            int planetIndex = i * planetPositions[i].length + j;
-                            JOptionPane.showMessageDialog(null, "Planet " + planetNames[planetIndex] + " clicked!");
-                        }
-                    }
-                }
+    public void initializePlanetButtons(ActionListener controller) {
+        for (int i = 0; i < planetPositions.length; i++) {
+            for (int j = 0; j < planetPositions[i].length; j++) {
+                Point planetPos = planetPositions[i][j];
+                String planetName = planetNames[i * planetPositions[i].length + j];
+                int buttonSize = planetSizes[j] + 27; // Use the corresponding size from planetSizes array
+                JButton planetButton = new JButton(planetName);
+                
+                // Set the bounds so the button is centered on the planet's position
+                planetButton.setBounds(planetPos.x - buttonSize / 2, planetPos.y - buttonSize / 2, buttonSize, buttonSize);
+                planetButton.addActionListener(controller);
+                this.add(planetButton);
+        for (int x = 0; x < planetPositions.length; x++) {
+            for (int y = 0; y < planetPositions[x].length; y++) {
+                Point planetPosLabel = planetPositions[x][y];
+                String planetNameLabel = planetNames[x * planetPositions[x].length + y];
+                int labelSize = 20; // Adjust as needed
+    
+                JLabel planetLabel = new JLabel("14"); // Default value
+                planetLabel.setBounds(planetPos.x -4, planetPos.y + 5, labelSize, labelSize);
+                planetLabel.setForeground(Color.WHITE); // Set the text color
+                this.add(planetLabel);
+    
+                planetLabels.put(planetName, planetLabel);
             }
-        });
+        }
+        
+                
+                planetButton.setOpaque(false);
+                planetButton.setContentAreaFilled(false);
+                planetButton.setBorderPainted(false);
+                planetButton.setForeground(Color.WHITE); // Set the text color to white or any color you prefer
+                planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
+                planetButton.setVerticalTextPosition(SwingConstants.CENTER);
+            }
+        }
 
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                for (int i = 0; i < planetPositions.length; i++) {
-                    for (int j = 0; j < planetPositions[i].length; j++) {
-                        Point p = planetPositions[i][j];
-                        Ellipse2D.Float planet = new Ellipse2D.Float(p.x, p.y, 30, 30);
-                        if (planet.contains(e.getPoint())) {
-                            int planetIndex = i * planetPositions[i].length + j;
-                            BoardView.this.setToolTipText(planetNames[planetIndex]);
-                            return;
-                        }
-                    }
-                }
-                BoardView.this.setToolTipText(null);
-            }
-        });
+        this.revalidate();
+        this.repaint();
+    }
+    public void updatePlanetValue(String planetName, int newValue) {
+        JLabel label = planetLabels.get(planetName);
+        if (label != null) {
+            label.setText(String.valueOf(newValue));
+        }
+        this.repaint(); // Refresh the display
     }
 
     @Override
@@ -92,15 +114,72 @@ public class BoardView extends JPanel {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
                 int size = planetSizes[j]; // Use the size based on the planet's index
+                
                 // Draw planet with varying size
                 g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
                 g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
-                // Draw name
-                g.setColor(Color.BLACK);
-                g.drawString(planetNames[i * planetPositions[i].length + j], planetPos.x-20, planetPos.y );
+                
+
+                
+            }
+        }
+
+        Map<String, Point> planetMap = createPlanetMap();
+        String[] connections = {
+            "Dagobah, Coruscant, Mustafar",
+            "Tatooine, Dagobah",
+            "Tatooine, Naboo, Sullust",
+            "Alderaan, Naboo",
+            "Hoth, Kashyyyk, Yavin IV",
+            "Naboo, Sullust",
+            "Alderaan, Bespin",
+            "Bespin, Endor",
+            "Endor, Fondor, Sullust",
+            "Sullust, Endor",
+            "Ithor, Fondor",
+            "Ithor, Anoat",
+            "Anoat, Yavin IV",
+            "Hoth, Tatooine",
+            "Jakku, Yavin IV",
+            "Mustafar, Jakku",
+            "Anoat, Sullust"     
+            
+        };
+
+        for (String connection : connections) {
+            String[] planets = connection.split(", ");
+            for (int i = 0; i < planets.length - 1; i++) {
+                Point start = planetMap.get(planets[i]);
+                Point end = planetMap.get(planets[i + 1]);
+                if (start != null && end != null) {
+                    drawDottedLine(g, start, end);
+                }
             }
         }
     }
+    private Map<String, Point> createPlanetMap() {
+    Map<String, Point> planetMap = new HashMap<>();
+    for (int i = 0; i < planetPositions.length; i++) {
+        for (int j = 0; j < planetPositions[i].length; j++) {
+            String planetName = planetNames[i * planetPositions[i].length + j];
+            Point planetPos = planetPositions[i][j];
+            planetMap.put(planetName, planetPos);
+        }
+    }
+    return planetMap;
+}   
+
+    private void drawDottedLine(Graphics g, Point start, Point end) {
+        Graphics2D g2d = (Graphics2D) g;
+        float[] dashingPattern = {2, 2};
+        Stroke stroke = new BasicStroke(1, BasicStroke.CAP_BUTT,
+                BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 2.0f);
+    
+        g2d.setStroke(stroke);
+        g2d.drawLine(start.x, start.y, end.x, end.y);
+    }
+
+
 
 }
 

@@ -15,6 +15,10 @@ public class Player
     private String name;
     private int soldiers;
     private int reinforceableSoldiers;
+    private int bonusSoldiers;
+
+    
+
     private int playerNumber;
     private List<Planet> planetsOwned;
     private int fortifySoldiers;
@@ -36,13 +40,23 @@ public class Player
 
     private PlayerTurnState currentState;
 
+    
+
+    
+
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
         this.color = color;
         this.playerNumber = playerNumber;
         this.soldiers = 15;  
+        this.bonusSoldiers = 3;
+        this.reinforceableSoldiers = bonusSoldiers;
     }
     
+
+    
+
+
         public Color getColor() {
             return color;
         }
@@ -84,32 +98,59 @@ public class Player
             this.reinforceableSoldiers = reinforceableSoldiers;
         }
 
-        public int getReinforceableSoldiers(){
-            return this.reinforceableSoldiers;
-        }
+    public int getReinforceableSoldiers(){
+        return this.reinforceableSoldiers;
+    }
 
-        public void removeReinforceableSoldiers(int reinforceableSoldiers){
-            this.reinforceableSoldiers -= reinforceableSoldiers;
-        }
+    public void removeReinforceableSoldiers(int reinforceableSoldiers){
+        this.reinforceableSoldiers -= reinforceableSoldiers;
+    }
 
-        public List<Planet> getPlanetsOwned() {
-            return planetsOwned;
-        }
+    public List<Planet> getPlanetsOwned() {
+        return planetsOwned;
+    }
 
-        public void setPlanetsOwned(List<Planet> planetsOwned) {
-            this.planetsOwned = planetsOwned;
-        }
+    public void setPlanetsOwned(List<Planet> planetsOwned) {
+        this.planetsOwned = planetsOwned;
+    }
 
-        public void setState(PlayerTurnState state){
-            this.currentState = state;
-        }
+    public void setState(PlayerTurnState state){
+        this.currentState = state;
+    }
 
-        public void placeSoldiers(int numberOfSoldiers, Planet planet){
-            currentState.placeSoldiers(this, numberOfSoldiers, planet);
-        }
+    public void placeSoldiers(int numberOfSoldiers, Planet planet){
+        currentState.placeSoldiers(this, numberOfSoldiers, planet);
+    }
 
-        public void attack(Planet fromPlanet, Planet toPlanet){
-            currentState.attack(this, fromPlanet, toPlanet);
+    public void attack(Planet fromPlanet, Planet toPlanet){
+        currentState.attack(this, fromPlanet, toPlanet);
+    }
+
+    public int getBonusSoldiers() {
+        return bonusSoldiers;
+    }
+
+    public void setBonusSoldiers(int bonusSoldiers) {
+        this.bonusSoldiers = bonusSoldiers;
+    }
+
+    public int getPlayerNumber() {
+    return playerNumber;
+    }
+
+    public int getFortifySoldiers() {
+        return fortifySoldiers;
+    }
+    
+
+        public PlayerTurnState getCurrentState() {
+            return currentState;
+        }
+}
+
+
+        public PlayerTurnState getCurrentState() {
+            return currentState;
         }
             public ImageIcon getPlayerImage() {
         return playerImage;

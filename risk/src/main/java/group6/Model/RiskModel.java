@@ -9,12 +9,10 @@ import java.awt.Color;
 import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class RiskModel {
@@ -23,6 +21,7 @@ public class RiskModel {
     private Board board;
     private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
+    private int currentPlayerIndex;
 
     public RiskModel(){
 
@@ -56,7 +55,7 @@ public class RiskModel {
             InputStream sunpointStream = getClass().getClassLoader().getResourceAsStream("textfiles/solarPoints.txt");
             BufferedReader sunreaderPoint = new BufferedReader(new InputStreamReader(sunpointStream));
             while ((line = sunreaderPoint.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = line.split(",");       
                 int x = Integer.parseInt(parts[0].trim());
                 int y = Integer.parseInt(parts[1].trim());
                 listOfSunPositions.add(new Point(x, y));
@@ -109,15 +108,15 @@ public class RiskModel {
             for(int i = 0; i < playerNames.size(); i++){
 
                 players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+                nmbrOfPlayers++;
 
             }
-            
-            
 
             readerplanet.close();
             readerPoint.close();
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
+            
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
         // Handle the case where a file wasn't found, such as logging or user notification
@@ -132,11 +131,8 @@ public class RiskModel {
 
     public void distributePlanets(){
         List<Planet> shuffledPlanets = getShuffledPlanets();
-
         initializePlayersReinforceableSoldiers();
-
         evenlyDistributeInitalPlanets(shuffledPlanets);
-
         distributeRemainingSoldiers(shuffledPlanets);
     }
 
@@ -160,11 +156,10 @@ public class RiskModel {
             players.get(i).removeReinforceableSoldiers(1);
 
         }
-
     }
 
     private void distributeRemainingSoldiers(List<Planet> planets){
-        int i = 0; // Start from the beginning of the planet list
+        int i = 0;
         while (playersHaveReinforceableSoldiers()) {
             Player currentPlayer = players.get(i % players.size());
             Planet currentPlanet = planets.get(i % planets.size());
@@ -185,6 +180,31 @@ public class RiskModel {
             }
             return false;
     }
+    
+
+    public boolean isOwned(Ownable ownable, Player player){
+        return playerOwnership.isOwned(ownable, player);
+    }
+
+    public void reinforce(int soldiersPlaced, String planetName) {
+        Player currentPlayer = getCurrentPlayer();
+        
+        int soldiersLeft = currentPlayer.getReinforceableSoldiers() - soldiersPlaced;
+        currentPlayer.setReinforceableSoldiers(soldiersLeft);
+    
+        int totalSoldiers = currentPlayer.getSoldiers() + soldiersPlaced;
+        currentPlayer.setSoldiers(totalSoldiers);
+
+        Planet planet = getPlanetByName(planetName);
+        planet.addSoldiers(soldiersPlaced);
+
+        if(soldiersLeft == 0){
+            // Next state - Booleans?
+        }
+
+    }
+    
+    
 
     public void addPlayer(Player player){
         players.add(player);
@@ -217,7 +237,26 @@ public class RiskModel {
         return board.getSolarPositions();
     }
         
-    
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayerIndex);
+    }
+
+    private void nextPlayer(Player currentPlayer){
+        int currentPlayerInt = currentPlayer.getPlayerNumber();
+        currentPlayer = getPlayer((currentPlayerInt + 1) % getnmbrOfPlayers());
+    }
+
+    public int getCurrentPlayersFortifySoldiers(){
+        return this.getCurrentPlayer().getFortifySoldiers();
+    }
+
+    public int getCurrentPlayersReinforcableSoldier(){
+        return this.getCurrentPlayer().getReinforceableSoldiers();
+    }
+
+    private void setCurrentPlayersReinforcableSoldier(int soldiers){
+        getCurrentPlayer().setReinforceableSoldiers(soldiers);
+    }
 
     private Point parsePoint(String str) {
         String[] parts = str.split(",");
@@ -225,6 +264,36 @@ public class RiskModel {
         int y = Integer.parseInt(parts[1].trim());
         return new Point(x, y);
     }
-    
-    
+
+    public ArrayList<Planet> getAdjecentPlanets(Planet planet){
+        return planet.getAdjecePlanets();
+    }
+
+
+    public String[] getOwnedAdjecentPlanets(String planet){
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(board.getPlanetByName(planet));
+        ArrayList<Ownable> playersOwnables = playerOwnership.getPlayersOwnables(this.getCurrentPlayer());
+        ArrayList<String> ownedAdjecentPlanets = new ArrayList<>();
+
+        for (Planet adjacentPlanet : adjacentPlanets) {
+            if (playersOwnables.contains(adjacentPlanet)) {
+                ownedAdjecentPlanets.add(adjacentPlanet.getName());
+            }
+        }
+
+        return ownedAdjecentPlanets.toArray(new String[0]);
+    }
+
+    public int getPlanetsSoldiers(String planet){
+        return board.getPlanetByName(planet).getSoldiers();
+    }
+
+    public Planet getPlanetByName(String planet){
+        return board.getPlanetByName(planet);
+    }
+
+    public void ReinforcePlanet(String planet, int soldiers){
+        Planet rPlanet = getPlanetByName(planet);
+        rPlanet.addSoldiers(soldiers);
+    }
 }

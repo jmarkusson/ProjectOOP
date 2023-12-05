@@ -20,9 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javafx.event.ActionEvent;
-import javafx.scene.paint.Color;
-
 public class GameOptionsView extends JFrame {
 
     JPanel mainPanel;
