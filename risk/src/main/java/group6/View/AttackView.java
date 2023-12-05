@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.text.Position;
 
 import group6.Model.Planet;
-import javafx.scene.layout.Border;
+
 
 import javax.swing.JComboBox;
 
