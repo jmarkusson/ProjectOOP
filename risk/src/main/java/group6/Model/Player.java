@@ -102,30 +102,30 @@ public class Player
         currentState.placeSoldiers(this, numberOfSoldiers, planet);
     }
 
-        public void attack(Planet fromPlanet, Planet toPlanet){
-            currentState.attack(this, fromPlanet, toPlanet);
-        }
+    public void attack(Planet fromPlanet, Planet toPlanet){
+        currentState.attack(this, fromPlanet, toPlanet);
+    }
 
-        public int getBonusSoldiers() {
-            return bonusSoldiers;
-        }
+    public int getBonusSoldiers() {
+        return bonusSoldiers;
+    }
 
-        public void setBonusSoldiers(int bonusSoldiers) {
-            this.bonusSoldiers = bonusSoldiers;
-        }
+    public void setBonusSoldiers(int bonusSoldiers) {
+        this.bonusSoldiers = bonusSoldiers;
+    }
 
-        public int getPlayerNumber() {
-        return playerNumber;
-        }
+    public int getPlayerNumber() {
+    return playerNumber;
+    }
 
-        public int getFortifySoldiers() {
-            return fortifySoldiers;
-        }
-        
+    public int getFortifySoldiers() {
+        return fortifySoldiers;
+    }
+    
 
-        public PlayerTurnState getCurrentState() {
-            return currentState;
-        }
+    public PlayerTurnState getCurrentState() {
+        return currentState;
+    }
 }
 
 
