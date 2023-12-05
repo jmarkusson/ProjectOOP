@@ -3,6 +3,8 @@ package group6.Model;
 
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import java.awt.Color;
 
 public class Player
@@ -12,6 +14,7 @@ public class Player
     private int soldiers;
     private int reinforceableSoldiers;
     private int bonusSoldiers;
+    private ImageIcon playerImage;
 
     
 
@@ -33,6 +36,10 @@ public class Player
         this.reinforceableSoldiers = bonusSoldiers;
     }
     
+
+    
+
+
         public Color getColor() {
             return color;
         }
@@ -109,7 +116,16 @@ public class Player
     }
     
 
-   
+
+    public ImageIcon getPlayerImage() {
+        return playerImage;
+    }
+    
+    public void setPlayerImage(ImageIcon playerImage) {
+    this.playerImage = playerImage;
+    }
+            
+
 }
 
 
