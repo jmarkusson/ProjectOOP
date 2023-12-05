@@ -76,50 +76,50 @@ public class Player
             this.reinforceableSoldiers = reinforceableSoldiers;
         }
 
-        public int getReinforceableSoldiers(){
-            return this.reinforceableSoldiers;
-        }
+    public int getReinforceableSoldiers(){
+        return this.reinforceableSoldiers;
+    }
 
-        public void removeReinforceableSoldiers(int reinforceableSoldiers){
-            this.reinforceableSoldiers -= reinforceableSoldiers;
-        }
+    public void removeReinforceableSoldiers(int reinforceableSoldiers){
+        this.reinforceableSoldiers -= reinforceableSoldiers;
+    }
 
-        public List<Planet> getPlanetsOwned() {
-            return planetsOwned;
-        }
+    public List<Planet> getPlanetsOwned() {
+        return planetsOwned;
+    }
 
-        public void setPlanetsOwned(List<Planet> planetsOwned) {
-            this.planetsOwned = planetsOwned;
-        }
+    public void setPlanetsOwned(List<Planet> planetsOwned) {
+        this.planetsOwned = planetsOwned;
+    }
 
-        public void setState(PlayerTurnState state){
-            this.currentState = state;
-        }
+    public void setState(PlayerTurnState state){
+        this.currentState = state;
+    }
 
-        public void placeSoldiers(int numberOfSoldiers, Planet planet){
-            currentState.placeSoldiers(this, numberOfSoldiers, planet);
-        }
+    public void placeSoldiers(int numberOfSoldiers, Planet planet){
+        currentState.placeSoldiers(this, numberOfSoldiers, planet);
+    }
 
-        public void attack(Planet fromPlanet, Planet toPlanet){
-            currentState.attack(this, fromPlanet, toPlanet);
-        }
+    public void attack(Planet fromPlanet, Planet toPlanet){
+        currentState.attack(this, fromPlanet, toPlanet);
+    }
 
-        public int getBonusSoldiers() {
-            return bonusSoldiers;
-        }
+    public int getBonusSoldiers() {
+        return bonusSoldiers;
+    }
 
-        public void setBonusSoldiers(int bonusSoldiers) {
-            this.bonusSoldiers = bonusSoldiers;
-        }
+    public void setBonusSoldiers(int bonusSoldiers) {
+        this.bonusSoldiers = bonusSoldiers;
+    }
 
-        public int getPlayerNumber() {
-        return playerNumber;
-        }
+    public int getPlayerNumber() {
+    return playerNumber;
+    }
 
-        public int getFortifySoldiers() {
-            return fortifySoldiers;
-        }
-        
+    public int getFortifySoldiers() {
+        return fortifySoldiers;
+    }
+    
 
         public PlayerTurnState getCurrentState() {
             return currentState;
