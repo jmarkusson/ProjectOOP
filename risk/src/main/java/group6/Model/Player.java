@@ -3,6 +3,8 @@ package group6.Model;
 
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import group6.Model.Interfaces.PlayerTurnState;
 
 import java.awt.Color;
@@ -20,6 +22,22 @@ public class Player
     private int playerNumber;
     private List<Planet> planetsOwned;
     private int fortifySoldiers;
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public int getFortifySoldiers() {
+        return fortifySoldiers;
+    }
+
+    public PlayerTurnState getCurrentState() {
+        return currentState;
+    }
+    private ImageIcon playerImage;
+
+
+
     private PlayerTurnState currentState;
 
     
@@ -35,6 +53,10 @@ public class Player
         this.reinforceableSoldiers = bonusSoldiers;
     }
     
+
+    
+
+
         public Color getColor() {
             return color;
         }
@@ -124,6 +146,21 @@ public class Player
         public PlayerTurnState getCurrentState() {
             return currentState;
         }
+}
+
+
+        public PlayerTurnState getCurrentState() {
+            return currentState;
+        }
+            public ImageIcon getPlayerImage() {
+        return playerImage;
+        }
+        
+        public void setPlayerImage(ImageIcon playerImage) {
+        this.playerImage = playerImage;
+        }
+                
+
 }
 
 
