@@ -38,6 +38,8 @@ public class ReinforceView extends JFrame {
 
         mainPanel.add(soldiersAmountBox);
         mainPanel.add(addButton);
+        
+        add(mainPanel);
 
 		pack();
 		setVisible(true);
