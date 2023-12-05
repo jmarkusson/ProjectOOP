@@ -204,9 +204,7 @@ public class RiskModel {
 
     }
     
-    public Planet getPlanetByName(String planetName){
-        return board.getPlanetByName(planetName);
-    }
+    
 
     public void addPlayer(Player player){
         players.add(player);
