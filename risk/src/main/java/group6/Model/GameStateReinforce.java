@@ -18,5 +18,10 @@ public class GameStateReinforce implements GameState{
        ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
        ReinforceController controller = new ReinforceController(model, reinforceView);
     }
+
+    @Override
+    public int getIndex() {
+        return 0;
+    }
     
 }
