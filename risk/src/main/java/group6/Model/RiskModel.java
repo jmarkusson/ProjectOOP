@@ -274,6 +274,13 @@ public class RiskModel {
     public int getPlanetsSoldiers(String planet){
         return board.getPlanetByName(planet).getSoldiers();
     }
-    
-    
+
+    public Planet getPlanetByName(String planet){
+        return board.getPlanetByName(planet);
+    }
+
+    public void ReinforcePlanet(String planet, int soldiers){
+        Planet rPlanet = getPlanetByName(planet);
+        rPlanet.addSoldiers(soldiers);
+    }
 }
