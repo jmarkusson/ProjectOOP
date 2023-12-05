@@ -19,7 +19,7 @@ public class RiskModel {
 
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
-    private int nmbrOfPlayers;
+    private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
 
@@ -266,12 +266,12 @@ public class RiskModel {
     }
 
     public ArrayList<Planet> getAdjecentPlanets(Planet planet){
-        return planet.getAdjecePlanets();
+        return planet.getAdjecentPlanets();
     }
 
 
     public String[] getOwnedAdjecentPlanets(String planet){
-        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(board.getPlanetByName(planet));
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(getPlanetByName(planet));
         ArrayList<Ownable> playersOwnables = playerOwnership.getPlayersOwnables(this.getCurrentPlayer());
         ArrayList<String> ownedAdjecentPlanets = new ArrayList<>();
 

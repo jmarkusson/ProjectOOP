@@ -8,13 +8,10 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-
-import group6.Model.Player;
 import group6.Model.RiskModel;
 import group6.View.BoardView;
 import group6.View.GameOptionsView;
 import group6.View.GameView;
-import group6.View.PlayerStateView;
 import group6.View.PlayerView;
 
 public class GameOptionsController implements ActionListener{
@@ -66,13 +63,11 @@ public class GameOptionsController implements ActionListener{
                 playerViews.add(new PlayerView(model.getPlayer(i)));
             }
             view.dispose();
-            PlayerStateView playerStateView = new PlayerStateView();
-            playerStateView.addController(new PlayerStateController(playerStateView, model));
             BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions());
             
-            BoardViewController boardViewController = new BoardViewController(model, boardview);
+            BoardController boardViewController = new BoardController(model, boardview);
             
-            GameView gameView = new GameView(boardview, playerViews, playerStateView);
+            GameView gameView = new GameView(boardview, playerViews);
     
             } 
             
