@@ -63,7 +63,9 @@ public class Board {
 
             for (int j = 1; j < onePlanetAdjacanecies.length; j++){
 
-                adjacentPlanets.add(planetMap.get(onePlanetAdjacanecies[j]));
+                String oneAdjacentPlanetName = onePlanetAdjacanecies[j];
+                Planet oneAdjacentPlanet = planetMap.get(oneAdjacentPlanetName);
+                adjacentPlanets.add(oneAdjacentPlanet);
 
             }
 
