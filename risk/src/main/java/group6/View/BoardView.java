@@ -83,9 +83,12 @@ public class BoardView extends JPanel {
         this.revalidate();
         this.repaint();
     }
-    public void updatePlanetValue(String planetName, int newValue) {
+    public void updatePlanetValue(String planetName, int numberToChange) {
         JLabel label = planetLabels.get(planetName);
         if (label != null) {
+            int currentValue = Integer.parseInt(label.getText());
+            int newValue = currentValue + numberToChange;
+            
             label.setText(String.valueOf(newValue));
         }
         this.repaint(); // Refresh the display
