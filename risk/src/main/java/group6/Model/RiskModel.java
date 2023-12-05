@@ -203,8 +203,30 @@ public class RiskModel {
         }
 
     }
-    
-    
+    public Boolean isReinforceDone(){
+        Boolean reinforceDone = false;
+        Player currentPlayer = getCurrentPlayer();
+
+        if(currentPlayer.getReinforceableSoldiers() == 0){
+            reinforceDone = true;
+            // Set Reinforcable Soldier back to the amount of bonustroops so it is correct at the start of the next round
+            currentPlayer.setReinforceableSoldiers(currentPlayer.getBonusSoldiers());
+
+        }
+
+        return reinforceDone;
+    }
+
+    public void attack(int attackSoldiers, int defendSoldiers, String attackPlanetName, String defendPlanetName){
+        Player currentPlayer = getCurrentPlayer();
+
+        Planet attackPlanet = getPlanetByName(attackPlanetName);
+        Planet defendPlanet = getPlanetByName(defendPlanetName);
+
+
+
+
+    }
 
     public void addPlayer(Player player){
         players.add(player);
