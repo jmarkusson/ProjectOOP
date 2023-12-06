@@ -134,7 +134,7 @@ public class BoardView extends JPanel {
             int size = sunSizes[i]; // Use the corresponding size from sunSizes array
             g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
         }
-        // Draw the planets
+        // Draw the planets 
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
