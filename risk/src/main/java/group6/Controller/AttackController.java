@@ -12,7 +12,7 @@ public class AttackController implements ActionListener {
     private AttackView attackView;
     private RiskModel rModel;
     
-    AttackController (AttackView attackView, RiskModel rModel)
+    public AttackController (AttackView attackView, RiskModel rModel)
     {
         this.attackView = attackView;
         this.rModel = rModel;
