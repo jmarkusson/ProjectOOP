@@ -17,13 +17,12 @@ public class GameView extends JFrame {
     private BoardView boardView;
     private ArrayList<PlayerView> playerViews;
     private JPanel playerPanel;
-    private PlayerStateView playerStateView;
     
-    public GameView(BoardView boardView, ArrayList<PlayerView> playerViews, PlayerStateView playerStateView){
+    public GameView(BoardView boardView, ArrayList<PlayerView> playerViews){
 
         this.boardView = boardView;
         this.playerViews = playerViews;
-        this.playerStateView = playerStateView;
+
 
        
         setTitle("Java-Risk");
@@ -38,7 +37,7 @@ public class GameView extends JFrame {
             playerPanel.add(playerView);
         }
         add(this.playerPanel, BorderLayout.EAST);
-        add(this.playerStateView, BorderLayout.SOUTH);
+       
 
         setSize(1200, 800);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

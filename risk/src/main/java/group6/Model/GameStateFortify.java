@@ -26,5 +26,10 @@ public class GameStateFortify implements GameState {
         fortifyController = new FortifyController(model, fortifyView);
 
     }
+
+    @Override
+    public int getIndex() {
+        return 2;
+    }
     
 }

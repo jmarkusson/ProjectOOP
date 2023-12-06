@@ -15,5 +15,10 @@ public class GameStateAttack implements GameState {
         AttackController attackCtrl = new AttackController(attackVw, model);
 
     }
+
+    @Override
+    public int getIndex() {
+        return 1;
+    }
     
 }

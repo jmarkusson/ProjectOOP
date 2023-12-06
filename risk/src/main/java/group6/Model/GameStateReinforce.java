@@ -11,12 +11,17 @@ public class GameStateReinforce implements GameState{
         
         Integer[] soldiersArray = new Integer[model.getCurrentPlayersReinforcableSoldier() + 1];
 
-        for (int i = 0; i < model.getCurrentPlayersReinforcableSoldier(); i++) {
+        for (int i = 1; i <= model.getCurrentPlayersReinforcableSoldier(); i++) {
             soldiersArray[i] = i;
         }
 
        ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
        ReinforceController controller = new ReinforceController(model, reinforceView);
+    }
+
+    @Override
+    public int getIndex() {
+        return 0;
     }
     
 }

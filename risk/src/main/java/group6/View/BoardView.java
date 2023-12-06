@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,10 @@ public class BoardView extends JPanel {
     private String[] planetNames;
     private Map<String, JLabel> planetLabels;
     
-    
+    private JButton nextButton;
+    private JLabel currentStateLabel;
+
+    private ArrayList<String> states;
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
@@ -35,6 +39,10 @@ public class BoardView extends JPanel {
         planetLabels = new HashMap<>();
         this.setLayout(null);
         setPreferredSize(new Dimension(200,200));
+        states = new ArrayList<>();
+        states.add("REINFORCE");
+        states.add("ATTACK");
+        states.add("FORTIFY");
     }
 
     public void update() {
@@ -47,6 +55,7 @@ public class BoardView extends JPanel {
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
+                
                 String planetName = planetNames[i * planetPositions[i].length + j];
                 int buttonSize = planetSizes[j] + 27; // Use the corresponding size from planetSizes array
                 JButton planetButton = new JButton(planetName);
@@ -78,38 +87,55 @@ public class BoardView extends JPanel {
                 planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
                 planetButton.setVerticalTextPosition(SwingConstants.CENTER);
             }
-        }
+        }  
+        this.nextButton = new JButton("NEXT STATE");
+        this.nextButton.setActionCommand("NEXT");
+        this.nextButton.setBounds(700, 700, 200, 50);
+        this.currentStateLabel = new JLabel(states.get(0));
+        this.currentStateLabel.setBounds(800, 50, 500, 100);
+        this.currentStateLabel.setSize(new Dimension(100,100));
+        this.currentStateLabel.setForeground(Color.WHITE);
+        this.nextButton.addActionListener(controller);
+
+        add(nextButton);
+        add(currentStateLabel);
 
         this.revalidate();
         this.repaint();
     }
-    public void updatePlanetValue(String planetName, int newValue) {
+
+    public void updateCurrentStateLabel(int currentState){
+        this.currentStateLabel.setText(states.get(currentState));
+    }
+
+    public void updatePlanetValue(String planetName, int numberToChange) {
         JLabel label = planetLabels.get(planetName);
         if (label != null) {
+            int currentValue = Integer.parseInt(label.getText());
+            int newValue = currentValue + numberToChange;
+            
             label.setText(String.valueOf(newValue));
         }
-        this.repaint(); // Refresh the display
+        this.repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         setBackground(Color.BLACK);
-        //Draw the stars
         g.setColor(Color.WHITE);
-        for (int z = 0; z < 200; z++) { // Draw 200 stars
+        for (int z = 0; z < 200; z++) { 
         int x = (int)(Math.random() * getWidth());
         int y = (int)(Math.random() * getHeight());
         g.fillOval(x, y, 2, 2); // Each star is a small dot
         }
-        // Draw the suns
         g.setColor(Color.YELLOW);
         for (int i = 0; i < sunPositions.length; i++) {
             Point sunPosition = sunPositions[i];
             int size = sunSizes[i]; // Use the corresponding size from sunSizes array
             g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
         }
-        // Draw the planets
+        // Draw the planets 
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
