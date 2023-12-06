@@ -263,9 +263,8 @@ public class RiskModel {
         return players.get(currentPlayerIndex);
     }
 
-    private void nextPlayer(Player currentPlayer){
-        int currentPlayerInt = currentPlayer.getPlayerNumber();
-        currentPlayer = getPlayer((currentPlayerInt + 1) % getnmbrOfPlayers());
+    public void nextPlayer(){
+        this.currentPlayerIndex = (currentPlayerIndex + 1) % getnmbrOfPlayers();
     }
 
     public int getCurrentPlayersFortifySoldiers(){
