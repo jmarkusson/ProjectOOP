@@ -112,6 +112,8 @@ public class RiskModel {
 
             }
 
+            distributePlanets();
+
             readerplanet.close();
             readerPoint.close();
             readerSolarSystems.close();
@@ -151,9 +153,13 @@ public class RiskModel {
 
     private void evenlyDistributeInitalPlanets(List<Planet> planets){
         for (int i = 0; i < planets.size(); i++){
-            playerOwnership.assignOwnership(planets.get(i), players.get(i % players.size()));
-            planets.get(i).addSoldiers(1);
-            players.get(i).removeReinforceableSoldiers(1);
+            Planet currentPlanet = planets.get(i);
+            Player currentPlayer = players.get(i % players.size());
+
+            playerOwnership.assignOwnership(currentPlanet, currentPlayer);
+
+            currentPlanet.addSoldiers(1);
+            currentPlayer.removeReinforceableSoldiers(1);
 
         }
     }
