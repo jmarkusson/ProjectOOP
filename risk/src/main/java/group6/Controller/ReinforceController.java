@@ -30,7 +30,8 @@ public class ReinforceController implements ActionListener {
             this.soldiersAmount = source.getSelectedIndex();  
         }
         else if(e.getActionCommand().equals("addsoldiers")){
-                model.ReinforcePlanet(view.getplanetName(), soldiersAmount);
+            model.ReinforcePlanet(view.getplanetName(), soldiersAmount);
+            view.dispose();
         }
     }
     

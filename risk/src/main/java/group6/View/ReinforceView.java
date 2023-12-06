@@ -50,6 +50,11 @@ public class ReinforceView extends JFrame {
     public String getplanetName(){
         return planetName;
     }
+
+    public JComboBox getComboBox(){
+        return soldiersAmountBox;
+    }
+
     public void addController(ActionListener controller){
         soldiersAmountBox.addActionListener(controller);
         addButton.addActionListener(controller);
