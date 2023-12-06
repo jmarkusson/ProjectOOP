@@ -322,6 +322,7 @@ public class RiskModel {
 
     public void ReinforcePlanet(String planet, int soldiers){
         Planet rPlanet = getPlanetByName(planet);
+        this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
     }
 }

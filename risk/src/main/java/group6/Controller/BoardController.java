@@ -15,9 +15,6 @@ public class BoardController implements ActionListener{
     
     private RiskModel model;
     private BoardView view;
-    private String[] planetNames;
-    private Point[][] planetPositions;
-    private Point[] solarPositions;
     private GameState currentGameState;
     private int gameStateIndex;
     private ArrayList<GameState> gameStates;
@@ -27,9 +24,6 @@ public class BoardController implements ActionListener{
     protected BoardController(RiskModel model, BoardView view){
         this.model = model;
         this.view = view;
-        this.planetNames = model.getPlanetNames();
-        this.planetPositions = model.getPlanetPositions();
-        this.solarPositions = model.getSolarPositions();
         gameStates = new ArrayList<>();
         gameStates.add(new GameStateReinforce());
         gameStates.add(new GameStateAttack());
@@ -47,13 +41,20 @@ public class BoardController implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    
         if(e.getActionCommand().equals("NEXT")){
-            gameStateIndex = (gameStateIndex + 1) % 3;
-            view.updateCurrentStateLabel(gameStateIndex);
-            setCurrentGameState(gameStateIndex);
+            if(model.isReinforceDone()){
+                gameStateIndex = (gameStateIndex + 1) % 3;
+                view.updateCurrentStateLabel(gameStateIndex);
+                setCurrentGameState(gameStateIndex);
+                
+            }
+            else{
+                System.out.println("U R NOT DONE!");
+            }
         }
         else {
-        currentGameState.initState(model, e.getActionCommand());
+            currentGameState.initState(model, e.getActionCommand());
         }
     }
 }
