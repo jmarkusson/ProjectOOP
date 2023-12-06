@@ -136,6 +136,7 @@ public class RiskModel {
         initializePlayersReinforceableSoldiers();
         evenlyDistributeInitalPlanets(shuffledPlanets);
         distributeRemainingSoldiers(shuffledPlanets);
+        resetAllReinforcableSoldierForNextTurn();
     }
 
     private List<Planet> getShuffledPlanets(){
@@ -158,8 +159,7 @@ public class RiskModel {
 
             playerOwnership.assignOwnership(currentPlanet, currentPlayer);
 
-            currentPlanet.addSoldiers(1);
-            currentPlayer.removeReinforceableSoldiers(1);
+            putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
 
         }
     }
@@ -171,13 +171,12 @@ public class RiskModel {
             Planet currentPlanet = planets.get(i % planets.size());
 
             if (currentPlayer.getReinforceableSoldiers() > 0) {
-                currentPlanet.addSoldiers(1);
-                currentPlayer.removeReinforceableSoldiers(1);
+                putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
             }
             i++;
         }
     }
-
+    // check this
     private boolean playersHaveReinforceableSoldiers(){
             for (Player player : players){
                 if (player.getReinforceableSoldiers() > 0){
@@ -185,6 +184,11 @@ public class RiskModel {
                 }
             }
             return false;
+    }
+
+    private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
+            planet.addSoldiers(soldiers);
+            player.removeReinforceableSoldiers(soldiers);
     }
     
 
@@ -204,11 +208,8 @@ public class RiskModel {
         Planet planet = getPlanetByName(planetName);
         planet.addSoldiers(soldiersPlaced);
 
-        if(soldiersLeft == 0){
-            // Next state - Booleans?
-        }
-
     }
+
     public Boolean isReinforceDone(){
         Boolean reinforceDone = false;
         Player currentPlayer = getCurrentPlayer();
@@ -216,11 +217,21 @@ public class RiskModel {
         if(currentPlayer.getReinforceableSoldiers() == 0){
             reinforceDone = true;
             // Set Reinforcable Soldier back to the amount of bonustroops so it is correct at the start of the next round
-            currentPlayer.setReinforceableSoldiers(currentPlayer.getBonusSoldiers());
+            resetReinforcableSoldierForNextTurn(currentPlayer);
 
         }
 
         return reinforceDone;
+    }
+
+    private void resetReinforcableSoldierForNextTurn(Player player){
+        player.setReinforceableSoldiers(player.getBonusSoldiers());
+    }
+
+    private void resetAllReinforcableSoldierForNextTurn(){
+        for (Player player : players){
+            resetReinforcableSoldierForNextTurn(player);
+        }
     }
 
     public void attack(int attackSoldiers, int defendSoldiers, String attackPlanetName, String defendPlanetName){
