@@ -23,17 +23,6 @@ public class Player
     private List<Planet> planetsOwned;
     private int fortifySoldiers;
 
-    public int getPlayerNumber() {
-        return playerNumber;
-    }
-
-    public int getFortifySoldiers() {
-        return fortifySoldiers;
-    }
-
-    public PlayerTurnState getCurrentState() {
-        return currentState;
-    }
     private ImageIcon playerImage;
 
 
@@ -143,23 +132,18 @@ public class Player
     }
     
 
-        public PlayerTurnState getCurrentState() {
-            return currentState;
-        }
-}
 
-
-        public PlayerTurnState getCurrentState() {
-            return currentState;
-        }
-            public ImageIcon getPlayerImage() {
-        return playerImage;
-        }
-        
-        public void setPlayerImage(ImageIcon playerImage) {
-        this.playerImage = playerImage;
-        }
-                
+    public PlayerTurnState getCurrentState() {
+        return currentState;
+    }
+        public ImageIcon getPlayerImage() {
+    return playerImage;
+    }
+    
+    public void setPlayerImage(ImageIcon playerImage) {
+    this.playerImage = playerImage;
+    }
+            
 
 }
 

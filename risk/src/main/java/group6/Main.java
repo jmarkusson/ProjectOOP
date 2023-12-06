@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
         MainMenuView view = new MainMenuView();
         RiskModel model = new RiskModel();
-        AttackView attackView = new AttackView();
 
         MainMenuController controller = new MainMenuController(model, view);
     }
