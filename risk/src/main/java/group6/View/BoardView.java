@@ -55,6 +55,7 @@ public class BoardView extends JPanel {
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
+                
                 String planetName = planetNames[i * planetPositions[i].length + j];
                 int buttonSize = planetSizes[j] + 27; // Use the corresponding size from planetSizes array
                 JButton planetButton = new JButton(planetName);
