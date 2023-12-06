@@ -19,8 +19,6 @@ public class BoardController implements ActionListener{
     private int gameStateIndex;
     private ArrayList<GameState> gameStates;
     
-    
-
     protected BoardController(RiskModel model, BoardView view){
         this.model = model;
         this.view = view;
@@ -33,8 +31,6 @@ public class BoardController implements ActionListener{
         setCurrentGameState(gameStateIndex);
     }
 
-
-
     public void setCurrentGameState(int gameStateIndex){
         currentGameState = gameStates.get(gameStateIndex);
     }
@@ -43,14 +39,18 @@ public class BoardController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
     
         if(e.getActionCommand().equals("NEXT")){
-            if(model.isReinforceDone()){
+            
+            if(gameStateIndex == 0 && !model.isReinforceDone()){
+                System.out.println("U R NOT DONE!");
+            }
+            else{
                 gameStateIndex = (gameStateIndex + 1) % 3;
                 view.updateCurrentStateLabel(gameStateIndex);
                 setCurrentGameState(gameStateIndex);
-                
-            }
-            else{
-                System.out.println("U R NOT DONE!");
+
+                if(gameStateIndex == 2){
+                    model.nextPlayer();
+                }
             }
         }
         else {
