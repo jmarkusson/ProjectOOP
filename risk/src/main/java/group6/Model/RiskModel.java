@@ -2,6 +2,7 @@ package group6.Model;
 
 
 import java.util.List;
+import java.util.Map;
 
 import group6.Model.Interfaces.Ownable;
 
@@ -14,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class RiskModel {
 
@@ -22,6 +24,8 @@ public class RiskModel {
     private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
+    private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
+    
 
     public RiskModel(){
 
@@ -99,8 +103,6 @@ public class RiskModel {
                 list.add(line);
             }
             String[] adjacenciesArray = list.toArray(new String[0]);
-
-            //Create the board
             succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
 
             players = new ArrayList<Player>();
@@ -121,10 +123,8 @@ public class RiskModel {
             
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
-        // Handle the case where a file wasn't found, such as logging or user notification
     } catch (IOException e) {
         System.err.println("An error occurred while reading from the file: " + e.getMessage());
-        // Handle other I/O errors
     }
 
         return false;
@@ -152,6 +152,10 @@ public class RiskModel {
 
     }
 
+    public Color[] getColors(){
+        return colorChoices;
+    } 
+
     private void evenlyDistributeInitalPlanets(List<Planet> planets){
         for (int i = 0; i < planets.size(); i++){
             Planet currentPlanet = planets.get(i);
@@ -160,6 +164,12 @@ public class RiskModel {
             playerOwnership.assignOwnership(currentPlanet, currentPlayer);
 
             putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
+
+            board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
+                
+            
+            
+            
 
         }
     }
@@ -189,6 +199,7 @@ public class RiskModel {
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
             planet.addSoldiers(soldiers);
             player.removeReinforceableSoldiers(soldiers);
+
     }
     
 
@@ -239,10 +250,6 @@ public class RiskModel {
 
         Planet attackPlanet = getPlanetByName(attackPlanetName);
         Planet defendPlanet = getPlanetByName(defendPlanetName);
-
-
-
-
     }
 
     public void addPlayer(Player player){
@@ -292,7 +299,7 @@ public class RiskModel {
         return this.getCurrentPlayer().getReinforceableSoldiers();
     }
 
-    private void setCurrentPlayersReinforcableSoldier(int soldiers){
+    public void setCurrentPlayersReinforcableSoldier(int soldiers){
         getCurrentPlayer().setReinforceableSoldiers(soldiers);
     }
 
@@ -334,5 +341,9 @@ public class RiskModel {
         Planet rPlanet = getPlanetByName(planet);
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
+    }
+
+    public HashMap<String, Color> getPlanetColorMap(){
+        return board.getPlanetColorMap();
     }
 }

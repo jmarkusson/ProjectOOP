@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import group6.Model.RiskModel;
 import group6.View.BoardView;
@@ -39,7 +40,10 @@ public class GameOptionsController implements ActionListener{
         else if (e.getActionCommand().equals("NEXT")){
             System.out.println("yes");
     
-            view.mainView(model.getnmbrOfPlayers());
+            view.mainView(model.getnmbrOfPlayers(), model.getColors());
+        }
+        else if (e.getActionCommand().equals("colorChooser")){
+
         }
         else if (e.getActionCommand().equals("StartGame")) {
             
@@ -48,13 +52,30 @@ public class GameOptionsController implements ActionListener{
             playerNames = new ArrayList<String>();
             playerColors = new ArrayList<Color>();
 
-            for (int i = 0; i < view.textfields.size(); i++) {
-                JTextField playerNameField = (JTextField) view.textfields.get(i);
+            ArrayList<Color> selectedColors = new ArrayList<>();
+
+            for (int i = 0; i < view.getTextfields().size(); i++) {
+                JTextField playerNameField = view.getTextfields().get(i);
+                JComboBox colorBox = view.getColorBoxes().get(i);
                 String playerName = playerNameField.getText();
+                if(playerName.isEmpty()){
+                    JOptionPane.showMessageDialog(view, "Playername has not been provided", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; 
+                }
+                Color playerColor = (Color) colorBox.getSelectedItem();
+                if (selectedColors.contains(playerColor)) {
+                    JOptionPane.showMessageDialog(view, "Color already selected by another player", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; 
+                }
+
+
+                selectedColors.add(playerColor);
 
                 playerNames.add(playerName);
-                // Hard coded colors for now
-                playerColors.add(Color.RED);
+                playerColors.add(playerColor);
+
+                
+                
             }
 
             model.initGame(playerNames, playerColors);
@@ -63,10 +84,9 @@ public class GameOptionsController implements ActionListener{
                 playerViews.add(new PlayerView(model.getPlayer(i)));
             }
             view.dispose();
-            BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions());
+            BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions(), model.getPlanetColorMap());
             
             BoardController boardViewController = new BoardController(model, boardview);
-            
             GameView gameView = new GameView(boardview, playerViews);
     
             } 
