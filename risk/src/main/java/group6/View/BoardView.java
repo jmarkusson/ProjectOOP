@@ -25,22 +25,19 @@ public class BoardView extends JPanel {
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
-    private Map<String, Color> planetColors;
+    private HashMap<String, Color> planetColors;
 
-    public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions){
+    public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions, HashMap<String, Color> planetColors){
         this.planetNames = planetNames;
         this.planetPositions = planetPositions;
         this.sunPositions = sunPositions;
+        this.planetColors = planetColors;
         planetLabels = new HashMap<>();
         this.setLayout(null);
         setPreferredSize(new Dimension(200,200));
        
 
-        planetColors = new HashMap<>();
-        for (String planetName : planetNames) {
-            // Default color for each planet, change as needed
-            planetColors.put(planetName, Color.getHSBColor(0.7f, 0.7f, 0.9f));
-        }
+        
     }
 
     public void update() {
@@ -207,6 +204,7 @@ public class BoardView extends JPanel {
                 BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 2.0f);
     
         g2d.setStroke(stroke);
+        g2d.setColor(Color.WHITE);
         g2d.drawLine(start.x, start.y, end.x, end.y);
     }
 

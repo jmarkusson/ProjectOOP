@@ -84,7 +84,7 @@ public class GameOptionsController implements ActionListener{
                 playerViews.add(new PlayerView(model.getPlayer(i)));
             }
             view.dispose();
-            BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions());
+            BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions(), model.getPlanetColorMap());
             
             BoardController boardViewController = new BoardController(model, boardview);
             GameView gameView = new GameView(boardview, playerViews);

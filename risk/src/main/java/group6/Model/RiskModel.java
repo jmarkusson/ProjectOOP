@@ -2,6 +2,7 @@ package group6.Model;
 
 
 import java.util.List;
+import java.util.Map;
 
 import group6.Model.Interfaces.Ownable;
 
@@ -14,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class RiskModel {
 
@@ -23,6 +25,7 @@ public class RiskModel {
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
     private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
+    
 
     public RiskModel(){
 
@@ -162,6 +165,12 @@ public class RiskModel {
 
             putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
 
+            board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
+                
+            
+            
+            
+
         }
     }
 
@@ -190,6 +199,7 @@ public class RiskModel {
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
             planet.addSoldiers(soldiers);
             player.removeReinforceableSoldiers(soldiers);
+
     }
     
 
@@ -331,5 +341,9 @@ public class RiskModel {
         Planet rPlanet = getPlanetByName(planet);
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
+    }
+
+    public HashMap<String, Color> getPlanetColorMap(){
+        return board.getPlanetColorMap();
     }
 }
