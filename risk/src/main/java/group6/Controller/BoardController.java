@@ -2,7 +2,6 @@ package group6.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.Point;
 
 import group6.Model.GameStateAttack;
 import group6.Model.GameStateFortify;
@@ -39,7 +38,6 @@ public class BoardController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
     
         if(e.getActionCommand().equals("NEXT")){
-            
             if(gameStateIndex == 0 && !model.isReinforceDone()){
                 System.out.println("U R NOT DONE!");
             }
@@ -48,8 +46,12 @@ public class BoardController implements ActionListener{
                 view.updateCurrentStateLabel(gameStateIndex);
                 setCurrentGameState(gameStateIndex);
 
-                if(gameStateIndex == 2){
+                if (gameStateIndex == 1){
+                    view.setNextButtonLabel();
+                }
+                else if(gameStateIndex == 2){
                     model.nextPlayer();
+
                 }
             }
         }
