@@ -7,16 +7,19 @@ public class GameStateReinforce implements GameState{
 
     @Override
     public void initState(RiskModel model, String planet) {
-        // check if country is owned??
         
+
         Integer[] soldiersArray = new Integer[model.getCurrentPlayersReinforcableSoldier() + 1];
 
         for (int i = 1; i <= model.getCurrentPlayersReinforcableSoldier(); i++) {
             soldiersArray[i] = i;
         }
 
-       ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
-       ReinforceController controller = new ReinforceController(model, reinforceView);
+        ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
+        ReinforceController controller = new ReinforceController(model, reinforceView);
+        
+        
+        
     }
 
     @Override

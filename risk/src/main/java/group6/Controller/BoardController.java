@@ -44,6 +44,10 @@ public class BoardController implements ActionListener{
             }
         }
         else {
+            if(!model.isOwnedCurrentPlayer(model.getPlanetByName(e.getActionCommand()))){
+                JOptionPane.showMessageDialog(view, "You do not own this planet", "WRONG PLANET", JOptionPane.ERROR_MESSAGE);
+                return; 
+            }
             gameState.initState(model, e.getActionCommand());
         }
     }
