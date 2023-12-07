@@ -19,8 +19,13 @@ public class BoardView extends JPanel {
     private String[] planetNames;
     private Map<String, JLabel> planetLabels;
     
+    public JLabel getCurrentPlayerLabel() {
+        return currentPlayerLabel;
+    }
+
     private JButton nextButton;
     private JLabel currentStateLabel;
+    private JLabel currentPlayerLabel;
 
 
     private int[] sunSizes = {80, 100, 120, 140}; 
@@ -92,6 +97,11 @@ public class BoardView extends JPanel {
         this.currentStateLabel.setForeground(Color.WHITE);
         this.nextButton.addActionListener(controller);
 
+        this.currentPlayerLabel = new JLabel();
+        this.currentPlayerLabel.setBounds(800, 20, 100, 100);
+        this.currentPlayerLabel.setSize(new Dimension(80,20));
+
+        add(currentPlayerLabel);
         add(nextButton);
         add(currentStateLabel);
 
@@ -104,8 +114,8 @@ public class BoardView extends JPanel {
         this.currentStateLabel.setText(currentState);
     }
 
-    public void setNextButtonLabel(){
-        this.nextButton.setText("Next Player");
+    public void setNextButtonLabel(String str){
+        this.nextButton.setText(str);
     }
 
     public void updatePlanetValue(String planetName, int numberToChange) {
