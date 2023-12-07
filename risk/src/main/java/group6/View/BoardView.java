@@ -31,6 +31,7 @@ public class BoardView extends JPanel {
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
+    private Map<String, Color> planetColors;
 
     public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions){
         this.planetNames = planetNames;
@@ -43,6 +44,12 @@ public class BoardView extends JPanel {
         states.add("REINFORCE");
         states.add("ATTACK");
         states.add("FORTIFY");
+
+        planetColors = new HashMap<>();
+        for (String planetName : planetNames) {
+            // Default color for each planet, change as needed
+            planetColors.put(planetName, Color.getHSBColor(0.7f, 0.7f, 0.9f));
+        }
     }
 
     public void update() {
@@ -72,7 +79,7 @@ public class BoardView extends JPanel {
     
                 JLabel planetLabel = new JLabel("14"); // Default value
                 planetLabel.setBounds(planetPos.x -4, planetPos.y + 5, labelSize, labelSize);
-                planetLabel.setForeground(Color.WHITE); // Set the text color
+                planetLabel.setForeground(Color.BLACK); // Set the text color
                 this.add(planetLabel);
     
                 planetLabels.put(planetName, planetLabel);
@@ -83,7 +90,7 @@ public class BoardView extends JPanel {
                 planetButton.setOpaque(false);
                 planetButton.setContentAreaFilled(false);
                 planetButton.setBorderPainted(false);
-                planetButton.setForeground(Color.WHITE); // Set the text color to white or any color you prefer
+                planetButton.setForeground(Color.BLACK); // Set the text color to white or any color you prefer
                 planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
                 planetButton.setVerticalTextPosition(SwingConstants.CENTER);
             }
@@ -119,6 +126,13 @@ public class BoardView extends JPanel {
         this.repaint();
     }
 
+    public void updatePlanetColor(String planetName, Color newColor) {
+        if (planetColors.containsKey(planetName)) {
+            planetColors.put(planetName, newColor);
+        }
+        repaint(); // Repaint the panel to reflect the color change
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -139,14 +153,13 @@ public class BoardView extends JPanel {
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
-                int size = planetSizes[j]; // Use the size based on the planet's index
+                int size = planetSizes[j];
                 
-                // Draw planet with varying size
-                g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
-                g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
-                
+                String planetName = planetNames[i * planetPositions[i].length + j];
+                Color planetColor = planetColors.getOrDefault(planetName, Color.GRAY); // Use default color if not specified
 
-                
+                g.setColor(planetColor);
+                g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
             }
         }
 
