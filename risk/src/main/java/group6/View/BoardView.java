@@ -88,16 +88,23 @@ public class BoardView extends JPanel {
         }  
         this.nextButton = new JButton("NEXT STATE");
         this.nextButton.setActionCommand("NEXT");
-        this.nextButton.setBounds(700, 700, 200, 50);
-        this.currentStateLabel = new JLabel("REINFORCE");
-        this.currentStateLabel.setBounds(800, 50, 500, 100);
-        this.currentStateLabel.setSize(new Dimension(100,100));
-        this.currentStateLabel.setForeground(Color.WHITE);
+        this.nextButton.setBounds(770, 700, 200, 50);
+        nextButton.setForeground(Color.WHITE);
+        nextButton.setBackground(Color.DARK_GRAY);
         this.nextButton.addActionListener(controller);
 
+        this.currentStateLabel = new JLabel("REINFORCE");
+        this.currentStateLabel.setBounds(650, 50, 300, 100);
+        Font stateFont = currentStateLabel.getFont().deriveFont(20f);
+        this.currentStateLabel.setFont(stateFont);
+        this.currentStateLabel.setForeground(Color.WHITE);
+        this.currentStateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         this.currentPlayerLabel = new JLabel();
-        this.currentPlayerLabel.setBounds(800, 20, 100, 100);
-        this.currentPlayerLabel.setSize(new Dimension(80,20));
+        this.currentPlayerLabel.setBounds(655, 2, 300, 50);
+        Font playerFont = currentPlayerLabel.getFont().deriveFont(30f);
+        this.currentPlayerLabel.setFont(playerFont);
+        this.currentPlayerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         add(currentPlayerLabel);
         add(nextButton);

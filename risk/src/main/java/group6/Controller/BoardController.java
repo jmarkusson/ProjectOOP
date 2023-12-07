@@ -20,7 +20,7 @@ public class BoardController implements ActionListener{
         this.view = view;
         view.initializePlanetButtons(this);
         gameState = new GameStateReinforce();
-        view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName()+ "s TURN");
+        view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName()+ "'s TURN");
         view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
     }
 
@@ -40,7 +40,7 @@ public class BoardController implements ActionListener{
                 else if(gameState.gameStateString() == "FORTIFY"){
                     model.nextPlayer();
                     view.setNextButtonLabel("NEXT STATE");
-                    view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName() + "s TURN");
+                    view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName() + "'s TURN");
                     view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
                 }
                 
