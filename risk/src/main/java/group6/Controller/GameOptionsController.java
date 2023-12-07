@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import group6.Model.RiskModel;
 import group6.View.BoardView;
@@ -51,14 +52,30 @@ public class GameOptionsController implements ActionListener{
             playerNames = new ArrayList<String>();
             playerColors = new ArrayList<Color>();
 
+            ArrayList<Color> selectedColors = new ArrayList<>();
+
             for (int i = 0; i < view.getTextfields().size(); i++) {
                 JTextField playerNameField = view.getTextfields().get(i);
                 JComboBox colorBox = view.getColorBoxes().get(i);
                 String playerName = playerNameField.getText();
+                if(playerName.isEmpty()){
+                    JOptionPane.showMessageDialog(view, "Playername has not been provided", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; 
+                }
                 Color playerColor = (Color) colorBox.getSelectedItem();
+                if (selectedColors.contains(playerColor)) {
+                    JOptionPane.showMessageDialog(view, "Color already selected by another player", "Error", JOptionPane.ERROR_MESSAGE);
+                    return; 
+                }
+
+
+                selectedColors.add(playerColor);
 
                 playerNames.add(playerName);
                 playerColors.add(playerColor);
+
+                
+                
             }
 
             model.initGame(playerNames, playerColors);

@@ -28,8 +28,15 @@ public class GameStateFortify implements GameState {
     }
 
     @Override
-    public int getIndex() {
-        return 2;
+    public GameState changeState() {
+        return new GameStateReinforce();
     }
+
+    @Override
+    public String gameStateString() {
+        return "FORTIFY";
+    }
+
+   
     
 }

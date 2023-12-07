@@ -22,7 +22,6 @@ public class BoardView extends JPanel {
     private JButton nextButton;
     private JLabel currentStateLabel;
 
-    private ArrayList<String> states;
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
@@ -35,10 +34,7 @@ public class BoardView extends JPanel {
         planetLabels = new HashMap<>();
         this.setLayout(null);
         setPreferredSize(new Dimension(200,200));
-        states = new ArrayList<>();
-        states.add("REINFORCE");
-        states.add("ATTACK");
-        states.add("FORTIFY");
+       
 
         planetColors = new HashMap<>();
         for (String planetName : planetNames) {
@@ -91,7 +87,7 @@ public class BoardView extends JPanel {
         this.nextButton = new JButton("NEXT STATE");
         this.nextButton.setActionCommand("NEXT");
         this.nextButton.setBounds(700, 700, 200, 50);
-        this.currentStateLabel = new JLabel(states.get(0));
+        this.currentStateLabel = new JLabel("REINFORCE");
         this.currentStateLabel.setBounds(800, 50, 500, 100);
         this.currentStateLabel.setSize(new Dimension(100,100));
         this.currentStateLabel.setForeground(Color.WHITE);
@@ -104,9 +100,9 @@ public class BoardView extends JPanel {
         this.repaint();
     }
 
-    public void updateCurrentStateLabel(int currentState){
+    public void updateCurrentStateLabel(String currentState){
         
-        this.currentStateLabel.setText(states.get(currentState));
+        this.currentStateLabel.setText(currentState);
     }
 
     public void setNextButtonLabel(){
