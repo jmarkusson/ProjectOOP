@@ -1,6 +1,9 @@
 package group6.Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
 import group6.Model.GameStateReinforce;
 import group6.Model.RiskModel;
 import group6.Model.Interfaces.GameState;
@@ -25,7 +28,8 @@ public class BoardController implements ActionListener{
     
         if(e.getActionCommand().equals("NEXT")){
             if(gameState.gameStateString() == "REINFORCE" && !model.isReinforceDone()){
-                System.out.println("U R NOT DONE!");
+                 JOptionPane.showMessageDialog(view, "You still have troops to reinforce", "HOLD UP", JOptionPane.ERROR_MESSAGE);
+                    return; 
             }
             else{
                 view.updateCurrentStateLabel(gameState.gameStateString());
