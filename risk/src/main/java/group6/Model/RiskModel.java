@@ -2,7 +2,6 @@ package group6.Model;
 
 
 import java.util.List;
-import java.util.Map;
 
 import group6.Model.Interfaces.Ownable;
 
@@ -36,8 +35,6 @@ public class RiskModel {
         
         Boolean succesfullLoad = false;
         board = new Board();
-
-        String[] hej = List<String>();
 
         List<String> list = new ArrayList<>();
         List<Point[]> listOfPointArrays = new ArrayList<>();
@@ -127,17 +124,12 @@ public class RiskModel {
 
     }
 
-    private String[] readFileLines(String filePath){
-        
-    }
-
     private void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         players = new ArrayList<Player>();
 
             for(int i = 0; i < playerNames.size(); i++){
 
                 players.add(new Player(playerNames.get(i), playerColors.get(i), i));
-                nmbrOfPlayers++;
 
             }
     }
@@ -178,10 +170,6 @@ public class RiskModel {
 
             board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
                 
-            
-            
-            
-
         }
     }
 
@@ -302,7 +290,8 @@ public class RiskModel {
     }
 
     public void nextPlayer(){
-        this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % getnmbrOfPlayers());
+        int numberOfPlayers = this.getnmbrOfPlayers();
+        this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % numberOfPlayers);
     }
 
     public int getCurrentPlayersFortifySoldiers(){
