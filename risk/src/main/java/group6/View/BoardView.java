@@ -5,13 +5,8 @@ package group6.View;
 
 import javax.swing.*;
 
-import group6.Controller.BoardController;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +62,6 @@ public class BoardView extends JPanel {
                 int buttonSize = planetSizes[j] + 27; // Use the corresponding size from planetSizes array
                 JButton planetButton = new JButton(planetName);
                 
-                // Set the bounds so the button is centered on the planet's position
                 planetButton.setBounds(planetPos.x - buttonSize / 2, planetPos.y - buttonSize / 2, buttonSize, buttonSize);
                 planetButton.addActionListener(controller);
                 this.add(planetButton);
@@ -75,9 +69,8 @@ public class BoardView extends JPanel {
             for (int y = 0; y < planetPositions[x].length; y++) {
                 Point planetPosLabel = planetPositions[x][y];
                 String planetNameLabel = planetNames[x * planetPositions[x].length + y];
-                int labelSize = 20; // Adjust as needed
-    
-                JLabel planetLabel = new JLabel("14"); // Default value
+                int labelSize = 20; 
+                JLabel planetLabel = new JLabel("14");
                 planetLabel.setBounds(planetPos.x -4, planetPos.y + 5, labelSize, labelSize);
                 planetLabel.setForeground(Color.BLACK); // Set the text color
                 this.add(planetLabel);
@@ -112,7 +105,12 @@ public class BoardView extends JPanel {
     }
 
     public void updateCurrentStateLabel(int currentState){
+        
         this.currentStateLabel.setText(states.get(currentState));
+    }
+
+    public void setNextButtonLabel(){
+        this.nextButton.setText("Next Player");
     }
 
     public void updatePlanetValue(String planetName, int numberToChange) {
@@ -141,15 +139,13 @@ public class BoardView extends JPanel {
         for (int z = 0; z < 200; z++) { 
         int x = (int)(Math.random() * getWidth());
         int y = (int)(Math.random() * getHeight());
-        g.fillOval(x, y, 2, 2); // Each star is a small dot
-        }
+        g.fillOval(x, y, 2, 2);
+    }
         g.setColor(Color.YELLOW);
         for (int i = 0; i < sunPositions.length; i++) {
             Point sunPosition = sunPositions[i];
-            int size = sunSizes[i]; // Use the corresponding size from sunSizes array
-            g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
+            int size = sunSizes[i]; g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
         }
-        // Draw the planets 
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];

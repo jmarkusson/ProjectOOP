@@ -39,7 +39,10 @@ public class GameOptionsController implements ActionListener{
         else if (e.getActionCommand().equals("NEXT")){
             System.out.println("yes");
     
-            view.mainView(model.getnmbrOfPlayers());
+            view.mainView(model.getnmbrOfPlayers(), model.getColors());
+        }
+        else if (e.getActionCommand().equals("colorChooser")){
+
         }
         else if (e.getActionCommand().equals("StartGame")) {
             
@@ -48,13 +51,14 @@ public class GameOptionsController implements ActionListener{
             playerNames = new ArrayList<String>();
             playerColors = new ArrayList<Color>();
 
-            for (int i = 0; i < view.textfields.size(); i++) {
-                JTextField playerNameField = (JTextField) view.textfields.get(i);
+            for (int i = 0; i < view.getTextfields().size(); i++) {
+                JTextField playerNameField = view.getTextfields().get(i);
+                JComboBox colorBox = view.getColorBoxes().get(i);
                 String playerName = playerNameField.getText();
+                Color playerColor = (Color) colorBox.getSelectedItem();
 
                 playerNames.add(playerName);
-                // Hard coded colors for now
-                playerColors.add(Color.RED);
+                playerColors.add(playerColor);
             }
 
             model.initGame(playerNames, playerColors);
@@ -66,7 +70,6 @@ public class GameOptionsController implements ActionListener{
             BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions());
             
             BoardController boardViewController = new BoardController(model, boardview);
-            
             GameView gameView = new GameView(boardview, playerViews);
     
             } 
