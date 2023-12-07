@@ -37,6 +37,8 @@ public class RiskModel {
         Boolean succesfullLoad = false;
         board = new Board();
 
+        String[] hej = List<String>();
+
         List<String> list = new ArrayList<>();
         List<Point[]> listOfPointArrays = new ArrayList<>();
         List<Point> listOfSunPositions = new ArrayList<>();
@@ -104,14 +106,7 @@ public class RiskModel {
             String[] adjacenciesArray = list.toArray(new String[0]);
             succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
 
-            players = new ArrayList<Player>();
-
-            for(int i = 0; i < playerNames.size(); i++){
-
-                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
-                nmbrOfPlayers++;
-
-            }
+            initPlayers(playerNames, playerColors);
 
             distributePlanets();
 
@@ -120,17 +115,34 @@ public class RiskModel {
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
             
+            succesfullLoad = true;
+
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
     } catch (IOException e) {
         System.err.println("An error occurred while reading from the file: " + e.getMessage());
     }
 
-        return false;
+        return succesfullLoad;
 
     }
 
-    public void distributePlanets(){
+    private String[] readFileLines(String filePath){
+        
+    }
+
+    private void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
+        players = new ArrayList<Player>();
+
+            for(int i = 0; i < playerNames.size(); i++){
+
+                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+                nmbrOfPlayers++;
+
+            }
+    }
+
+    private void distributePlanets(){
         List<Planet> shuffledPlanets = getShuffledPlanets();
         initializePlayersReinforceableSoldiers();
         evenlyDistributeInitalPlanets(shuffledPlanets);
