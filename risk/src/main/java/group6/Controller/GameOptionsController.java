@@ -68,13 +68,10 @@ public class GameOptionsController implements ActionListener{
                     return; 
                 }
 
-
                 selectedColors.add(playerColor);
 
                 playerNames.add(playerName);
-                playerColors.add(playerColor);
-
-                
+                playerColors.add(playerColor); 
                 
             }
 
