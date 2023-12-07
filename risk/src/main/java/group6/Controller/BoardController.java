@@ -20,6 +20,8 @@ public class BoardController implements ActionListener{
         this.view = view;
         view.initializePlanetButtons(this);
         gameState = new GameStateReinforce();
+        view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName()+ "s TURN");
+        view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
     }
 
 
@@ -27,20 +29,23 @@ public class BoardController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
     
         if(e.getActionCommand().equals("NEXT")){
-            if(gameState.gameStateString() == "REINFORCE" && !model.isReinforceDone()){
+            if(!model.isReinforceDone() && gameState.gameStateString() == "REINFORCE"){
                  JOptionPane.showMessageDialog(view, "You still have troops to reinforce", "HOLD UP", JOptionPane.ERROR_MESSAGE);
                     return; 
             }
             else{
-                view.updateCurrentStateLabel(gameState.gameStateString());
-                gameState = gameState.changeState();
-
                 if (gameState.gameStateString() == "ATTACK"){
-                    view.setNextButtonLabel();
+                    view.setNextButtonLabel("NEXT PLAYER");
                 }
                 else if(gameState.gameStateString() == "FORTIFY"){
                     model.nextPlayer();
+                    view.setNextButtonLabel("NEXT STATE");
+                    view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName() + "s TURN");
+                    view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
                 }
+                
+                gameState = gameState.changeState();
+                view.updateCurrentStateLabel(gameState.gameStateString());
             }
         }
         else {
