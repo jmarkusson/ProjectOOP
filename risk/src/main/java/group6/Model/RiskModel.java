@@ -130,7 +130,6 @@ public class RiskModel {
             for(int i = 0; i < playerNames.size(); i++){
 
                 players.add(new Player(playerNames.get(i), playerColors.get(i), i));
-                nmbrOfPlayers++;
 
             }
     }
@@ -171,10 +170,6 @@ public class RiskModel {
 
             board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
                 
-            
-            
-            
-
         }
     }
 
