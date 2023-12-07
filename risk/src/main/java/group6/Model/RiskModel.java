@@ -290,7 +290,7 @@ public class RiskModel {
     }
 
     public void nextPlayer(){
-        this.currentPlayerIndex = (currentPlayerIndex + 1) % getnmbrOfPlayers();
+        this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % getnmbrOfPlayers());
     }
 
     public int getCurrentPlayersFortifySoldiers(){
