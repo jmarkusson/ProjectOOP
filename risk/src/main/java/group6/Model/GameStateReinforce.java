@@ -20,8 +20,15 @@ public class GameStateReinforce implements GameState{
     }
 
     @Override
-    public int getIndex() {
-        return 0;
+    public GameState changeState() {
+        return new GameStateAttack();
     }
+
+    @Override
+    public String gameStateString() {
+        return "REINFORCE";
+    }
+
+   
     
 }

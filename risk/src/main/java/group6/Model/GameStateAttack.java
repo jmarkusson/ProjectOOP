@@ -9,16 +9,20 @@ public class GameStateAttack implements GameState {
     @Override
     public void initState(RiskModel model, String planet) {
         model.getPlanetByName(planet);
-        
-
         AttackView attackVw = new AttackView();
         AttackController attackCtrl = new AttackController(attackVw, model);
 
     }
 
     @Override
-    public int getIndex() {
-        return 1;
+    public GameState changeState() {
+        return new GameStateFortify();
     }
+
+    @Override
+    public String gameStateString() {
+        return "ATTACK";
+    }
+
     
 }
