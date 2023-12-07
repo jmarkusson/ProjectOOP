@@ -49,7 +49,7 @@ public AttackView(){
    
 
     add(initAttackComponents());
-
+    setLocation(400, 300);
     pack();
     setVisible(true);
     toFront();
