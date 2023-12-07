@@ -25,7 +25,6 @@ public class RiskModel {
     private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
 
     public RiskModel(){
-
          /* Nothing should happen when instance of Model is created */
     }
     
@@ -197,6 +196,9 @@ public class RiskModel {
         return playerOwnership.isOwned(ownable, player);
     }
 
+    public boolean isOwnedCurrentPlayer(Ownable ownable){
+        return isOwned(ownable, getCurrentPlayer());
+    }
     public void reinforce(int soldiersPlaced, String planetName) {
         Player currentPlayer = getCurrentPlayer();
         

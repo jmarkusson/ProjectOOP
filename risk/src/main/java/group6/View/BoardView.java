@@ -23,8 +23,8 @@ public class BoardView extends JPanel {
     private JLabel currentStateLabel;
 
 
-    private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
-    private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
+    private int[] sunSizes = {80, 100, 120, 140}; 
+    private int[] planetSizes = {60, 70, 80, 90}; 
     private Map<String, Color> planetColors;
 
     public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions){
@@ -38,7 +38,6 @@ public class BoardView extends JPanel {
 
         planetColors = new HashMap<>();
         for (String planetName : planetNames) {
-            // Default color for each planet, change as needed
             planetColors.put(planetName, Color.getHSBColor(0.7f, 0.7f, 0.9f));
         }
     }
