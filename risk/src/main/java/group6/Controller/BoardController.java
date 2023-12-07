@@ -44,7 +44,7 @@ public class BoardController implements ActionListener{
                 System.out.println("U R NOT DONE!");
             }
             else{
-                gameStateIndex = (gameStateIndex + 1) % 3;
+                gameStateIndex = (gameStateIndex + 1) % gameStates.size();
                 view.updateCurrentStateLabel(gameStateIndex);
                 setCurrentGameState(gameStateIndex);
 
