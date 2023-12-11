@@ -344,4 +344,20 @@ public class RiskModel {
     public HashMap<String, Color> getPlanetColorMap(){
         return board.getPlanetColorMap();
     }
+    public Color getPlayerColor(Player player){
+        return player.getColor();
+    }
+     public String[] getUnownedAdjecentPlanets(String planet){
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(getPlanetByName(planet));
+        ArrayList<Ownable> playersOwnables = playerOwnership.getPlayersOwnables(this.getCurrentPlayer());
+        ArrayList<String> unownedAdjecentPlanets = new ArrayList<>();
+
+        for (Planet adjacentPlanet : adjacentPlanets) {
+            if (!playersOwnables.contains(adjacentPlanet)) {
+                unownedAdjecentPlanets.add(adjacentPlanet.getName());
+            }
+        }
+
+        return unownedAdjecentPlanets.toArray(new String[0]);
+    }
 }
