@@ -4,6 +4,6 @@ import group6.Model.RiskModel;
 
 public interface GameState {
      void initState(RiskModel model, String planet);
-
-     int getIndex();
+     GameState changeState();
+     String gameStateString();
 }

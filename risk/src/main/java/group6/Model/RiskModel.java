@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class RiskModel {
 
@@ -22,9 +23,10 @@ public class RiskModel {
     private int nmbrOfPlayers = 2;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
+    private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
+    
 
     public RiskModel(){
-
          /* Nothing should happen when instance of Model is created */
     }
     
@@ -42,7 +44,6 @@ public class RiskModel {
         
 
         try {
-            // Reads and split planets into array
             InputStream planetStream = getClass().getClassLoader().getResourceAsStream("textfiles/planets.txt");
             BufferedReader readerplanet = new BufferedReader(new InputStreamReader(planetStream));
 
@@ -51,7 +52,6 @@ public class RiskModel {
             }
             String[] planetsArray = list.toArray(new String[0]);
             
-            //Reand and splits SunPoints into array
             InputStream sunpointStream = getClass().getClassLoader().getResourceAsStream("textfiles/solarPoints.txt");
             BufferedReader sunreaderPoint = new BufferedReader(new InputStreamReader(sunpointStream));
             while ((line = sunreaderPoint.readLine()) != null) {
@@ -61,9 +61,6 @@ public class RiskModel {
                 listOfSunPositions.add(new Point(x, y));
             }
             Point[] solarPointsArray = listOfSunPositions.toArray(new Point[0]);
-            
-
-            // Reads and splits PlanetPoints into array
             
             InputStream pointStream = getClass().getClassLoader().getResourceAsStream("textfiles/Points.txt");
             BufferedReader readerPoint = new BufferedReader(new InputStreamReader(pointStream));
@@ -99,18 +96,9 @@ public class RiskModel {
                 list.add(line);
             }
             String[] adjacenciesArray = list.toArray(new String[0]);
-
-            //Create the board
             succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
 
-            players = new ArrayList<Player>();
-
-            for(int i = 0; i < playerNames.size(); i++){
-
-                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
-                nmbrOfPlayers++;
-
-            }
+            initPlayers(playerNames, playerColors);
 
             distributePlanets();
 
@@ -119,23 +107,34 @@ public class RiskModel {
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
             
+            succesfullLoad = true;
+
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
-        // Handle the case where a file wasn't found, such as logging or user notification
     } catch (IOException e) {
         System.err.println("An error occurred while reading from the file: " + e.getMessage());
-        // Handle other I/O errors
     }
 
-        return false;
+        return succesfullLoad;
 
     }
 
-    public void distributePlanets(){
+    private void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
+        players = new ArrayList<Player>();
+
+            for(int i = 0; i < playerNames.size(); i++){
+
+                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+
+            }
+    }
+
+    private void distributePlanets(){
         List<Planet> shuffledPlanets = getShuffledPlanets();
         initializePlayersReinforceableSoldiers();
         evenlyDistributeInitalPlanets(shuffledPlanets);
         distributeRemainingSoldiers(shuffledPlanets);
+        resetAllReinforcableSoldierForNextTurn();
     }
 
     private List<Planet> getShuffledPlanets(){
@@ -151,6 +150,10 @@ public class RiskModel {
 
     }
 
+    public Color[] getColors(){
+        return colorChoices;
+    } 
+
     private void evenlyDistributeInitalPlanets(List<Planet> planets){
         for (int i = 0; i < planets.size(); i++){
             Planet currentPlanet = planets.get(i);
@@ -158,9 +161,10 @@ public class RiskModel {
 
             playerOwnership.assignOwnership(currentPlanet, currentPlayer);
 
-            currentPlanet.addSoldiers(1);
-            currentPlayer.removeReinforceableSoldiers(1);
+            putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
 
+            board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
+                
         }
     }
 
@@ -171,13 +175,12 @@ public class RiskModel {
             Planet currentPlanet = planets.get(i % planets.size());
 
             if (currentPlayer.getReinforceableSoldiers() > 0) {
-                currentPlanet.addSoldiers(1);
-                currentPlayer.removeReinforceableSoldiers(1);
+                putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
             }
             i++;
         }
     }
-
+    // check this
     private boolean playersHaveReinforceableSoldiers(){
             for (Player player : players){
                 if (player.getReinforceableSoldiers() > 0){
@@ -186,12 +189,21 @@ public class RiskModel {
             }
             return false;
     }
+
+    private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
+            planet.addSoldiers(soldiers);
+            player.removeReinforceableSoldiers(soldiers);
+
+    }
     
 
     public boolean isOwned(Ownable ownable, Player player){
         return playerOwnership.isOwned(ownable, player);
     }
 
+    public boolean isOwnedCurrentPlayer(Ownable ownable){
+        return isOwned(ownable, getCurrentPlayer());
+    }
     public void reinforce(int soldiersPlaced, String planetName) {
         Player currentPlayer = getCurrentPlayer();
         
@@ -204,11 +216,8 @@ public class RiskModel {
         Planet planet = getPlanetByName(planetName);
         planet.addSoldiers(soldiersPlaced);
 
-        if(soldiersLeft == 0){
-            // Next state - Booleans?
-        }
-
     }
+
     public Boolean isReinforceDone(){
         Boolean reinforceDone = false;
         Player currentPlayer = getCurrentPlayer();
@@ -216,11 +225,21 @@ public class RiskModel {
         if(currentPlayer.getReinforceableSoldiers() == 0){
             reinforceDone = true;
             // Set Reinforcable Soldier back to the amount of bonustroops so it is correct at the start of the next round
-            currentPlayer.setReinforceableSoldiers(currentPlayer.getBonusSoldiers());
+            resetReinforcableSoldierForNextTurn(currentPlayer);
 
         }
 
         return reinforceDone;
+    }
+
+    private void resetReinforcableSoldierForNextTurn(Player player){
+        player.setReinforceableSoldiers(player.getBonusSoldiers());
+    }
+
+    private void resetAllReinforcableSoldierForNextTurn(){
+        for (Player player : players){
+            resetReinforcableSoldierForNextTurn(player);
+        }
     }
 
     public void attack(int attackSoldiers, int defendSoldiers, String attackPlanetName, String defendPlanetName){
@@ -228,10 +247,6 @@ public class RiskModel {
 
         Planet attackPlanet = getPlanetByName(attackPlanetName);
         Planet defendPlanet = getPlanetByName(defendPlanetName);
-
-
-
-
     }
 
     public void addPlayer(Player player){
@@ -270,7 +285,8 @@ public class RiskModel {
     }
 
     public void nextPlayer(){
-        this.currentPlayerIndex = (currentPlayerIndex + 1) % getnmbrOfPlayers();
+        int numberOfPlayers = this.getnmbrOfPlayers();
+        this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % numberOfPlayers);
     }
 
     public int getCurrentPlayersFortifySoldiers(){
@@ -281,7 +297,7 @@ public class RiskModel {
         return this.getCurrentPlayer().getReinforceableSoldiers();
     }
 
-    private void setCurrentPlayersReinforcableSoldier(int soldiers){
+    public void setCurrentPlayersReinforcableSoldier(int soldiers){
         getCurrentPlayer().setReinforceableSoldiers(soldiers);
     }
 
@@ -323,5 +339,9 @@ public class RiskModel {
         Planet rPlanet = getPlanetByName(planet);
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
+    }
+
+    public HashMap<String, Color> getPlanetColorMap(){
+        return board.getPlanetColorMap();
     }
 }

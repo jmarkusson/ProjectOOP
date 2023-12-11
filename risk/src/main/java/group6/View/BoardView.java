@@ -5,13 +5,8 @@ package group6.View;
 
 import javax.swing.*;
 
-import group6.Controller.BoardController;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,25 +19,27 @@ public class BoardView extends JPanel {
     private String[] planetNames;
     private Map<String, JLabel> planetLabels;
     
+    public JLabel getCurrentPlayerLabel() {
+        return currentPlayerLabel;
+    }
+
     private JButton nextButton;
     private JLabel currentStateLabel;
+    private JLabel currentPlayerLabel;
 
-    private ArrayList<String> states;
 
     private int[] sunSizes = {80, 100, 120, 140}; // Four different sizes for suns
     private int[] planetSizes = {60, 70, 80, 90}; // Four different sizes for planets
+    private HashMap<String, Color> planetColors;
 
-    public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions){
+    public BoardView(String[] planetNames, Point[][] planetPositions, Point[] sunPositions, HashMap<String, Color> planetColors){
         this.planetNames = planetNames;
         this.planetPositions = planetPositions;
         this.sunPositions = sunPositions;
+        this.planetColors = planetColors;
         planetLabels = new HashMap<>();
         this.setLayout(null);
         setPreferredSize(new Dimension(200,200));
-        states = new ArrayList<>();
-        states.add("REINFORCE");
-        states.add("ATTACK");
-        states.add("FORTIFY");
     }
 
     public void update() {
@@ -54,49 +51,40 @@ public class BoardView extends JPanel {
     public void initializePlanetButtons(ActionListener controller) {
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
-                Point planetPos = planetPositions[i][j];
-                
+
                 String planetName = planetNames[i * planetPositions[i].length + j];
-                int buttonSize = planetSizes[j] + 27; // Use the corresponding size from planetSizes array
-                JButton planetButton = new JButton(planetName);
-                
-                // Set the bounds so the button is centered on the planet's position
-                planetButton.setBounds(planetPos.x - buttonSize / 2, planetPos.y - buttonSize / 2, buttonSize, buttonSize);
-                planetButton.addActionListener(controller);
+                Point planetPos = planetPositions[i][j];
+
+                JButton planetButton = createPlanetButton(planetName, planetPos, planetSizes[j], controller);
                 this.add(planetButton);
-        for (int x = 0; x < planetPositions.length; x++) {
-            for (int y = 0; y < planetPositions[x].length; y++) {
-                Point planetPosLabel = planetPositions[x][y];
-                String planetNameLabel = planetNames[x * planetPositions[x].length + y];
-                int labelSize = 20; // Adjust as needed
-    
-                JLabel planetLabel = new JLabel("14"); // Default value
-                planetLabel.setBounds(planetPos.x -4, planetPos.y + 5, labelSize, labelSize);
-                planetLabel.setForeground(Color.WHITE); // Set the text color
+
+                JLabel planetLabel = createPlanetLabel(planetPos, "14"); // Assuming "14" is the initial value for all labels
                 this.add(planetLabel);
-    
                 planetLabels.put(planetName, planetLabel);
             }
         }
-        
-                
-                planetButton.setOpaque(false);
-                planetButton.setContentAreaFilled(false);
-                planetButton.setBorderPainted(false);
-                planetButton.setForeground(Color.WHITE); // Set the text color to white or any color you prefer
-                planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
-                planetButton.setVerticalTextPosition(SwingConstants.CENTER);
-            }
-        }  
+
         this.nextButton = new JButton("NEXT STATE");
         this.nextButton.setActionCommand("NEXT");
-        this.nextButton.setBounds(700, 700, 200, 50);
-        this.currentStateLabel = new JLabel(states.get(0));
-        this.currentStateLabel.setBounds(800, 50, 500, 100);
-        this.currentStateLabel.setSize(new Dimension(100,100));
-        this.currentStateLabel.setForeground(Color.WHITE);
+        this.nextButton.setBounds(770, 700, 200, 50);
+        nextButton.setForeground(Color.WHITE);
+        nextButton.setBackground(Color.DARK_GRAY);
         this.nextButton.addActionListener(controller);
 
+        this.currentStateLabel = new JLabel("REINFORCE");
+        this.currentStateLabel.setBounds(650, 50, 300, 100);
+        Font stateFont = currentStateLabel.getFont().deriveFont(20f);
+        this.currentStateLabel.setFont(stateFont);
+        this.currentStateLabel.setForeground(Color.WHITE);
+        this.currentStateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        this.currentPlayerLabel = new JLabel();
+        this.currentPlayerLabel.setBounds(655, 2, 300, 50);
+        Font playerFont = currentPlayerLabel.getFont().deriveFont(30f);
+        this.currentPlayerLabel.setFont(playerFont);
+        this.currentPlayerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        add(currentPlayerLabel);
         add(nextButton);
         add(currentStateLabel);
 
@@ -104,8 +92,38 @@ public class BoardView extends JPanel {
         this.repaint();
     }
 
-    public void updateCurrentStateLabel(int currentState){
-        this.currentStateLabel.setText(states.get(currentState));
+    private JButton createPlanetButton(String planetName, Point position, int size, ActionListener controller) {
+        JButton planetButton = new JButton(planetName);
+        int buttonSize = size + 27; // Use the corresponding size from planetSizes array
+        planetButton.setBounds(position.x - buttonSize / 2, position.y - buttonSize / 2, buttonSize, buttonSize);
+        planetButton.addActionListener(controller);
+
+        planetButton.setOpaque(false);
+        planetButton.setContentAreaFilled(false);
+        planetButton.setBorderPainted(false);
+        planetButton.setForeground(Color.BLACK); // Set the text color to white or any color you prefer
+        planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        planetButton.setVerticalTextPosition(SwingConstants.CENTER);
+
+        return planetButton;
+    }
+
+    private JLabel createPlanetLabel(Point position, String text) {
+        JLabel planetLabel = new JLabel(text);
+        int labelSize = 20;
+        planetLabel.setBounds(position.x - 4, position.y + 5, labelSize, labelSize);
+        planetLabel.setForeground(Color.BLACK); // Set the text color
+
+        return planetLabel;
+    }
+
+    public void updateCurrentStateLabel(String currentState){
+        
+        this.currentStateLabel.setText(currentState);
+    }
+
+    public void setNextButtonLabel(String str){
+        this.nextButton.setText(str);
     }
 
     public void updatePlanetValue(String planetName, int numberToChange) {
@@ -119,6 +137,13 @@ public class BoardView extends JPanel {
         this.repaint();
     }
 
+    public void updatePlanetColor(String planetName, Color newColor) {
+        if (planetColors.containsKey(planetName)) {
+            planetColors.put(planetName, newColor);
+        }
+        repaint(); // Repaint the panel to reflect the color change
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -127,26 +152,23 @@ public class BoardView extends JPanel {
         for (int z = 0; z < 200; z++) { 
         int x = (int)(Math.random() * getWidth());
         int y = (int)(Math.random() * getHeight());
-        g.fillOval(x, y, 2, 2); // Each star is a small dot
-        }
+        g.fillOval(x, y, 2, 2);
+    }
         g.setColor(Color.YELLOW);
         for (int i = 0; i < sunPositions.length; i++) {
             Point sunPosition = sunPositions[i];
-            int size = sunSizes[i]; // Use the corresponding size from sunSizes array
-            g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
+            int size = sunSizes[i]; g.fillOval(sunPosition.x - size / 2, sunPosition.y - size / 2, size, size);
         }
-        // Draw the planets 
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
                 Point planetPos = planetPositions[i][j];
-                int size = planetSizes[j]; // Use the size based on the planet's index
+                int size = planetSizes[j];
                 
-                // Draw planet with varying size
-                g.setColor(Color.getHSBColor(j / (float) planetPositions[i].length, 0.7f, 0.9f));
-                g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
-                
+                String planetName = planetNames[i * planetPositions[i].length + j];
+                Color planetColor = planetColors.getOrDefault(planetName, Color.GRAY); // Use default color if not specified
 
-                
+                g.setColor(planetColor);
+                g.fillOval(planetPos.x - size / 2, planetPos.y - size / 2, size, size);
             }
         }
 
@@ -202,6 +224,7 @@ public class BoardView extends JPanel {
                 BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 2.0f);
     
         g2d.setStroke(stroke);
+        g2d.setColor(Color.WHITE);
         g2d.drawLine(start.x, start.y, end.x, end.y);
     }
 
