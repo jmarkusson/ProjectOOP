@@ -109,9 +109,9 @@ public class GameOptionsView extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
     
-        String[] playersOption = {"2 Players", "3 Players", "4 Players"};
+        Integer[] playersOption = {2, 3, 4};
     
-        nmbrOfPlayers = new JComboBox<String>(playersOption);
+        nmbrOfPlayers = new JComboBox<Integer>(playersOption);
         nmbrOfPlayers.setSelectedItem(0);
         nmbrOfPlayers.setActionCommand("combobox");
         nmbrOfPlayers.addActionListener(controller);

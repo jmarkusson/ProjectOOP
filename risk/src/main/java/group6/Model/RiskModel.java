@@ -2,7 +2,6 @@ package group6.Model;
 
 
 import java.util.List;
-import java.util.Map;
 
 import group6.Model.Interfaces.Ownable;
 
@@ -99,14 +98,7 @@ public class RiskModel {
             String[] adjacenciesArray = list.toArray(new String[0]);
             succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
 
-            players = new ArrayList<Player>();
-
-            for(int i = 0; i < playerNames.size(); i++){
-
-                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
-                nmbrOfPlayers++;
-
-            }
+            initPlayers(playerNames, playerColors);
 
             distributePlanets();
 
@@ -115,17 +107,29 @@ public class RiskModel {
             readerSolarSystems.close();
             readerAdjacentPlanets.close();
             
+            succesfullLoad = true;
+
     } catch (FileNotFoundException e) {
         System.err.println("One or more files were not found: " + e.getMessage());
     } catch (IOException e) {
         System.err.println("An error occurred while reading from the file: " + e.getMessage());
     }
 
-        return false;
+        return succesfullLoad;
 
     }
 
-    public void distributePlanets(){
+    private void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
+        players = new ArrayList<Player>();
+
+            for(int i = 0; i < playerNames.size(); i++){
+
+                players.add(new Player(playerNames.get(i), playerColors.get(i), i));
+
+            }
+    }
+
+    private void distributePlanets(){
         List<Planet> shuffledPlanets = getShuffledPlanets();
         initializePlayersReinforceableSoldiers();
         evenlyDistributeInitalPlanets(shuffledPlanets);
@@ -161,10 +165,6 @@ public class RiskModel {
 
             board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
                 
-            
-            
-            
-
         }
     }
 
@@ -285,7 +285,8 @@ public class RiskModel {
     }
 
     public void nextPlayer(){
-        this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % getnmbrOfPlayers());
+        int numberOfPlayers = this.getnmbrOfPlayers();
+        this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % numberOfPlayers);
     }
 
     public int getCurrentPlayersFortifySoldiers(){
