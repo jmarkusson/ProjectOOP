@@ -38,7 +38,6 @@ public class GameOptionsController implements ActionListener{
         }
 
         else if (e.getActionCommand().equals("NEXT")){
-            System.out.println("yes");
     
             view.mainView(model.getnmbrOfPlayers(), model.getColors());
         }
