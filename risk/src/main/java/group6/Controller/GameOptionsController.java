@@ -75,7 +75,7 @@ public class GameOptionsController implements ActionListener{
             }
 
             model.initGame(playerNames, playerColors);
-
+            
             for (int i = 0; i < model.getPlayers().size(); i++){
                 playerViews.add(new PlayerView(model.getPlayer(i)));
             }
