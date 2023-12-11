@@ -13,6 +13,11 @@ public class GameStateAttack implements GameState {
     public void initState(RiskModel model, String planet) {
         model.getPlanetByName(planet);
         this.soldiersOnPlanetArray = new Integer[model.getPlanetsSoldiers(planet)];
+        for (int i = 0; i < model.getCurrentPlayersFortifySoldiers(); i++) {
+            int soldier = 1;
+            this.soldiersOnPlanetArray[i] = soldier;
+            soldier ++;
+        }
         this.attackablePlanets = model.getUnownedAdjecentPlanets(planet);
 
         AttackView attackVw = new AttackView(planet, model.getPlayerColor(model.getCurrentPlayer()), soldiersOnPlanetArray, attackablePlanets);

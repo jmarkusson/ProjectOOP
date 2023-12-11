@@ -18,7 +18,7 @@ public class GameStateFortify implements GameState {
 
         soldiersArray = new Integer[model.getPlanetsSoldiers(planet) + 1];
 
-        for (int i = 0; i < model.getCurrentPlayersFortifySoldiers(); i++) {
+        for (int i = 1; i < model.getCurrentPlayersFortifySoldiers(); i++) {
             soldiersArray[i] = i;
         }
 
