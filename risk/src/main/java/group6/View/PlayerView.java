@@ -31,6 +31,7 @@ public class PlayerView extends JPanel {
         soldiersLabel.setHorizontalAlignment(SwingConstants.CENTER);
         planetsOwnedLabel = new JLabel();
         reinforcementLabel = new JLabel();
+        reinforcementLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         Color playerColor = this.player.getColor();
         nameLabel.setForeground(playerColor);

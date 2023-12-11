@@ -5,13 +5,14 @@ package group6.View;
 
 import javax.swing.*;
 
+import group6.Model.Interfaces.PlanetObserver;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardView extends JPanel {
+public class BoardView extends JPanel implements PlanetObserver{
 
     private final Point[] sunPositions;
     
@@ -137,9 +138,10 @@ public class BoardView extends JPanel {
         this.repaint();
     }
 
-    public void updatePlanetColor(String planetName, Color newColor) {
+    @Override
+    public void updatePlanetColor(String planetName, Color color) {
         if (planetColors.containsKey(planetName)) {
-            planetColors.put(planetName, newColor);
+            planetColors.put(planetName, color);
         }
         repaint(); // Repaint the panel to reflect the color change
     }
@@ -226,6 +228,18 @@ public class BoardView extends JPanel {
         g2d.setStroke(stroke);
         g2d.setColor(Color.WHITE);
         g2d.drawLine(start.x, start.y, end.x, end.y);
+    }
+
+    @Override
+    public void updatePlanetsSoldiers(String planetName, int newSoldiersCount) {
+        JLabel label = planetLabels.get(planetName);
+        if (label != null) {
+            int currentValue = Integer.parseInt(label.getText());
+            int newValue = currentValue + newSoldiersCount;
+            
+            label.setText(String.valueOf(newValue));
+        }
+        this.repaint();
     }
 
 

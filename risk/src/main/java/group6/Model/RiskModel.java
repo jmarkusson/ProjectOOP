@@ -3,7 +3,9 @@ package group6.Model;
 
 import java.util.List;
 
+import group6.Model.Interfaces.PlanetObserver;
 import group6.Model.Interfaces.Ownable;
+import group6.Model.Interfaces.PlanetSubject;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -16,7 +18,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class RiskModel {
+public class RiskModel implements PlanetSubject{
+
+    private List<PlanetObserver> observers = new ArrayList<>();
 
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
@@ -338,6 +342,7 @@ public class RiskModel {
     }
 
     public void ReinforcePlanet(String planet, int soldiers){
+        notifyObservers(planet, soldiers);
         Planet rPlanet = getPlanetByName(planet);
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
@@ -345,5 +350,33 @@ public class RiskModel {
 
     public HashMap<String, Color> getPlanetColorMap(){
         return board.getPlanetColorMap();
+    }
+
+    public void fortifyPlanet(String fromPlanet, String toPlanet, int soldiers){
+        Planet originPlanet = getPlanetByName(fromPlanet);
+        Planet fortifyPlanet = getPlanetByName(toPlanet);
+
+        originPlanet.removeSoldiers(soldiers);
+        fortifyPlanet.addSoldiers(soldiers);
+    }
+
+
+    @Override
+    public void attach(PlanetObserver observer) {
+        observers.add(observer);
+    }
+
+
+    @Override
+    public void detach(PlanetObserver observer) {
+        observers.remove(observer);
+    }
+
+
+    @Override
+    public void notifyObservers(String planetName, int newSoldierCount) {
+        for (PlanetObserver observer : observers) {
+            observer.updatePlanetsSoldiers(planetName, newSoldierCount);
+        }
     }
 }

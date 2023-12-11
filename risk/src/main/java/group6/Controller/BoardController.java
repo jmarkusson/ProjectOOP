@@ -22,6 +22,7 @@ public class BoardController implements ActionListener{
         gameState = new GameStateReinforce();
         view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName()+ "'s TURN");
         view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
+        model.attach(view);
     }
 
 
