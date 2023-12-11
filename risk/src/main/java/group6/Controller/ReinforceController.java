@@ -31,7 +31,9 @@ public class ReinforceController implements ActionListener {
         }
         else if(e.getActionCommand().equals("addsoldiers")){
             model.ReinforcePlanet(view.getplanetName(), soldiersAmount);
+            
             view.dispose();
+
         }
     }
     
