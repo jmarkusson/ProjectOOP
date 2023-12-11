@@ -221,6 +221,8 @@ public class RiskModel {
         Planet planet = getPlanetByName(planetName);
         planet.addSoldiers(soldiersPlaced);
 
+        currentPlayer.setReinforceableSoldiers(soldiersLeft);
+
     }
 
     public Boolean isReinforceDone(){

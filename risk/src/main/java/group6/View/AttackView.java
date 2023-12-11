@@ -19,8 +19,7 @@ import javax.swing.JComboBox;
 
 public class AttackView extends JFrame{
 // Attribut för AttackView
-private ImageIcon yoda; 
-private ImageIcon darthVader;
+
 private JComboBox chooseAmountSoldiers;
 private JComboBox chooseOpponent;
 private JPanel attackPanel;
@@ -80,18 +79,11 @@ public AttackView(){
     //Defending player confirmation button
     this.defendingPlayerConfirmSolidersButton = new JButton("confirm");
     defendingPlayerConfirmSolidersButton.setForeground(Color.BLUE);
-    //Labels
-    this.yoda = new ImageIcon("/Users/alfredpettersson/Desktop/Skola/OOPP/Project-OOP/risk/src/main/resources/textfiles/Images/transparentHead.png");
-    Image yodaTransform = yoda.getImage();
-    Image yodaResize = yodaTransform.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-    this.darthVader = new ImageIcon("/Users/alfredpettersson/Desktop/Skola/OOPP/Project-OOP/risk/src/main/resources/textfiles/Images/ef0c6c257aa3d8b6fa14c82491ddd205c619215d.jpg");
-    Image darthVaderTransform = darthVader.getImage();
-    Image darthVaderReSize = darthVaderTransform.getScaledInstance(120, 200, Image.SCALE_SMOOTH);
+    
     
      
 
-    this.attackingPlayerImage = new JLabel(new ImageIcon(yodaResize));
-    this.defendingPlayerImage = new JLabel(new ImageIcon(darthVaderReSize));
+    
     this.soldiersOnAttackingPlanet = new JLabel();
     this.soldiersOnDefendingPlanet = new JLabel();
 
