@@ -348,7 +348,7 @@ public class RiskModel implements PlanetSubject{
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
         this.getCurrentPlayer().addSoldiers(soldiers);
-        notifyPlanetObservers(planet, soldiers);
+        notifyPlanetObservers(planet, rPlanet.getSoldiers());
         notifyPlayerObservers();
     }
 
@@ -378,6 +378,9 @@ public class RiskModel implements PlanetSubject{
 
         originPlanet.removeSoldiers(soldiers);
         fortifyPlanet.addSoldiers(soldiers);
+
+        notifyPlanetObservers(fromPlanet, originPlanet.getSoldiers());
+        notifyPlanetObservers(toPlanet, fortifyPlanet.getSoldiers());
     }
 
 
