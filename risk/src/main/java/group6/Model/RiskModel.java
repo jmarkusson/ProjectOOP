@@ -6,6 +6,7 @@ import java.util.List;
 import group6.Model.Interfaces.PlanetObserver;
 import group6.Model.Interfaces.Ownable;
 import group6.Model.Interfaces.PlanetSubject;
+import group6.Model.Interfaces.PlayerObserver;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -20,8 +21,8 @@ import java.util.HashMap;
 
 public class RiskModel implements PlanetSubject{
 
-    private List<PlanetObserver> observers = new ArrayList<>();
-
+    private List<PlanetObserver> planetObservers = new ArrayList<>();
+    private List<PlayerObserver> playerObservers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
     private int nmbrOfPlayers = 2;
@@ -342,10 +343,13 @@ public class RiskModel implements PlanetSubject{
     }
 
     public void ReinforcePlanet(String planet, int soldiers){
-        notifyObservers(planet, soldiers);
+        
         Planet rPlanet = getPlanetByName(planet);
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
+        this.getCurrentPlayer().addSoldiers(soldiers);
+        notifyPlanetObservers(planet, soldiers);
+        notifyPlayerObservers();
     }
 
     public HashMap<String, Color> getPlanetColorMap(){
@@ -362,21 +366,34 @@ public class RiskModel implements PlanetSubject{
 
 
     @Override
-    public void attach(PlanetObserver observer) {
-        observers.add(observer);
+    public void attach(PlanetObserver planetObserver) {
+        planetObservers.add(planetObserver);
     }
 
 
     @Override
-    public void detach(PlanetObserver observer) {
-        observers.remove(observer);
+    public void detach(PlanetObserver planetObserver) {
+        planetObservers.remove(planetObserver);
     }
 
 
     @Override
-    public void notifyObservers(String planetName, int newSoldierCount) {
-        for (PlanetObserver observer : observers) {
+    public void notifyPlanetObservers(String planetName, int newSoldierCount) {
+        for (PlanetObserver observer : planetObservers) {
             observer.updatePlanetsSoldiers(planetName, newSoldierCount);
         }
     }
+
+    public void addPlayerObserver(PlayerObserver playerObserver) {
+        playerObservers.add(playerObserver);
+    }
+
+    public void notifyPlayerObservers() {
+        for (PlayerObserver playerObserver : playerObservers) {
+            playerObserver.updatePlayerInfo();
+        }
+    }
+
+
+    
 }
