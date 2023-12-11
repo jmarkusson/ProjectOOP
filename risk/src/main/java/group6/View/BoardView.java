@@ -40,9 +40,6 @@ public class BoardView extends JPanel {
         planetLabels = new HashMap<>();
         this.setLayout(null);
         setPreferredSize(new Dimension(200,200));
-       
-
-        
     }
 
     public void update() {
@@ -54,38 +51,19 @@ public class BoardView extends JPanel {
     public void initializePlanetButtons(ActionListener controller) {
         for (int i = 0; i < planetPositions.length; i++) {
             for (int j = 0; j < planetPositions[i].length; j++) {
-                Point planetPos = planetPositions[i][j];
-                
+
                 String planetName = planetNames[i * planetPositions[i].length + j];
-                int buttonSize = planetSizes[j] + 27; // Use the corresponding size from planetSizes array
-                JButton planetButton = new JButton(planetName);
-                
-                planetButton.setBounds(planetPos.x - buttonSize / 2, planetPos.y - buttonSize / 2, buttonSize, buttonSize);
-                planetButton.addActionListener(controller);
+                Point planetPos = planetPositions[i][j];
+
+                JButton planetButton = createPlanetButton(planetName, planetPos, planetSizes[j], controller);
                 this.add(planetButton);
-        for (int x = 0; x < planetPositions.length; x++) {
-            for (int y = 0; y < planetPositions[x].length; y++) {
-                Point planetPosLabel = planetPositions[x][y];
-                String planetNameLabel = planetNames[x * planetPositions[x].length + y];
-                int labelSize = 20; 
-                JLabel planetLabel = new JLabel("14");
-                planetLabel.setBounds(planetPos.x -4, planetPos.y + 5, labelSize, labelSize);
-                planetLabel.setForeground(Color.BLACK); // Set the text color
+
+                JLabel planetLabel = createPlanetLabel(planetPos, "14"); // Assuming "14" is the initial value for all labels
                 this.add(planetLabel);
-    
                 planetLabels.put(planetName, planetLabel);
             }
         }
-        
-                
-                planetButton.setOpaque(false);
-                planetButton.setContentAreaFilled(false);
-                planetButton.setBorderPainted(false);
-                planetButton.setForeground(Color.BLACK); // Set the text color to white or any color you prefer
-                planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
-                planetButton.setVerticalTextPosition(SwingConstants.CENTER);
-            }
-        }  
+
         this.nextButton = new JButton("NEXT STATE");
         this.nextButton.setActionCommand("NEXT");
         this.nextButton.setBounds(770, 700, 200, 50);
@@ -112,6 +90,31 @@ public class BoardView extends JPanel {
 
         this.revalidate();
         this.repaint();
+    }
+
+    private JButton createPlanetButton(String planetName, Point position, int size, ActionListener controller) {
+        JButton planetButton = new JButton(planetName);
+        int buttonSize = size + 27; // Use the corresponding size from planetSizes array
+        planetButton.setBounds(position.x - buttonSize / 2, position.y - buttonSize / 2, buttonSize, buttonSize);
+        planetButton.addActionListener(controller);
+
+        planetButton.setOpaque(false);
+        planetButton.setContentAreaFilled(false);
+        planetButton.setBorderPainted(false);
+        planetButton.setForeground(Color.BLACK); // Set the text color to white or any color you prefer
+        planetButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        planetButton.setVerticalTextPosition(SwingConstants.CENTER);
+
+        return planetButton;
+    }
+
+    private JLabel createPlanetLabel(Point position, String text) {
+        JLabel planetLabel = new JLabel(text);
+        int labelSize = 20;
+        planetLabel.setBounds(position.x - 4, position.y + 5, labelSize, labelSize);
+        planetLabel.setForeground(Color.BLACK); // Set the text color
+
+        return planetLabel;
     }
 
     public void updateCurrentStateLabel(String currentState){

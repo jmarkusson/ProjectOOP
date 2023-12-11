@@ -13,6 +13,7 @@ public class PlayerView extends JPanel {
     private JLabel nameLabel;
     private JLabel soldiersLabel;
     private JLabel planetsOwnedLabel;
+    private JLabel reinforcementLabel;
 
     public PlayerView(Player player) {
         this.player = player;
@@ -24,17 +25,20 @@ public class PlayerView extends JPanel {
         nameLabel.setText(this.player.getName());
         soldiersLabel = new JLabel();
         planetsOwnedLabel = new JLabel();
+        reinforcementLabel = new JLabel();
 
         Color playerColor = this.player.getColor();
         nameLabel.setForeground(playerColor);
         soldiersLabel.setForeground(playerColor);
         planetsOwnedLabel.setForeground(playerColor);
+        reinforcementLabel.setForeground(playerColor);
 
-        setLayout(new GridLayout(3,1));
+        setLayout(new GridLayout(4,1));
 
         add(nameLabel);
         add(soldiersLabel);
         add(planetsOwnedLabel);
+        add(reinforcementLabel);
 
 
         updatePlayerInfo();
@@ -46,6 +50,10 @@ public class PlayerView extends JPanel {
 
     public void updatePlayerInfo() {
         soldiersLabel.setText("Soldiers: " + this.player.getSoldiers());
+
+        reinforcementLabel.setText("Reinforcements: " + this.player.getReinforceableSoldiers());
+
+
         //planetsOwnedLabel.setText("Planets Owned: " + (this.player.getPlanetsOwned().size()));
 
     }
