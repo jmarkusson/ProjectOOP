@@ -22,7 +22,12 @@ public class PlayerView extends JPanel {
       
         nameLabel = new JLabel();
         nameLabel.setText(this.player.getName());
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        Font stateFont = nameLabel.getFont().deriveFont(20f);
+        nameLabel.setFont(stateFont);
         soldiersLabel = new JLabel();
+        soldiersLabel.setHorizontalAlignment(SwingConstants.CENTER);
         planetsOwnedLabel = new JLabel();
 
         Color playerColor = this.player.getColor();

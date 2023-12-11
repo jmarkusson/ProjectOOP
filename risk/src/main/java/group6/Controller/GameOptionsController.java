@@ -34,7 +34,7 @@ public class GameOptionsController implements ActionListener{
 
         if (e.getActionCommand().equals("combobox")){
             JComboBox source = (JComboBox) e.getSource();
-            model.setnmbOfPlayers((int) source.getSelectedItem());
+            model.setnmbOfPlayers(source.getSelectedIndex()+2);
         }
 
         else if (e.getActionCommand().equals("NEXT")){
