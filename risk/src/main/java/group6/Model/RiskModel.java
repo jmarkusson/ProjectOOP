@@ -344,4 +344,12 @@ public class RiskModel {
     public HashMap<String, Color> getPlanetColorMap(){
         return board.getPlanetColorMap();
     }
+
+    public void fortifyPlanet(String fromPlanet, String toPlanet, int soldiers){
+        Planet originPlanet = getPlanetByName(fromPlanet);
+        Planet fortifyPlanet = getPlanetByName(toPlanet);
+
+        originPlanet.removeSoldiers(soldiers);
+        fortifyPlanet.addSoldiers(soldiers);
+    }
 }
