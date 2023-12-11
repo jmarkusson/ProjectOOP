@@ -44,7 +44,6 @@ public class RiskModel {
         
 
         try {
-            // Reads and split planets into array
             InputStream planetStream = getClass().getClassLoader().getResourceAsStream("textfiles/planets.txt");
             BufferedReader readerplanet = new BufferedReader(new InputStreamReader(planetStream));
 
@@ -53,7 +52,6 @@ public class RiskModel {
             }
             String[] planetsArray = list.toArray(new String[0]);
             
-            //Reand and splits SunPoints into array
             InputStream sunpointStream = getClass().getClassLoader().getResourceAsStream("textfiles/solarPoints.txt");
             BufferedReader sunreaderPoint = new BufferedReader(new InputStreamReader(sunpointStream));
             while ((line = sunreaderPoint.readLine()) != null) {
@@ -63,9 +61,6 @@ public class RiskModel {
                 listOfSunPositions.add(new Point(x, y));
             }
             Point[] solarPointsArray = listOfSunPositions.toArray(new Point[0]);
-            
-
-            // Reads and splits PlanetPoints into array
             
             InputStream pointStream = getClass().getClassLoader().getResourceAsStream("textfiles/Points.txt");
             BufferedReader readerPoint = new BufferedReader(new InputStreamReader(pointStream));

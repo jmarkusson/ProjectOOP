@@ -31,11 +31,15 @@ public class FortifyView extends JFrame {
         
         setTitle("Forify "+ planetName);
 		setPreferredSize(new Dimension(300, 300));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 
         add(this.firstPanel());
+
+        pack();
+		setVisible(true);
+		toFront();
         
     }
 
