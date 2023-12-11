@@ -16,10 +16,11 @@ public class GameStateFortify implements GameState {
 
         ownedAdjecentPlanets = model.getOwnedAdjecentPlanets(planet);
 
-        soldiersArray = new Integer[model.getPlanetsSoldiers(planet) + 1];
+        soldiersArray = new Integer[model.getPlanetsSoldiers(planet)];
 
         for (int i = 0; i < model.getPlanetsSoldiers(planet); i++) {
-            soldiersArray[i] = i;
+            
+            soldiersArray[i] = i+1;
         }
 
 
