@@ -2,3 +2,13 @@
 risk/target/classes/group6/Controller/BoardController.class
 risk/target/classes/group6/Controller/GameOptionsController.class
 risk/target/classes/group6/View/BoardView.class
+#
+*.class
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
