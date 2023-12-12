@@ -30,9 +30,9 @@ private JPanel rollPanelJPanel;
 private JPanel planetPanelJPanel;
 // Buttons
 private JButton rollDiceJButton;
-private JTextField howManySoldiers;
-private JTextField attackingFrom;
-private JTextField attackThisPlanet;
+private JLabel howManySoldiers;
+private JLabel attackingFrom;
+private JLabel attackThisPlanet;
 //ComboBoxes
 private JComboBox<String> planetToAttackComboBox;
 private JComboBox<Integer> soldierComboBox;
@@ -79,8 +79,8 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
   private JPanel initPlanetInfo(){
       this.planetPanelJPanel = new JPanel();
       this.planetPanelJPanel.setPreferredSize(new Dimension(200,200));
-      this.attackingFrom = new JTextField("Attacking from: " + planetName);
-      this.attackThisPlanet = new JTextField("Choose a planet to attack:");
+      this.attackingFrom = new JLabel("Attacking from: " + planetName);
+      this.attackThisPlanet = new JLabel("Choose a planet to attack:");
       this.planetToAttackComboBox = new JComboBox<String>(this.attackablePlanets);
 
 
@@ -102,7 +102,7 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
     this.rollPanelJPanel.setPreferredSize(new Dimension(200,200));
     this.rollDiceJButton = new JButton("Roll");
     this.soldierComboBox = new JComboBox<Integer>(this.soldiersOnPlanet);
-    this.howManySoldiers = new JTextField("With how many Soldiers?");
+    this.howManySoldiers = new JLabel("With how many Soldiers?");
 
     // add to Panels
     this.rollPanelJPanel.add(this.howManySoldiers);
