@@ -185,7 +185,7 @@ public class RiskModel implements PlanetSubject{
             i++;
         }
     }
-    // check this
+
     private boolean playersHaveReinforceableSoldiers(){
             for (Player player : players){
                 if (player.getReinforceableSoldiers() > 0){
