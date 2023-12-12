@@ -38,7 +38,6 @@ public class GameOptionsController implements ActionListener{
         }
 
         else if (e.getActionCommand().equals("NEXT")){
-            System.out.println("yes");
     
             view.mainView(model.getnmbrOfPlayers(), model.getColors());
         }
@@ -76,9 +75,10 @@ public class GameOptionsController implements ActionListener{
             }
 
             model.initGame(playerNames, playerColors);
-
+            
             for (int i = 0; i < model.getPlayers().size(); i++){
                 playerViews.add(new PlayerView(model.getPlayer(i)));
+                model.addPlayerObserver(playerViews.get(i));
             }
             view.dispose();
             BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions(), model.getPlanetColorMap());

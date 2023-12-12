@@ -65,6 +65,10 @@ public class Player
             this.soldiers = soldiers;
         }
 
+        public void addSoldiers(int soldiers){
+            this.soldiers += soldiers;
+        }
+
         public void addFortifySoldiers(int soldiers){
             this.fortifySoldiers += soldiers;
         }

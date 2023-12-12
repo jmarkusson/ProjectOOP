@@ -3,7 +3,10 @@ package group6.Model;
 
 import java.util.List;
 
+import group6.Model.Interfaces.PlanetObserver;
 import group6.Model.Interfaces.Ownable;
+import group6.Model.Interfaces.PlanetSubject;
+import group6.Model.Interfaces.PlayerObserver;
 
 import java.awt.Color;
 import java.awt.Point;
@@ -16,8 +19,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class RiskModel {
+public class RiskModel implements PlanetSubject{
 
+    private List<PlanetObserver> planetObservers = new ArrayList<>();
+    private List<PlayerObserver> playerObservers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
     private Board board;
     private int nmbrOfPlayers = 2;
@@ -216,6 +221,8 @@ public class RiskModel {
         Planet planet = getPlanetByName(planetName);
         planet.addSoldiers(soldiersPlaced);
 
+        currentPlayer.setReinforceableSoldiers(soldiersLeft);
+
     }
 
     public Boolean isReinforceDone(){
@@ -336,9 +343,13 @@ public class RiskModel {
     }
 
     public void ReinforcePlanet(String planet, int soldiers){
+        
         Planet rPlanet = getPlanetByName(planet);
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
+        this.getCurrentPlayer().addSoldiers(soldiers);
+        notifyPlanetObservers(planet, rPlanet.getSoldiers());
+        notifyPlayerObservers();
     }
 
     public HashMap<String, Color> getPlanetColorMap(){
@@ -360,4 +371,48 @@ public class RiskModel {
 
         return unownedAdjecentPlanets.toArray(new String[0]);
     }
+
+    public void fortifyPlanet(String fromPlanet, String toPlanet, int soldiers){
+        Planet originPlanet = getPlanetByName(fromPlanet);
+        Planet fortifyPlanet = getPlanetByName(toPlanet);
+
+        originPlanet.removeSoldiers(soldiers);
+        fortifyPlanet.addSoldiers(soldiers);
+
+        notifyPlanetObservers(fromPlanet, originPlanet.getSoldiers());
+        notifyPlanetObservers(toPlanet, fortifyPlanet.getSoldiers());
+    }
+
+
+    @Override
+    public void attach(PlanetObserver planetObserver) {
+        planetObservers.add(planetObserver);
+    }
+
+
+    @Override
+    public void detach(PlanetObserver planetObserver) {
+        planetObservers.remove(planetObserver);
+    }
+
+
+    @Override
+    public void notifyPlanetObservers(String planetName, int newSoldierCount) {
+        for (PlanetObserver observer : planetObservers) {
+            observer.updatePlanetsSoldiers(planetName, newSoldierCount);
+        }
+    }
+
+    public void addPlayerObserver(PlayerObserver playerObserver) {
+        playerObservers.add(playerObserver);
+    }
+
+    public void notifyPlayerObservers() {
+        for (PlayerObserver playerObserver : playerObservers) {
+            playerObserver.updatePlayerInfo();
+        }
+    }
+
+
+    
 }

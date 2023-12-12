@@ -23,7 +23,12 @@ public class FortifyController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("fortify")){
-            
+            String originPlanet = view.getPlanetName();
+            String fortifyPlanet = (String) view.getAdjecentPlanetsBox().getSelectedItem();
+            Integer soldiersAmount = (Integer) view.getAmountOfSoldiersBox().getSelectedItem();
+
+            model.fortifyPlanet(originPlanet, fortifyPlanet, soldiersAmount);
+            view.dispose();   
         }
     }
     

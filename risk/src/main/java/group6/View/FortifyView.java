@@ -9,6 +9,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class FortifyView extends JFrame {
 
@@ -20,8 +21,14 @@ public class FortifyView extends JFrame {
     GridLayout mainLayout;
     JComboBox<String> adjecentPlanetsBox;
     JComboBox<Integer> amountOfSoldiersBox;
+
+    public String getPlanetName() {
+        return planetName;
+    }
+
     JButton fortifyButton;
-    JLabel header;
+    JLabel planetSelectLabel;
+    JLabel soldierSelectLabel;
 
     public FortifyView(String planetName, String[] adjecentPlanets, Integer[] amountOfSoldiers){
 
@@ -30,7 +37,7 @@ public class FortifyView extends JFrame {
         this.amountOfSoldiers = amountOfSoldiers;
         
         setTitle("Forify "+ planetName);
-		setPreferredSize(new Dimension(300, 300));
+		setPreferredSize(new Dimension(400, 300));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -43,23 +50,36 @@ public class FortifyView extends JFrame {
         
     }
 
+    public JComboBox<String> getAdjecentPlanetsBox() {
+        return adjecentPlanetsBox;
+    }
+
+    public JComboBox<Integer> getAmountOfSoldiersBox() {
+        return amountOfSoldiersBox;
+    }
+
     public JPanel firstPanel(){
 
         this.firstPanel = new JPanel();
-		this.mainLayout = new GridLayout(3, 1, 5, 5);
+		this.mainLayout = new GridLayout(3, 2, 5, 5);
 		firstPanel.setLayout(mainLayout);
 
-        header = new JLabel("Select a country to fortify from: "+this.planetName);
+        planetSelectLabel = new JLabel("<html>Select a country<br>to fortify: </html>");
+        planetSelectLabel.setHorizontalAlignment(SwingConstants.CENTER);
         this.fortifyButton = new JButton("Fortify");
         fortifyButton.setActionCommand("fortify");
 
         this.adjecentPlanetsBox = new JComboBox<String>(adjecentPlanets);
 
+        soldierSelectLabel = new JLabel("<html>Select how<br>many soldiers: </html>");
+        soldierSelectLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         this.amountOfSoldiersBox = new JComboBox<Integer>(amountOfSoldiers);
         amountOfSoldiersBox.setSelectedIndex(0);
     
-        firstPanel.add(header);
+        firstPanel.add(planetSelectLabel);
         firstPanel.add(adjecentPlanetsBox);
+        firstPanel.add(soldierSelectLabel);
         firstPanel.add(amountOfSoldiersBox);
         firstPanel.add(fortifyButton);
 

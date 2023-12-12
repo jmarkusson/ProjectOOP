@@ -2,11 +2,12 @@ package group6.View;
 import javax.swing.*;
 
 import group6.Model.Player;
+import group6.Model.Interfaces.PlayerObserver;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PlayerView extends JPanel {
+public class PlayerView extends JPanel implements PlayerObserver {
 
     private Player player;
 
@@ -31,6 +32,7 @@ public class PlayerView extends JPanel {
         soldiersLabel.setHorizontalAlignment(SwingConstants.CENTER);
         planetsOwnedLabel = new JLabel();
         reinforcementLabel = new JLabel();
+        reinforcementLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         Color playerColor = this.player.getColor();
         nameLabel.setForeground(playerColor);
