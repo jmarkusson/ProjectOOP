@@ -57,9 +57,13 @@ public class BoardView extends JPanel implements PlanetObserver{
                 Point planetPos = planetPositions[i][j];
 
                 JButton planetButton = createPlanetButton(planetName, planetPos, planetSizes[j], controller);
+                planetButton.setForeground(Color.WHITE);
+                planetButton.setFont(new Font("Arial", Font.BOLD, 12));
                 this.add(planetButton);
 
                 JLabel planetLabel = createPlanetLabel(planetPos, "2");
+                planetLabel.setForeground(Color.WHITE);
+                planetLabel.setFont(new Font("Arial", Font.BOLD, 15));
                 this.add(planetLabel);
                 planetLabels.put(planetName, planetLabel);
             }
