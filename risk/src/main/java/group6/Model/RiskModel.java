@@ -47,6 +47,7 @@ public class RiskModel{
         List<Point> listOfSunPositions = new ArrayList<>();
         
         String line;
+        int test;
         
 
         try {
@@ -169,6 +170,7 @@ public class RiskModel{
 
             putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
 
+
             board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
                 
         }
@@ -199,6 +201,7 @@ public class RiskModel{
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
             planet.addSoldiers(soldiers);
             player.removeReinforceableSoldiers(soldiers);
+            notifyPlanetObservers(planet.getName(), soldiers);
 
     }
     
