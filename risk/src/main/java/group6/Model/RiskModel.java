@@ -168,6 +168,7 @@ public class RiskModel implements PlanetSubject{
 
             putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
 
+
             board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
                 
         }
@@ -198,6 +199,7 @@ public class RiskModel implements PlanetSubject{
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
             planet.addSoldiers(soldiers);
             player.removeReinforceableSoldiers(soldiers);
+            notifyPlanetObservers(planet.getName(), soldiers);
 
     }
     

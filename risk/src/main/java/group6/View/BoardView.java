@@ -59,7 +59,7 @@ public class BoardView extends JPanel implements PlanetObserver{
                 JButton planetButton = createPlanetButton(planetName, planetPos, planetSizes[j], controller);
                 this.add(planetButton);
 
-                JLabel planetLabel = createPlanetLabel(planetPos, "14"); // Assuming "14" is the initial value for all labels
+                JLabel planetLabel = createPlanetLabel(planetPos, "0"); 
                 this.add(planetLabel);
                 planetLabels.put(planetName, planetLabel);
             }
@@ -127,16 +127,7 @@ public class BoardView extends JPanel implements PlanetObserver{
         this.nextButton.setText(str);
     }
 
-    public void updatePlanetValue(String planetName, int numberToChange) {
-        JLabel label = planetLabels.get(planetName);
-        if (label != null) {
-            int currentValue = Integer.parseInt(label.getText());
-            int newValue = currentValue + numberToChange;
-            
-            label.setText(String.valueOf(newValue));
-        }
-        this.repaint();
-    }
+    
 
     @Override
     public void updatePlanetColor(String planetName, Color color) {
