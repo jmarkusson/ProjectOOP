@@ -46,6 +46,7 @@ public class RiskModel implements PlanetSubject{
         List<Point> listOfSunPositions = new ArrayList<>();
         
         String line;
+        int test;
         
 
         try {
