@@ -22,6 +22,15 @@ public class AttackController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if(e.getActionCommand().equals("ROLL")){
+            attackView.dispose();
+
+            String attackFromPlanet = attackView.getPlanetName();
+            String planetToAttack = (String) attackView.getPlanetToAttackComboBox().getSelectedItem();
+            Integer amountOfSoldiers = (Integer) attackView.getSoldiersComboBox().getSelectedItem();
+
+            rModel.attackPlanet(attackFromPlanet, planetToAttack, amountOfSoldiers);
+            
+
+        }
     }}
