@@ -14,19 +14,9 @@ public class Player
     private int soldiers;
     private int reinforceableSoldiers;
     private int bonusSoldiers;
-    private ImageIcon playerImage;
-
-    
-
     private int playerNumber;
     private List<Planet> planetsOwned;
     private int fortifySoldiers;
-
-
-    
-
-    
-
 
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
@@ -36,55 +26,53 @@ public class Player
         this.bonusSoldiers = 3;
         this.reinforceableSoldiers = bonusSoldiers;
     }
-    
 
-    
+    public Color getColor() {
+        return color;
+    }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
 
-        public Color getColor() {
-            return color;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSoldiers() {
+        return soldiers;
+    }
+
+    public void setSoldiers(int soldiers) {
+        this.soldiers = soldiers;
+    }
+
+    public void addSoldiers(int soldiers){
+        this.soldiers += soldiers;
+    }
+
+    public void addFortifySoldiers(int soldiers){
+        this.fortifySoldiers += soldiers;
+    }
+
+    public Boolean removeFortifySoldiers(int soldiers){
+        if (this.fortifySoldiers - soldiers < 0)
+        {
+            return false;
         }
-
-        public void setColor(Color color) {
-            this.color = color;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public int getSoldiers() {
-            return soldiers;
-        }
-
-        public void setSoldiers(int soldiers) {
-            this.soldiers = soldiers;
-        }
-
-        public void addSoldiers(int soldiers){
-            this.soldiers += soldiers;
-        }
-
-        public void addFortifySoldiers(int soldiers){
-            this.fortifySoldiers += soldiers;
-        }
-
-        public Boolean removeFortifySoldiers(int soldiers){
-            if(this.fortifySoldiers - soldiers < 0){
-                return false;
-            }
-            else{
+        else{
             this.fortifySoldiers -= soldiers;
             return true;
-            }
         }
-        public void setReinforceableSoldiers(int reinforceableSoldiers){
-            this.reinforceableSoldiers = reinforceableSoldiers;
-        }
+    }
+
+    public void setReinforceableSoldiers(int reinforceableSoldiers){
+        this.reinforceableSoldiers = reinforceableSoldiers;
+    }
 
     public int getReinforceableSoldiers(){
         return this.reinforceableSoldiers;
@@ -120,17 +108,6 @@ public class Player
         return fortifySoldiers;
     }
     
-
-
-    public ImageIcon getPlayerImage() {
-        return playerImage;
-    }
-    
-    public void setPlayerImage(ImageIcon playerImage) {
-    this.playerImage = playerImage;
-    }
-            
-
 }
 
 

@@ -37,7 +37,7 @@ public class RiskModel{
     }
     
 
-    public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
+    /*public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
         Boolean succesfullLoad = false;
         board = new Board();
@@ -102,7 +102,7 @@ public class RiskModel{
                 list.add(line);
             }
             String[] adjacenciesArray = list.toArray(new String[0]);
-            succesfullLoad = board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
+            board.loadBoard(planetsArray, solarsystemsArray, adjacenciesArray, pointsArray, solarPointsArray);
 
             initPlayers(playerNames, playerColors);
 
@@ -124,6 +124,7 @@ public class RiskModel{
         return succesfullLoad;
 
     }
+    */
 
     private void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         players = new ArrayList<Player>();
@@ -156,9 +157,7 @@ public class RiskModel{
 
     }
 
-    public Color[] getColors(){
-        return colorChoices;
-    } 
+    
 
     private void evenlyDistributeInitalPlanets(List<Planet> planets){
         for (int i = 0; i < planets.size(); i++){
@@ -192,7 +191,11 @@ public class RiskModel{
             player.removeReinforceableSoldiers(soldiers);
             notifyPlanetObservers(planet.getName(), soldiers, playerOwnership.getOwner(planet));
 
-    }
+    }       
+
+    public Color[] getColors(){
+        return colorChoices;
+    } 
     
 
     public boolean isOwned(Ownable ownable, Player player){
@@ -300,10 +303,6 @@ public class RiskModel{
         this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % numberOfPlayers);
     }
 
-    public int getCurrentPlayersFortifySoldiers(){
-        return this.getCurrentPlayer().getFortifySoldiers();
-    }
-
     public int getCurrentPlayersReinforcableSoldier(){
         return this.getCurrentPlayer().getReinforceableSoldiers();
     }
@@ -384,10 +383,10 @@ public class RiskModel{
         originPlanet.removeSoldiers(soldiers);
         fortifyPlanet.addSoldiers(soldiers);
 
-        notifyPlanetObservers(fromPlanet, originPlanet.getSoldiers(),
-         playerOwnership.getOwner(originPlanet));
-        notifyPlanetObservers(toPlanet, fortifyPlanet.getSoldiers(),
-        playerOwnership.getOwner(fortifyPlanet));
+        Player owner = playerOwnership.getOwner(originPlanet);
+
+        notifyPlanetObservers(fromPlanet, originPlanet.getSoldiers(), owner);
+        notifyPlanetObservers(toPlanet, fortifyPlanet.getSoldiers(), owner);
     }
 
 
