@@ -12,10 +12,11 @@ public class GameStateAttack implements GameState {
 
     @Override
     public void initState(RiskModel model, String planet) {
-        model.getPlanetByName(planet);
-        this.soldiersOnPlanetArray = new Integer[model.getPlanetsSoldiers(planet) - 1];
+        int planetSoldiers = model.getPlanetsSoldiers(planet);
+
+        this.soldiersOnPlanetArray = new Integer[planetSoldiers - 1];
         
-        for (int i = 0; i < model.getPlanetsSoldiers(planet)-1; i++) {
+        for (int i = 0; i < planetSoldiers -1; i++) {
             
             soldiersOnPlanetArray[i] = i+1;
         }

@@ -47,7 +47,6 @@ public class RiskModel{
         List<Point> listOfSunPositions = new ArrayList<>();
         
         String line;
-        int test;
         
 
         try {
@@ -177,31 +176,21 @@ public class RiskModel{
     }
 
     private void distributeRemainingSoldiers(List<Planet> planets){
-        int i = 0;
-        while (playersHaveReinforceableSoldiers()) {
-            Player currentPlayer = players.get(i % players.size());
-            Planet currentPlanet = planets.get(i % planets.size());
-
-            if (currentPlayer.getReinforceableSoldiers() > 0) {
+        for (Player currentPlayer : players){
+            ArrayList<Planet> ownedPlanetsList = getOwnedPlanets(currentPlayer);
+            int i = 0;
+            while(currentPlayer.getReinforceableSoldiers() > 0){
+                Planet currentPlanet = ownedPlanetsList.get(i % ownedPlanetsList.size());
                 putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
+                i++;
             }
-            i++;
         }
-    }
-
-    private boolean playersHaveReinforceableSoldiers(){
-            for (Player player : players){
-                if (player.getReinforceableSoldiers() > 0){
-                    return true;
-                }
-            }
-            return false;
     }
 
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
             planet.addSoldiers(soldiers);
             player.removeReinforceableSoldiers(soldiers);
-            notifyPlanetObservers(planet.getName(), soldiers);
+            notifyPlanetObservers(planet.getName(), soldiers, playerOwnership.getOwner(planet));
 
     }
     
@@ -277,6 +266,17 @@ public class RiskModel{
 
     public int getnmbrOfPlayers(){
         return this.nmbrOfPlayers;
+    }
+
+    private ArrayList<Planet> getOwnedPlanets(Player player){
+        ArrayList<Ownable> ownables = playerOwnership.getPlayersOwnables(player);
+        ArrayList<Planet> ownedPlanets = new ArrayList<>();
+        for (Ownable ownable : ownables){
+            if (ownable instanceof Planet){
+                ownedPlanets.add((Planet) ownable);
+            }
+        }
+        return ownedPlanets;
     }
 
     public String[] getPlanetNames(){
@@ -419,50 +419,62 @@ public class RiskModel{
     }
 
     public void attackPlanet(String attackFromPlanet, String planetToAttack, int amountOfSoldiers) {
-        Planet fromPlanet = board.getPlanetByName(attackFromPlanet);
-        Planet toPlanet = board.getPlanetByName(planetToAttack);
+        Planet attackingPlanet = board.getPlanetByName(attackFromPlanet);
+        Planet defendingPlanet = board.getPlanetByName(planetToAttack);
 
         int remainingAttackers = amountOfSoldiers;
+        int defendingSoldiersLost = 0;
+        int attackingSoldiersLost = 0;
 
-        while (remainingAttackers > 0 && toPlanet.getSoldiers() > 0) {
+        while (remainingAttackers > 0 && defendingPlanet.getSoldiers() > 0) {
             int attackingDice = Math.min(remainingAttackers, 3);
-            int defendingDice = Math.min(toPlanet.getSoldiers(), 2);
+            int defendingDice = Math.min(defendingPlanet.getSoldiers(), 2);
 
-            int[] attackRolls = rollDice(attackingDice);
-            int[] defendRolls = rollDice(defendingDice);
+            Integer[] attackRolls = rollDice(attackingDice);
+            Integer[] defendRolls = rollDice(defendingDice);
 
-            Arrays.sort(attackRolls);
-            Arrays.sort(defendRolls);
-            
-            int middleIndex = Math.min(attackingDice, 2);
+            Arrays.sort(attackRolls, Collections.reverseOrder());
+            Arrays.sort(defendRolls, Collections.reverseOrder());
 
-            for (int i = 0; i < Math.min(middleIndex , defendingDice); i++) {
-                int attackValue = attackRolls[Math.min(i, middleIndex)];
+            for (int i = 0; i < Math.min(attackingDice, defendingDice); i++) {
+                int attackValue = attackRolls[i];
                 int defendValue = defendRolls[i];
 
                 if (attackValue > defendValue) {
-                    toPlanet.removeSoldiers(1); 
+                    defendingPlanet.removeSoldiers(1);
+                    defendingSoldiersLost++;
                 } else {
                     remainingAttackers--;
-                    fromPlanet.removeSoldiers(1);
+                    attackingSoldiersLost++;
+                    attackingPlanet.removeSoldiers(1);
                 }
             }
+        }
 
-            
+        Player attackingPlayer = playerOwnership.getOwner(attackingPlanet);
+        Player defendingPlayer = playerOwnership.getOwner(defendingPlanet);
+        attackingPlayer.setSoldiers(attackingPlayer.getSoldiers() - attackingSoldiersLost);
+        defendingPlayer.setSoldiers(defendingPlayer.getSoldiers() - defendingSoldiersLost);
+
+        if (defendingPlanet.getSoldiers() == 0) {
+            playerOwnership.assignOwnership(defendingPlanet, attackingPlayer);
+            playerOwnership.removeOwnership(defendingPlanet, defendingPlayer);
+            defendingPlanet.addSoldiers(remainingAttackers);
+            attackingPlanet.removeSoldiers(remainingAttackers);
         }
 
         notifyPlayerObservers();
-        notifyPlanetObservers(attackFromPlanet, fromPlanet.getSoldiers(),
-            playerOwnership.getOwner(fromPlanet));
-        notifyPlanetObservers(planetToAttack, toPlanet.getSoldiers(),
-            playerOwnership.getOwner(toPlanet));
+        notifyPlanetObservers(attackFromPlanet, attackingPlanet.getSoldiers(),
+            playerOwnership.getOwner(attackingPlanet));
+        notifyPlanetObservers(planetToAttack, defendingPlanet.getSoldiers(),
+            playerOwnership.getOwner(defendingPlanet));
 
     }
 
 
-    private int[] rollDice(int numberOfDice) {
+    private Integer[] rollDice(int numberOfDice) {
         Random random = new Random();
-        int[] rolls = new int[numberOfDice];
+        Integer[] rolls = new Integer[numberOfDice];
         for (int i = 0; i < numberOfDice; i++) {
             rolls[i] = random.nextInt(6) + 1;
         }
