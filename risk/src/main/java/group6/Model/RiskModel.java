@@ -46,7 +46,6 @@ public class RiskModel implements PlanetSubject{
         List<Point> listOfSunPositions = new ArrayList<>();
         
         String line;
-        int test;
         
 
         try {
@@ -107,6 +106,7 @@ public class RiskModel implements PlanetSubject{
             initPlayers(playerNames, playerColors);
 
             distributePlanets();
+            notifyPlanetObservers(line, currentPlayerIndex);
 
             readerplanet.close();
             readerPoint.close();
