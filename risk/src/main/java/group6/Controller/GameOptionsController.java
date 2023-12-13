@@ -85,7 +85,8 @@ public class GameOptionsController implements ActionListener{
             
             BoardController boardViewController = new BoardController(model, boardview);
             GameView gameView = new GameView(boardview, playerViews);
-    
+            GameStateController gameStateController = new GameStateController(model, boardview);
+            
             } 
             
         else if (e.getActionCommand().equals("Quit Game")) {

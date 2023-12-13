@@ -19,6 +19,7 @@ public class BoardController implements ActionListener, GameStateObserver{
     protected BoardController(RiskModel model, BoardView view){
         this.model = model;
         this.view = view;
+        model.setGameStateObserver(this);
         view.initializePlanetButtons(this);
         gameState = new GameStateReinforce();
         view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName()+ "'s TURN");
@@ -48,7 +49,6 @@ public class BoardController implements ActionListener, GameStateObserver{
                     view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
                 }
                 
-                gameState = gameState.changeState();
                 view.updateCurrentStateLabel(gameState.gameStateString());
             }
         }
@@ -64,7 +64,6 @@ public class BoardController implements ActionListener, GameStateObserver{
 
     @Override
     public void actOnStateChange() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actOnStateChange'");
+        gameState.changeState();
     }
 }

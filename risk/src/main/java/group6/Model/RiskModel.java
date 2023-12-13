@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import group6.Model.Interfaces.PlanetObserver;
+import group6.Model.Interfaces.GameStateObserver;
 import group6.Model.Interfaces.Ownable;
 import group6.Model.Interfaces.PlayerObserver;
 
@@ -22,6 +23,7 @@ import java.util.HashMap;
 
 public class RiskModel{
 
+    private GameStateObserver gameStateObserver;
     private List<PlanetObserver> planetObservers = new ArrayList<>();
     private List<PlayerObserver> playerObservers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
@@ -35,7 +37,15 @@ public class RiskModel{
     public RiskModel(){
          /* Nothing should happen when instance of Model is created */
     }
+
+    public void changeState(){
+        gameStateObserver.actOnStateChange();
+    }
     
+
+    public void setGameStateObserver(GameStateObserver gameStateObserver){
+        this.gameStateObserver = gameStateObserver;
+    }
 
     public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
@@ -201,7 +211,7 @@ public class RiskModel{
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
             planet.addSoldiers(soldiers);
             player.removeReinforceableSoldiers(soldiers);
-            notifyPlanetObservers(planet.getName(), soldiers);
+            notifyPlanetObservers(planet.getName(), soldiers, playerOwnership.getOwner(planet));
 
     }
     
