@@ -32,6 +32,10 @@ public class PlayerOwnership{
         return playersOwnablesMap.get(player);
     }
 
+    public Player getOwner(Ownable ownable){
+        return ownablesPlayerMap.get(ownable);
+    }
+
     public boolean isOwned(Ownable ownable, Player player){
         Player owner = ownablesPlayerMap.get(ownable);
         return player == owner;

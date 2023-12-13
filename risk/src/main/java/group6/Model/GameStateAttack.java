@@ -9,14 +9,15 @@ import group6.View.AttackView;
 public class GameStateAttack implements GameState {
     private Integer[] soldiersOnPlanetArray;
     private String[] attackablePlanets;
+
     @Override
     public void initState(RiskModel model, String planet) {
         model.getPlanetByName(planet);
-        this.soldiersOnPlanetArray = new Integer[model.getPlanetsSoldiers(planet)];
-        for (int i = 0; i < model.getCurrentPlayersFortifySoldiers(); i++) {
-            int soldier = 1;
-            this.soldiersOnPlanetArray[i] = soldier;
-            soldier ++;
+        this.soldiersOnPlanetArray = new Integer[model.getPlanetsSoldiers(planet) - 1];
+        
+        for (int i = 0; i < model.getPlanetsSoldiers(planet)-1; i++) {
+            
+            soldiersOnPlanetArray[i] = i+1;
         }
         this.attackablePlanets = model.getUnownedAdjecentPlanets(planet);
 

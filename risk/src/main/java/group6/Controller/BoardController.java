@@ -7,9 +7,10 @@ import javax.swing.JOptionPane;
 import group6.Model.GameStateReinforce;
 import group6.Model.RiskModel;
 import group6.Model.Interfaces.GameState;
+import group6.Model.Interfaces.GameStateObserver;
 import group6.View.BoardView;
 
-public class BoardController implements ActionListener{
+public class BoardController implements ActionListener, GameStateObserver{
     
     private RiskModel model;
     private BoardView view;
@@ -29,24 +30,19 @@ public class BoardController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // If the next button is pressed
         if(e.getActionCommand().equals("NEXT")){
 
-            // If the player has not reinforced all their troops (is not ready to change state)
             if(!model.isReinforceDone() && gameState.gameStateString() == "REINFORCE"){
                  JOptionPane.showMessageDialog(view, "You still have troops to reinforce", "HOLD UP", JOptionPane.ERROR_MESSAGE);
                     return; 
             }
             
-            // If the player is ready to change state
             else{
                 if (gameState.gameStateString() == "ATTACK"){
-                    // Set the next button label to "NEXT PLAYER", this only need to be done when changing from ATTACK to FORTIFY
                     view.setNextButtonLabel("NEXT PLAYER");
                 }
                 else if(gameState.gameStateString() == "FORTIFY"){
                     model.nextPlayer();
-                    // Change text back to "NEXT STATE" so its ready for the next player
                     view.setNextButtonLabel("NEXT STATE");
                     view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName() + "'s TURN");
                     view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
@@ -63,5 +59,12 @@ public class BoardController implements ActionListener{
             }
             gameState.initState(model, e.getActionCommand());
         }
+    }
+
+
+    @Override
+    public void actOnStateChange() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'actOnStateChange'");
     }
 }
