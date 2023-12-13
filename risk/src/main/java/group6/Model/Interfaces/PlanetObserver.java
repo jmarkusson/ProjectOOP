@@ -4,5 +4,5 @@ import java.awt.Color;
 
 public interface PlanetObserver {
     void updatePlanetsSoldiers(String planetName, int newSoldiersCount);
-    void updatePlanetColor(String planetName, Color  color);
+    void updatePlanetColor(String planetName, Color color);
 }

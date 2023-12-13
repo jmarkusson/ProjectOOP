@@ -1,23 +1,13 @@
 package group6.View;
 
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import javafx.scene.control.ComboBox;
 
 import javax.swing.JComboBox;
 
@@ -83,9 +73,6 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
       this.attackThisPlanet = new JLabel("Choose a planet to attack:");
       this.planetToAttackComboBox = new JComboBox<String>(this.attackablePlanets);
 
-
-
-      // add to panel
       this.planetPanelJPanel.add(attackingFrom);
       this.planetPanelJPanel.add(attackThisPlanet);
       this.planetPanelJPanel.add(planetToAttackComboBox);
@@ -100,7 +87,8 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
   private JPanel initRollPanel(){
     this.rollPanelJPanel = new JPanel();
     this.rollPanelJPanel.setPreferredSize(new Dimension(200,200));
-    this.rollDiceJButton = new JButton("Roll");
+    this.rollDiceJButton = new JButton("ROLL");
+    this.rollDiceJButton.setActionCommand("ROLL");
     this.soldierComboBox = new JComboBox<Integer>(this.soldiersOnPlanet);
     this.howManySoldiers = new JLabel("With how many Soldiers?");
 
@@ -117,9 +105,20 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
 
  
   public void setController(ActionListener e){
-
+      this.rollDiceJButton.addActionListener(e);
   }
 
+  public JComboBox getSoldiersComboBox(){
+      return this.soldierComboBox;
+  }
+
+  public JComboBox getPlanetToAttackComboBox(){
+      return this.planetToAttackComboBox;
+  }
+
+  public String getPlanetName(){
+      return this.planetName;
+  }
 
 }
 

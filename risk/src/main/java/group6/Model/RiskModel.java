@@ -2,10 +2,10 @@ package group6.Model;
 
 
 import java.util.List;
+import java.util.Random;
 
 import group6.Model.Interfaces.PlanetObserver;
 import group6.Model.Interfaces.Ownable;
-import group6.Model.Interfaces.PlanetSubject;
 import group6.Model.Interfaces.PlayerObserver;
 
 import java.awt.Color;
@@ -16,10 +16,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class RiskModel implements PlanetSubject{
+public class RiskModel{
 
     private List<PlanetObserver> planetObservers = new ArrayList<>();
     private List<PlayerObserver> playerObservers = new ArrayList<>();
@@ -348,7 +349,8 @@ public class RiskModel implements PlanetSubject{
         this.getCurrentPlayer().removeReinforceableSoldiers(soldiers);
         rPlanet.addSoldiers(soldiers);
         this.getCurrentPlayer().addSoldiers(soldiers);
-        notifyPlanetObservers(planet, rPlanet.getSoldiers());
+        notifyPlanetObservers(planet, rPlanet.getSoldiers(),
+         playerOwnership.getOwner(rPlanet));
         notifyPlayerObservers();
     }
 
@@ -379,27 +381,27 @@ public class RiskModel implements PlanetSubject{
         originPlanet.removeSoldiers(soldiers);
         fortifyPlanet.addSoldiers(soldiers);
 
-        notifyPlanetObservers(fromPlanet, originPlanet.getSoldiers());
-        notifyPlanetObservers(toPlanet, fortifyPlanet.getSoldiers());
+        notifyPlanetObservers(fromPlanet, originPlanet.getSoldiers(),
+         playerOwnership.getOwner(originPlanet));
+        notifyPlanetObservers(toPlanet, fortifyPlanet.getSoldiers(),
+        playerOwnership.getOwner(fortifyPlanet));
     }
 
 
-    @Override
     public void attach(PlanetObserver planetObserver) {
         planetObservers.add(planetObserver);
     }
 
 
-    @Override
     public void detach(PlanetObserver planetObserver) {
         planetObservers.remove(planetObserver);
     }
 
 
-    @Override
-    public void notifyPlanetObservers(String planetName, int newSoldierCount) {
+    public void notifyPlanetObservers(String planetName, int newSoldierCount, Player playerOwner) {
         for (PlanetObserver observer : planetObservers) {
             observer.updatePlanetsSoldiers(planetName, newSoldierCount);
+            observer.updatePlanetColor(planetName, playerOwner.getColor());
         }
     }
 
@@ -413,6 +415,56 @@ public class RiskModel implements PlanetSubject{
         }
     }
 
+    public void attackPlanet(String attackFromPlanet, String planetToAttack, int amountOfSoldiers) {
+        Planet fromPlanet = board.getPlanetByName(attackFromPlanet);
+        Planet toPlanet = board.getPlanetByName(planetToAttack);
+
+        int remainingAttackers = amountOfSoldiers;
+
+        while (remainingAttackers > 0 && toPlanet.getSoldiers() > 0) {
+            int attackingDice = Math.min(remainingAttackers, 3);
+            int defendingDice = Math.min(toPlanet.getSoldiers(), 2);
+
+            int[] attackRolls = rollDice(attackingDice);
+            int[] defendRolls = rollDice(defendingDice);
+
+            Arrays.sort(attackRolls);
+            Arrays.sort(defendRolls);
+            
+            int middleIndex = Math.min(attackingDice, 2);
+
+            for (int i = 0; i < Math.min(middleIndex , defendingDice); i++) {
+                int attackValue = attackRolls[Math.min(i, middleIndex)];
+                int defendValue = defendRolls[i];
+
+                if (attackValue > defendValue) {
+                    toPlanet.removeSoldiers(1); 
+                } else {
+                    remainingAttackers--;
+                    fromPlanet.removeSoldiers(1);
+                }
+            }
+
+            
+        }
+
+        notifyPlayerObservers();
+        notifyPlanetObservers(attackFromPlanet, fromPlanet.getSoldiers(),
+            playerOwnership.getOwner(fromPlanet));
+        notifyPlanetObservers(planetToAttack, toPlanet.getSoldiers(),
+            playerOwnership.getOwner(toPlanet));
+
+    }
+
+
+    private int[] rollDice(int numberOfDice) {
+        Random random = new Random();
+        int[] rolls = new int[numberOfDice];
+        for (int i = 0; i < numberOfDice; i++) {
+            rolls[i] = random.nextInt(6) + 1;
+        }
+        return rolls;
+    }
 
     
 }
