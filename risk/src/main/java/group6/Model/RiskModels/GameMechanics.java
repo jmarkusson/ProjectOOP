@@ -61,11 +61,18 @@ public class GameMechanics {
         playerManager.removeSoldiers(defendingPlayer, defendingSoldiersLost);
 
         if(boardManager.getSoldiers(defendingPlanet) == 0){
-            playerManager.assignOwnership(defendingPlanet, attackingPlayer);
-            playerManager.removeOwnership(defendingPlanet, defendingPlayer);
-            boardManager.addSoldiersToPlanet(defendingPlanet, result.getRemainingAttackers());
-            boardManager.removeSoldiersFromPlanet(attackingPlanet, result.getRemainingAttackers());
+            handleAttackVictory(attackingPlanet, defendingPlanet, attackingPlayer, defendingPlayer, result.getRemainingAttackers());
         }
     }
+
+    private void handleAttackVictory(Planet attackingPlanet, Planet defendingPlanet, Player attackingPlayer, Player defendingPlayer, int remainingAttackers){
+        playerManager.assignOwnership(defendingPlanet, attackingPlayer);
+        playerManager.removeOwnership(defendingPlanet, defendingPlayer);
+        boardManager.addSoldiersToPlanet(defendingPlanet, remainingAttackers);
+        boardManager.removeSoldiersFromPlanet(attackingPlanet, remainingAttackers);
+
+    }
+    
+    
   
 }
