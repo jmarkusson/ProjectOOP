@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group6.Model.Player;
+import group6.Model.Interfaces.GameStateObserver;
 import group6.Model.Interfaces.PlanetObserver;
 import group6.Model.Interfaces.PlayerObserver;
 
 public class ObserverManager {
-    private static final ObserverManager observerManager = new ObserverManager();
-    private PlanetObserver planetObserver;
+
+    private GameStateObserver gameStateObserver;
     
     private List<PlanetObserver> planetObservers = new ArrayList<>();
     private List<PlayerObserver> playerObservers = new ArrayList<>();
-    public static ObserverManager getInstance(){
-        return observerManager;
+    public ObserverManager(){
+        // Nothing here atm.
+    }
+
+    public void setGameStateObserver(GameStateObserver gameStateObserver){
+        this.gameStateObserver = gameStateObserver;
     }
 
     public void attach(PlanetObserver planetObserver) {
@@ -24,6 +29,10 @@ public class ObserverManager {
 
     public void detach(PlanetObserver planetObserver) {
         planetObservers.remove(planetObserver);
+    }
+
+     public void changeState(){
+        gameStateObserver.actOnStateChange();
     }
 
 

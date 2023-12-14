@@ -1,22 +1,23 @@
-package group6.Model;
+package group6.Controller;
 import group6.Controller.ReinforceController;
 import group6.Model.Interfaces.GameState;
+import group6.Model.RiskModels.ModelFacade;
 import group6.View.ReinforceView;
 
 public class GameStateReinforce implements GameState{
 
     @Override
-    public void initState(RiskModel model, String planet) {
+    public void initState(ModelFacade modelFacade, String planet) {
         
 
-        Integer[] soldiersArray = new Integer[model.getCurrentPlayersReinforcableSoldier()+1];
+        Integer[] soldiersArray = new Integer[modelFacade.getCurrentPlayersReinforcableSoldier()+1];
 
-        for (int i = 0; i <= model.getCurrentPlayersReinforcableSoldier(); i++) {
+        for (int i = 0; i <= modelFacade.getCurrentPlayersReinforcableSoldier(); i++) {
             soldiersArray[i] = i;
         }
 
         ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
-        ReinforceController controller = new ReinforceController(model, reinforceView);
+        ReinforceController controller = new ReinforceController(modelFacade, reinforceView);
         
         
         

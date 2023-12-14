@@ -2,7 +2,6 @@ package group6.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import group6.Model.RiskModel;
 import group6.View.FortifyView;
 import group6.Model.RiskModels.ModelFacade;
 
@@ -30,7 +29,6 @@ public class FortifyController implements ActionListener {
             Integer soldiersAmount = (Integer) view.getAmountOfSoldiersBox().getSelectedItem();
 
             modelFacade.fortifyPlanet(originPlanet, fortifyPlanet, soldiersAmount);
-            modelFacade.notifyPlanetObservers();
             view.dispose();   
         }
     }

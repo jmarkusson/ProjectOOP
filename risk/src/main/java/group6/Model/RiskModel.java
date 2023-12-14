@@ -35,15 +35,15 @@ public class RiskModel{
     private String[] gamestates = {"REINFORCE", "ATTACK", "FORTIFY"};
     private int currentGameState = 0;
     
-
-    public RiskModel(){
+ 
+     public RiskModel(){
          /* Nothing should happen when instance of Model is created */
     }
 
     public void changeState(){
         gameStateObserver.actOnStateChange();
     }
-
+/*
     public void changeGameStateIndex(){
         currentGameState = (currentGameState + 1) % 3;
     }
@@ -56,7 +56,7 @@ public class RiskModel{
         this.gameStateObserver = gameStateObserver;
     }
 
-    /*public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
+    public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
         Boolean succesfullLoad = false;
         board = new Board();
@@ -142,7 +142,7 @@ public class RiskModel{
         return succesfullLoad;
 
     }
-    */
+    
 
     private void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         players = new ArrayList<Player>();
@@ -489,7 +489,7 @@ public class RiskModel{
 
     }
 
-
+// In dice
     private Integer[] rollDice(int numberOfDice) {
         Random random = new Random();
         Integer[] rolls = new Integer[numberOfDice];
@@ -499,5 +499,5 @@ public class RiskModel{
         return rolls;
     }
 
-    
+    */
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import group6.Model.Planet;
 import group6.Model.Player;
 import group6.Model.PlayerOwnership;
+import group6.Model.Interfaces.Ownable;
 
 import java.awt.Color;
 import java.awt.Color;
@@ -26,6 +27,9 @@ public class PlayerManager {
     private int currentPlayerIndex;
     private Player currentPlayer;
     private PlayerOwnership playerOwnership;
+    private int nmbrOfPlayers = 2;
+    private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
+    
 
 
     public PlayerManager(){
@@ -37,13 +41,13 @@ public class PlayerManager {
 
         for(int i = 0; i < playerNames.size(); i++){
             Player newPlayer = new Player(playerNames.get(i), playerColors.get(i), i);
-            players.add(newPlayer);
+            this.players.add(newPlayer);
 
         }
     }
 
     public Player getCurrentPlayer(){
-        return players.get(currentPlayerIndex);
+        return this.players.get(currentPlayerIndex);
     }
 
     public void nextPlayer(){
@@ -66,19 +70,23 @@ public class PlayerManager {
         return this.playerOwnership;
     }
 
+    public ArrayList<Ownable> getPlayerOwnables(){
+        return playerOwnership.getPlayersOwnables(currentPlayer);
+    }
+
     public void assignOwnership(Planet planet, Player player){
         playerOwnership.assignOwnership(planet, player);
     }
 
     public ArrayList<Player> getPlayers(){
-        return players;
+        return this.players;
     }
 
     public Player getOwner(Planet planet){
         return playerOwnership.getOwner(planet);
     }
 
-    private void resetReinforcableSoldierForNextTurn(Player player){
+    public void resetReinforcableSoldierForNextTurn(Player player){
         player.setReinforceableSoldiers(player.getBonusSoldiers());
     }
 
@@ -95,5 +103,41 @@ public class PlayerManager {
     public void setCurrentPlayersReinforcableSoldier(int soldiers){
         getCurrentPlayer().setReinforceableSoldiers(soldiers);
     }
+    public void removeOwnership(Planet planetToAttack, Player defendingPlayer ){
+        this.playerOwnership.removeOwnership(planetToAttack, defendingPlayer);
+    }
 
+    public void setnmbOfPlayers(int nmbrOfPlayers){
+        this.nmbrOfPlayers = nmbrOfPlayers;
+    }
+
+    public int getnmbrOfPlayers(){
+        return this.nmbrOfPlayers;
+    }
+
+    public Color[] getPlayerColors(){
+        return colorChoices;
+    } 
+
+    public Player getPlayer(int i){
+        return this.players.get(i);
+    }
+
+    public Color getPlayerColor(Player player){
+        return player.getColor();
+    }
+
+    public boolean isOwnedCurrentPlayer(Ownable ownable){
+        return isOwned(ownable, getCurrentPlayer());
+    }
+
+    public boolean isOwned(Ownable ownable, Player player){
+        return this.playerOwnership.isOwned(ownable, player);
+    }
+
+    
+
+    
+    
+    
 }

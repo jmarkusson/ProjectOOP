@@ -1,18 +1,20 @@
-package group6.Model;
+package group6.Controller;
 
 import javax.swing.JFrame;
 
 import group6.Controller.AttackController;
 import group6.Model.Interfaces.GameState;
+import group6.Model.RiskModels.ModelFacade;
 import group6.View.AttackView;
+
 
 public class GameStateAttack implements GameState {
     private Integer[] soldiersOnPlanetArray;
     private String[] attackablePlanets;
 
     @Override
-    public void initState(RiskModel model, String planet) {
-        int planetSoldiers = model.getPlanetsSoldiers(planet);
+    public void initState(ModelFacade modelFacade, String planet) {
+        int planetSoldiers = modelFacade.getPlanetsSoldiers(planet);
 
         this.soldiersOnPlanetArray = new Integer[planetSoldiers - 1];
         
@@ -20,10 +22,10 @@ public class GameStateAttack implements GameState {
             
             soldiersOnPlanetArray[i] = i+1;
         }
-        this.attackablePlanets = model.getUnownedAdjecentPlanets(planet);
+        this.attackablePlanets = modelFacade.getUnownedAdjecentPlanets(planet);
 
-        AttackView attackVw = new AttackView(planet, model.getPlayerColor(model.getCurrentPlayer()), soldiersOnPlanetArray, attackablePlanets);
-        AttackController attackCtrl = new AttackController(attackVw, model);
+        AttackView attackVw = new AttackView(planet, modelFacade.getPlayerColor(modelFacade.getCurrentPlayer()), soldiersOnPlanetArray, attackablePlanets);
+        AttackController attackCtrl = new AttackController(attackVw, modelFacade);
 
     }
 

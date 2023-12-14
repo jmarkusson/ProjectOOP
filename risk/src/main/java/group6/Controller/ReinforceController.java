@@ -7,15 +7,16 @@ import javax.swing.JComboBox;
 
 import group6.Model.Planet;
 import group6.Model.RiskModel;
+import group6.Model.RiskModels.ModelFacade;
 import group6.View.ReinforceView;
 
 public class ReinforceController implements ActionListener {
 
     ReinforceView view;
-    RiskModel model;
+    ModelFacade model;
     int soldiersAmount;
 
-    public ReinforceController(RiskModel model, ReinforceView view){
+    public ReinforceController(ModelFacade model, ReinforceView view){
         
         this.model = model;
         this.view = view;
@@ -30,7 +31,7 @@ public class ReinforceController implements ActionListener {
             this.soldiersAmount = source.getSelectedIndex();  
         }
         else if(e.getActionCommand().equals("addsoldiers")){
-            model.ReinforcePlanet(view.getplanetName(), soldiersAmount);
+            model.reinforcePlanet(view.getplanetName(), soldiersAmount);
             
             view.dispose();
 

@@ -14,7 +14,15 @@ public class Dice {
     }
 
     // Method to roll dice
-    private List<Integer> roll(int numberOfDice) {
+    public Integer[] rollDice(int numberOfDice) {
+    Random random = new Random();
+    Integer[] rolls = new Integer[numberOfDice];
+    for (int i = 0; i < numberOfDice; i++) {
+        rolls[i] = random.nextInt(6) + 1;
+    }
+    return rolls;
+    }
+    public List<Integer> roll(int numberOfDice) {
         List<Integer> rolls = new ArrayList<>();
         for (int i = 0; i < numberOfDice; i++) {
             // Dice roll (1-6)

@@ -33,6 +33,7 @@ public class GameInitializer {
         this.boardManager.loadBoard(fileParser.getPlanetNamesArray(), fileParser.getSolarsystemsArray(), fileParser.getAdjacenciesArray(), fileParser.getPlanetPointsArray(), fileParser.getSolarPointsArray());
         this.playerManager.initPlayers(playerNames,playerColors);
         this.boardManager.distributePlanets();
+        
 
     }
 

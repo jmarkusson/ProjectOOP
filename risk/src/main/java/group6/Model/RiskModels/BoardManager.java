@@ -18,6 +18,7 @@ import java.util.List;
 import group6.Model.Board;
 import group6.Model.Planet;
 import group6.Model.Player;
+import group6.Model.Interfaces.Ownable;
 
 public class BoardManager {
     private Board board;
@@ -77,6 +78,58 @@ public class BoardManager {
     public int getSoldiers(Planet planet){
         return planet.getSoldiers();
     }
+
+    public String[] getPlanetNames(){
+        return board.getPlanetNames();
+    }
+
+    public Point[][] getPlanetPositions() {
+        return board.getPlanetPositions();
+    }
+
+    public Point[] getSolarPositions(){
+        return board.getSolarPositions();
+    }
+
+    public HashMap<String, Color> getPlanetColorMap(){
+        return board.getPlanetColorMap();
+    }
+
+    public int getPlanetsSoldiers(String planet){
+        return board.getPlanetByName(planet).getSoldiers();
+    }
+
+    public String[] getUnownedAdjecentPlanets(String planet){
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(getPlanetByName(planet));
+        ArrayList<Ownable> playersOwnables = playerManager.getPlayerOwnables();
+        ArrayList<String> unownedAdjecentPlanets = new ArrayList<>();
+
+        for (Planet adjacentPlanet : adjacentPlanets) {
+            if (!playersOwnables.contains(adjacentPlanet)) {
+                unownedAdjecentPlanets.add(adjacentPlanet.getName());
+            }
+        }
+
+        return unownedAdjecentPlanets.toArray(new String[0]);
+
+    }
+    public String[] getOwnedAdjecentPlanets(String planet){
+        ArrayList<Planet> adjacentPlanets = getAdjecentPlanets(getPlanetByName(planet));
+        ArrayList<Ownable> playersOwnables = playerManager.getPlayerOwnables();
+        ArrayList<String> ownedAdjecentPlanets = new ArrayList<>();
+
+        for (Planet adjacentPlanet : adjacentPlanets) {
+            if (playersOwnables.contains(adjacentPlanet)) {
+                ownedAdjecentPlanets.add(adjacentPlanet.getName());
+            }
+        }
+
+        return ownedAdjecentPlanets.toArray(new String[0]);
+    }
+    public ArrayList<Planet> getAdjecentPlanets(Planet planet){
+        return planet.getAdjecentPlanets();
+    }
+   
 }
 
 
