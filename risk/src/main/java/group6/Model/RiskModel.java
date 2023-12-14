@@ -143,7 +143,7 @@ public class RiskModel{
         distributeRemainingSoldiers(shuffledPlanets);
         resetAllReinforcableSoldierForNextTurn();
     }
-
+// Took the function below and implemented it in 
     private List<Planet> getShuffledPlanets(){
         List<Planet> shuffledPlanets = new ArrayList<>(board.getPlanets());
         Collections.shuffle(shuffledPlanets);

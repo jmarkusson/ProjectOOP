@@ -5,6 +5,17 @@ import java.util.ArrayList;
 
 import group6.Model.Player;
 import java.awt.Color;
+import java.awt.Color;
+import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class PlayerManager {
     private ArrayList<Player> players;
@@ -38,6 +49,13 @@ public class PlayerManager {
 
     public int getTotalPlayers(){
         return this.totalPlayers;
+    }
+
+    private void initializePlayersReinforceableSoldiers(){
+        for (Player player : players){
+            player.setReinforceableSoldiers(player.getSoldiers());
+        }
+
     }
 
 }
