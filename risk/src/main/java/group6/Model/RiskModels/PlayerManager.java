@@ -3,7 +3,10 @@ package group6.Model.RiskModels;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import group6.Model.Planet;
 import group6.Model.Player;
+import group6.Model.PlayerOwnership;
+
 import java.awt.Color;
 import java.awt.Color;
 import java.awt.Point;
@@ -22,6 +25,7 @@ public class PlayerManager {
     private int totalPlayers;
     private int currentPlayerIndex;
     private Player currentPlayer;
+    private PlayerOwnership playerOwnership;
 
 
     public PlayerManager(){
@@ -56,6 +60,40 @@ public class PlayerManager {
             player.setReinforceableSoldiers(player.getSoldiers());
         }
 
+    }
+
+    public PlayerOwnership getPlayerOwnership(){
+        return this.playerOwnership;
+    }
+
+    public void assignOwnership(Planet planet, Player player){
+        playerOwnership.assignOwnership(planet, player);
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+
+    public Player getOwner(Planet planet){
+        return playerOwnership.getOwner(planet);
+    }
+
+    private void resetReinforcableSoldierForNextTurn(Player player){
+        player.setReinforceableSoldiers(player.getBonusSoldiers());
+    }
+
+    private void resetAllReinforcableSoldierForNextTurn(){
+        for (Player player : players){
+            resetReinforcableSoldierForNextTurn(player);
+        }
+    }
+
+    public int getCurrentPlayersReinforcableSoldier(){
+        return this.getCurrentPlayer().getReinforceableSoldiers();
+    }
+
+    public void setCurrentPlayersReinforcableSoldier(int soldiers){
+        getCurrentPlayer().setReinforceableSoldiers(soldiers);
     }
 
 }

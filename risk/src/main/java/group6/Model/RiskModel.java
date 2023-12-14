@@ -393,7 +393,7 @@ public class RiskModel{
 
         return unownedAdjecentPlanets.toArray(new String[0]);
     }
-
+// In Modelfacade
     public void fortifyPlanet(String fromPlanet, String toPlanet, int soldiers){
         Planet originPlanet = getPlanetByName(fromPlanet);
         Planet fortifyPlanet = getPlanetByName(toPlanet);
@@ -435,6 +435,7 @@ public class RiskModel{
         }
     }
 
+    //In modelFacade and GameMechanics
     public void attackPlanet(String attackFromPlanet, String planetToAttack, int amountOfSoldiers) {
         Planet attackingPlanet = board.getPlanetByName(attackFromPlanet);
         Planet defendingPlanet = board.getPlanetByName(planetToAttack);
