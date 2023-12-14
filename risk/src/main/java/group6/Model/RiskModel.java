@@ -32,6 +32,8 @@ public class RiskModel{
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
     private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
+    private String[] gamestates = {"REINFORCE", "ATTACK", "FORTIFY"};
+    private int currentGameState = 0;
     
 
     public RiskModel(){
@@ -41,7 +43,14 @@ public class RiskModel{
     public void changeState(){
         gameStateObserver.actOnStateChange();
     }
+
+    public void changeGameStateIndex(){
+        currentGameState = (currentGameState + 1) % 3;
+    }
     
+    public String getCurrentGameState(){
+        return gamestates[currentGameState];
+    }
 
     public void setGameStateObserver(GameStateObserver gameStateObserver){
         this.gameStateObserver = gameStateObserver;
@@ -57,7 +66,6 @@ public class RiskModel{
         List<Point> listOfSunPositions = new ArrayList<>();
         
         String line;
-        
 
         try {
             InputStream planetStream = getClass().getClassLoader().getResourceAsStream("textfiles/planets.txt");

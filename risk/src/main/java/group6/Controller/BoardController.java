@@ -30,40 +30,20 @@ public class BoardController implements ActionListener, GameStateObserver{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        if(e.getActionCommand().equals("NEXT")){
-
-            if(!model.isReinforceDone() && gameState.gameStateString() == "REINFORCE"){
-                 JOptionPane.showMessageDialog(view, "You still have troops to reinforce", "HOLD UP", JOptionPane.ERROR_MESSAGE);
-                    return; 
-            }
-            
-            else{
-                if (gameState.gameStateString() == "ATTACK"){
-                    view.setNextButtonLabel("NEXT PLAYER");
-                }
-                else if(gameState.gameStateString() == "FORTIFY"){
-                    model.nextPlayer();
-                    view.setNextButtonLabel("NEXT STATE");
-                    view.getCurrentPlayerLabel().setText(model.getCurrentPlayer().getName() + "'s TURN");
-                    view.getCurrentPlayerLabel().setForeground(model.getCurrentPlayer().getColor());
-                }
-                
-                view.updateCurrentStateLabel(gameState.gameStateString());
-            }
+        if(!model.isOwnedCurrentPlayer(model.getPlanetByName(e.getActionCommand()))){
+            JOptionPane.showMessageDialog(view, "You do not own this planet", "WRONG PLANET", JOptionPane.ERROR_MESSAGE);
+            return; 
         }
-        else {
-            if(!model.isOwnedCurrentPlayer(model.getPlanetByName(e.getActionCommand()))){
-                JOptionPane.showMessageDialog(view, "You do not own this planet", "WRONG PLANET", JOptionPane.ERROR_MESSAGE);
-                return; 
-            }
-            gameState.initState(model, e.getActionCommand());
+        gameState.initState(model, e.getActionCommand());
         }
-    }
+    
 
 
     @Override
     public void actOnStateChange() {
-        gameState.changeState();
+        gameState = gameState.changeState();
+        model.changeGameStateIndex();
+        view.updateCurrentStateLabel(model.getCurrentGameState());
+        
     }
 }

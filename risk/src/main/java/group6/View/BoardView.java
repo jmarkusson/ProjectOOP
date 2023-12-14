@@ -134,7 +134,7 @@ public class BoardView extends JPanel implements PlanetObserver{
         this.nextButton.setText(str);
     }
 
-    
+ 
 
     @Override
     public void updatePlanetColor(String planetName, Color color) {
