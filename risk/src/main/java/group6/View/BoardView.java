@@ -74,7 +74,6 @@ public class BoardView extends JPanel implements PlanetObserver{
         this.nextButton.setBounds(770, 700, 200, 50);
         nextButton.setForeground(Color.WHITE);
         nextButton.setBackground(Color.DARK_GRAY);
-        this.nextButton.addActionListener(controller);
 
         this.currentStateLabel = new JLabel("REINFORCE");
         this.currentStateLabel.setBounds(650, 50, 300, 100);
@@ -95,6 +94,10 @@ public class BoardView extends JPanel implements PlanetObserver{
 
         this.revalidate();
         this.repaint();
+    }
+
+    public void addActionListenertostateButton(ActionListener e){
+        this.nextButton.addActionListener(e);
     }
 
     private JButton createPlanetButton(String planetName, Point position, int size, ActionListener controller) {
@@ -131,14 +134,14 @@ public class BoardView extends JPanel implements PlanetObserver{
         this.nextButton.setText(str);
     }
 
-    
+ 
 
     @Override
     public void updatePlanetColor(String planetName, Color color) {
         if (planetColors.containsKey(planetName)) {
             planetColors.put(planetName, color);
         }
-        repaint(); // Repaint the panel to reflect the color change
+        repaint();
     }
 
     @Override
@@ -234,6 +237,8 @@ public class BoardView extends JPanel implements PlanetObserver{
         }
         this.repaint();
     }
+
+
 
 
 
