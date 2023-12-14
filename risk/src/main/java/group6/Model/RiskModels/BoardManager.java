@@ -26,9 +26,12 @@ public class BoardManager {
     private PlayerManager playerManager;
     private ObserverManager observerManager;
 
-    public BoardManager(Board board) {
+    public BoardManager(Board board, PlayerManager playerManager, ObserverManager observerManager) {
         this.board = board;
         this.planets = planets;
+        this.playerManager = playerManager;
+        this.observerManager = observerManager;
+
     }
 
     protected void loadBoard(String[] planetNames, String[] solarsystems, String[] adjacencies, Point[][] planetPoints, Point[] solarPoints) {
@@ -37,6 +40,10 @@ public class BoardManager {
 
     protected void distributePlanets() {
         List<Planet> shuffledPlanets = getShuffledPlanets();
+        playerManager.initializePlayersReinforceableSoldiers();
+        evenlyDistributeInitalPlanets(shuffledPlanets);
+        distributeRemainingSoldiers(shuffledPlanets);
+        playerManager.resetAllReinforcableSoldierForNextTurn();
     }
 
     public ArrayList<Planet> getPlanets() {
@@ -51,17 +58,22 @@ public class BoardManager {
 
     private void evenlyDistributeInitalPlanets(List<Planet> planets){
         for (int i = 0; i < planets.size(); i++){
+            ArrayList<Player> players = playerManager.getPlayers();
+            
             Planet currentPlanet = planets.get(i);
-            Player currentPlayer = playerManager.getPlayers().get(i % playerManager.getPlayers().size());
+            Player currentPlayer = players.get(i % players.size());
 
-            playerManager.assignOwnership(currentPlanet, currentPlayer);
-
-            putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
-
+            assignPlanetToPlayer(currentPlanet, currentPlayer);
 
             board.getPlanetColorMap().put(currentPlanet.getName(), currentPlayer.getColor());
                 
         }
+    }
+
+    private void assignPlanetToPlayer(Planet planet, Player player){
+        playerManager.assignOwnership(planet, player);
+
+        putPlayersSoldierOnPlanet(player, planet, 1);
     }
 
     private void putPlayersSoldierOnPlanet(Player player, Planet planet, int soldiers){
@@ -128,6 +140,28 @@ public class BoardManager {
     }
     public ArrayList<Planet> getAdjecentPlanets(Planet planet){
         return planet.getAdjecentPlanets();
+    }
+    public void distributeRemainingSoldiers(List<Planet> planets){
+        for (Player currentPlayer : playerManager.getPlayers()){
+            ArrayList<Planet> ownedPlanetsList = getOwnedPlanets(currentPlayer);
+            int i = 0;
+            while(currentPlayer.getReinforceableSoldiers() > 0){
+                Planet currentPlanet = ownedPlanetsList.get(i % ownedPlanetsList.size());
+                putPlayersSoldierOnPlanet(currentPlayer, currentPlanet, 1);
+                i++;
+            }
+        }
+    }
+
+    private ArrayList<Planet> getOwnedPlanets(Player player){
+        ArrayList<Ownable> ownables = playerManager.getPlayerOwnership().getPlayersOwnables(player);
+        ArrayList<Planet> ownedPlanets = new ArrayList<>();
+        for (Ownable ownable : ownables){
+            if (ownable instanceof Planet){
+                ownedPlanets.add((Planet) ownable);
+            }
+        }
+        return ownedPlanets;
     }
    
 }

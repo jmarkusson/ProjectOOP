@@ -52,7 +52,7 @@ public class GameOptionsController implements ActionListener{
             playerColors = new ArrayList<Color>();
 
             ArrayList<Color> selectedColors = new ArrayList<>();
-
+            // User errors
             for (int i = 0; i < view.getTextfields().size(); i++) {
                 JTextField playerNameField = view.getTextfields().get(i);
                 JComboBox colorBox = view.getColorBoxes().get(i);
@@ -73,17 +73,20 @@ public class GameOptionsController implements ActionListener{
                 playerColors.add(playerColor); 
                 
             }
+            // initilize
 
             modelFacade.initGame(playerNames, playerColors);
+            
+            BoardView boardview = new BoardView(modelFacade.getPlanetNames(), modelFacade.getPlanetPositions(), modelFacade.getSolarPositions(), modelFacade.getPlanetColorMap());
+            
+            BoardController boardController = new BoardController(modelFacade, boardview);
             
             for (int i = 0; i < modelFacade.getPlayers().size(); i++){
                 playerViews.add(new PlayerView(modelFacade.getPlayer(i)));
                 modelFacade.addPlayerObserver(playerViews.get(i));
             }
             view.dispose();
-            BoardView boardview = new BoardView(modelFacade.getPlanetNames(), modelFacade.getPlanetPositions(), modelFacade.getSolarPositions(), modelFacade.getPlanetColorMap());
             
-            BoardController boardViewController = new BoardController(modelFacade, boardview);
             GameView gameView = new GameView(boardview, playerViews);
             GameStateController gameStateController = new GameStateController(modelFacade, boardview);
             

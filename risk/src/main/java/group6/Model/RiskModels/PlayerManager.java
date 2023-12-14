@@ -1,6 +1,5 @@
 package group6.Model.RiskModels;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import group6.Model.Planet;
@@ -9,31 +8,19 @@ import group6.Model.PlayerOwnership;
 import group6.Model.Interfaces.Ownable;
 
 import java.awt.Color;
-import java.awt.Color;
-import java.awt.Point;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 
 public class PlayerManager {
     private ArrayList<Player> players;
-    private int totalPlayers;
-    private int currentPlayerIndex;
-    private Player currentPlayer;
+    private int currentPlayerIndex = 0;
     private PlayerOwnership playerOwnership;
     private int nmbrOfPlayers = 2;
     private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
     
 
 
-    public PlayerManager(){
-        // Nothing should happen when an instance of PlayerManager is created
+    public PlayerManager(PlayerOwnership playerOwnership){
+        this.playerOwnership = playerOwnership;
+        
     }
 
     protected void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
@@ -51,15 +38,11 @@ public class PlayerManager {
     }
 
     public void nextPlayer(){
-        int numberOfPlayers = this.getTotalPlayers();
+        int numberOfPlayers = this.getnmbrOfPlayers();
         this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % numberOfPlayers);
     }
 
-    public int getTotalPlayers(){
-        return this.totalPlayers;
-    }
-
-    private void initializePlayersReinforceableSoldiers(){
+    protected void initializePlayersReinforceableSoldiers(){
         for (Player player : players){
             player.setReinforceableSoldiers(player.getSoldiers());
         }
@@ -71,7 +54,7 @@ public class PlayerManager {
     }
 
     public ArrayList<Ownable> getPlayerOwnables(){
-        return playerOwnership.getPlayersOwnables(currentPlayer);
+        return playerOwnership.getPlayersOwnables(getCurrentPlayer());
     }
 
     public void assignOwnership(Planet planet, Player player){
@@ -90,7 +73,7 @@ public class PlayerManager {
         player.setReinforceableSoldiers(player.getBonusSoldiers());
     }
 
-    private void resetAllReinforcableSoldierForNextTurn(){
+    protected void resetAllReinforcableSoldierForNextTurn(){
         for (Player player : players){
             resetReinforcableSoldierForNextTurn(player);
         }
@@ -135,6 +118,10 @@ public class PlayerManager {
         return this.playerOwnership.isOwned(ownable, player);
     }
 
+    
+    
+
+   
     
 
     

@@ -3,6 +3,7 @@ package group6.Model.RiskModels;
 import group6.Model.Board;
 import group6.Model.Planet;
 import group6.Model.Player;
+import group6.Model.PlayerOwnership;
 import group6.Model.Interfaces.GameStateObserver;
 import group6.Model.Interfaces.Ownable;
 import group6.Model.Interfaces.PlanetObserver;
@@ -25,17 +26,21 @@ public class ModelFacade {
     private GameMechanics gameMechanics;
     private PlayerManager playerManager;
     private BoardManager boardManager;
-    private ObserverManager observerManager;
+    
     private FileParser fileParser;
     private Board board;
     private GameStateManager gameStateManager;
+    private PlayerOwnership playerOwnership = new PlayerOwnership();
+    private ObserverManager observerManager;
 
     public ModelFacade() {
         this.board = new Board();
-        this.boardManager = new BoardManager(this.board);
-        this.playerManager = new PlayerManager();
-        this.gameMechanics = new GameMechanics(this.playerManager);
+
         this.observerManager = new ObserverManager();
+        this.playerManager = new PlayerManager(this.playerOwnership);
+        this.boardManager = new BoardManager(this.board, this.playerManager, this.observerManager);
+        this.gameMechanics = new GameMechanics(this.playerManager);
+        
         this.fileParser = new FileParser();
         this.gameInitializer = new GameInitializer(this.boardManager, this.playerManager, this.fileParser);
         this.gameStateManager = new GameStateManager(observerManager);

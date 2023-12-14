@@ -43,7 +43,7 @@ public class RiskModel{
     public void changeState(){
         gameStateObserver.actOnStateChange();
     }
-/*
+
     public void changeGameStateIndex(){
         currentGameState = (currentGameState + 1) % 3;
     }
@@ -499,5 +499,5 @@ public class RiskModel{
         return rolls;
     }
 
-    */
+    
 }

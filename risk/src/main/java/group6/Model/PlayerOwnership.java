@@ -12,6 +12,10 @@ public class PlayerOwnership{
     private Map<Ownable, Player> ownablesPlayerMap = new HashMap<>();
     private Map<Player, ArrayList<Ownable>> playersOwnablesMap = new HashMap<>();
 
+    public PlayerOwnership(){
+        // Nothing here atm.
+    }
+
     public void assignOwnership(Ownable ownable, Player player) {
         ownablesPlayerMap.put(ownable, player);
 

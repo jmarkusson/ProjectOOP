@@ -9,7 +9,7 @@ public class GameStateManager {
     private String[] gamestates = {"REINFORCE", "ATTACK", "FORTIFY"};
     private int currentGameState = 0;
     
-    public GameStateManager(ObserverManager gameStateObserver){
+    public GameStateManager(ObserverManager observerManager){
         this.observerManager = observerManager;
     }
 
