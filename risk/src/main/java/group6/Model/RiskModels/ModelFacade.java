@@ -1,6 +1,7 @@
 package group6.Model.RiskModels;
 
 import group6.Model.Board;
+import group6.Model.Dice;
 import group6.Model.Planet;
 import group6.Model.Player;
 import group6.Model.PlayerOwnership;
@@ -32,6 +33,7 @@ public class ModelFacade {
     private GameStateManager gameStateManager;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private ObserverManager observerManager;
+    private Dice dice = new Dice();
 
     public ModelFacade() {
         this.board = new Board();
@@ -39,7 +41,7 @@ public class ModelFacade {
         this.observerManager = new ObserverManager();
         this.playerManager = new PlayerManager(this.playerOwnership);
         this.boardManager = new BoardManager(this.board, this.playerManager, this.observerManager);
-        this.gameMechanics = new GameMechanics(this.playerManager);
+        this.gameMechanics = new GameMechanics(this.playerManager, this.boardManager, this.dice);
         
         this.fileParser = new FileParser();
         this.gameInitializer = new GameInitializer(this.boardManager, this.playerManager, this.fileParser);
@@ -77,6 +79,10 @@ public class ModelFacade {
         Player defendingowner = this.playerManager.getOwner(defendingPlanet);
         // Handles game logic
         gameMechanics.attackPlanet(originPlanet, defendingPlanet, amountOfSoldiers);
+
+        owner = this.playerManager.getOwner(originPlanet);
+        defendingowner = this.playerManager.getOwner(defendingPlanet);
+        
         // Notifies observers
         notifyPlayerObservers();
         notifyPlanetObservers(planetAttackingFrom, originPlanet.getSoldiers(),owner);
@@ -158,7 +164,7 @@ public class ModelFacade {
     }
 
     public int getPlanetsSoldiers(String planet){
-        return getPlanetsSoldiers(planet);
+        return boardManager.getPlanetsSoldiers(planet);
     }
 
 

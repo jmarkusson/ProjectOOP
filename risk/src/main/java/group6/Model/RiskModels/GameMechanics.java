@@ -11,21 +11,27 @@ import group6.Model.Player;
 import group6.Model.Dice;
 
 public class GameMechanics {
-    private Dice dice;
     private PlayerManager playerManager;
+    private BoardManager boardManager;
+    private Battle battle;
+    
     
 
-    public GameMechanics(PlayerManager playerManager){
-
+    public GameMechanics(PlayerManager playerManager, BoardManager boardManager, Dice dice){
         this.playerManager = playerManager;
+        this.boardManager = boardManager;
+        this.battle = new Battle(new Dice());
     }
+
     public void fortifyPlanet(Planet originPlanet, Planet fortifyPlanet, int soldiers, Player owner){
-        originPlanet.removeSoldiers(soldiers);
-        fortifyPlanet.addSoldiers(soldiers);
+        boardManager.removeSoldiersFromPlanet(originPlanet, soldiers);
+        boardManager.addSoldiersToPlanet(fortifyPlanet, soldiers);
     }
 
     public void reinforcePlanet(Planet planet, int soldiers){
-        planet.addSoldiers(soldiers);
+        boardManager.addSoldiersToPlanet(planet, soldiers);
+        playerManager.removeReinforceableSoldiers(playerManager.getCurrentPlayer(), soldiers);
+        playerManager.addSoldiers(playerManager.getCurrentPlayer(), soldiers);
     }
 
     public Boolean isReinforceDone(){
@@ -41,73 +47,25 @@ public class GameMechanics {
         return reinforceDone;
     }
 
-    public void attackPlanet(Planet planetAttackingFrom, Planet planetToAttack, int amountOfSoldiers) {
-        int remainingAttackers = amountOfSoldiers;
-        int defendingSoldiersLost = 0;
-        int attackingSoldiersLost = 0;
+    public void attackPlanet(Planet attackingPlanet, Planet defendingPlanet, int amountOfSoldiers) {
 
-            while (remainingAttackers > 0 && planetToAttack.getSoldiers() > 0) {
-            int attackingDice = Math.min(remainingAttackers, 3);
-            int defendingDice = Math.min(planetToAttack.getSoldiers(), 2);
-            //dice rolls
-            Integer[] attackRolls = rollDice(attackingDice);
-            Integer[] defendRolls = rollDice(defendingDice);
+        BattleResult result = battle.conductBattle(attackingPlanet, defendingPlanet, amountOfSoldiers);
 
-            Arrays.sort(attackRolls, Collections.reverseOrder());
-            Arrays.sort(defendRolls, Collections.reverseOrder());
+        Player attackingPlayer = playerManager.getOwner(attackingPlanet);
+        Player defendingPlayer = playerManager.getOwner(defendingPlanet);
 
-            for (int i = 0; i < Math.min(attackingDice, defendingDice); i++) {
-                int attackValue = attackRolls[i];
-                int defendValue = defendRolls[i];
+        int attackingSoldiersLost = result.getAttackingSoldiersLost();
+        int defendingSoldiersLost = result.getDefendingSoldiersLost();
 
-                handleBattleResult(attackValue, defendValue, planetAttackingFrom, planetToAttack,
-                        remainingAttackers, defendingSoldiersLost, attackingSoldiersLost);
-            }
+        playerManager.removeSoldiers(attackingPlayer, attackingSoldiersLost);
+        playerManager.removeSoldiers(defendingPlayer, defendingSoldiersLost);
+
+        if(boardManager.getSoldiers(defendingPlanet) == 0){
+            playerManager.assignOwnership(defendingPlanet, attackingPlayer);
+            playerManager.removeOwnership(defendingPlanet, defendingPlayer);
+            boardManager.addSoldiersToPlanet(defendingPlanet, result.getRemainingAttackers());
+            boardManager.removeSoldiersFromPlanet(attackingPlanet, result.getRemainingAttackers());
         }
-        updatePlayersSoldiers(planetAttackingFrom, planetToAttack, 
-        attackingSoldiersLost, defendingSoldiersLost, 
-        remainingAttackers);
-    }
-        
-    
-
-    private void handleBattleResult(int attackValue, int defendValue, Planet planetAttackingFrom,
-                                Planet planetToAttack, int remainingAttackers, int defendingSoldiersLost,
-                                int attackingSoldiersLost) {
-        if (attackValue > defendValue) {
-            planetToAttack.removeSoldiers(1);
-            defendingSoldiersLost++;
-        } else {
-            remainingAttackers--;
-            attackingSoldiersLost++;
-            planetAttackingFrom.removeSoldiers(1);
-        }
-    }
-
-    private void updatePlayersSoldiers(Planet planetAttackingFrom, Planet planetToAttack, int attackingSoldiersLost, int defendingSoldiersLost, int remainingAttackers) {
-        Player attackingPlayer = playerManager.getOwner(planetAttackingFrom);
-        Player defendingPlayer = playerManager.getOwner(planetToAttack);
-
-        attackingPlayer.setSoldiers(attackingPlayer.getSoldiers() - attackingSoldiersLost);
-        defendingPlayer.setSoldiers(defendingPlayer.getSoldiers() - defendingSoldiersLost);
-
-        if (planetToAttack.getSoldiers() == 0) {
-            handleSuccessfulAttack(planetAttackingFrom, planetToAttack, remainingAttackers,
-                    attackingPlayer, defendingPlayer);
-        }
-    }
-
-    private void handleSuccessfulAttack(Planet planetAttackingFrom, Planet planetToAttack,
-                                   int remainingAttackers, Player attackingPlayer,
-                                   Player defendingPlayer) {
-        playerManager.assignOwnership(planetToAttack, attackingPlayer);
-        playerManager.removeOwnership(planetToAttack, defendingPlayer);
-        planetToAttack.addSoldiers(remainingAttackers);
-        planetAttackingFrom.removeSoldiers(remainingAttackers);
-    }
-    private Integer[] rollDice(int dices){
-        return this.dice.rollDice(dices);
-
     }
   
 }

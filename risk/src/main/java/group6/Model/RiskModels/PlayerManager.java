@@ -117,14 +117,22 @@ public class PlayerManager {
     public boolean isOwned(Ownable ownable, Player player){
         return this.playerOwnership.isOwned(ownable, player);
     }
+    
+    public void removeReinforceableSoldiers(Player player, int soldiers){
+        player.removeReinforceableSoldiers(soldiers);
+    }
 
-    
-    
+    protected void addSoldiers(Player player, int soldiers){
+        player.addSoldiers(soldiers);
+    }
 
-   
-    
+    protected void setSoldiers(Player player, int soldiers){
+        player.setSoldiers(soldiers);
+    }
 
-    
+    protected void removeSoldiers(Player player, int soldiers){
+        player.removeSoldiers(soldiers);
+    }
     
     
 }

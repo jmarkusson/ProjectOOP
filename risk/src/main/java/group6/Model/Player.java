@@ -90,8 +90,6 @@ public class Player
         this.planetsOwned = planetsOwned;
     }
 
-
-
     public int getBonusSoldiers() {
         return bonusSoldiers;
     }
@@ -106,6 +104,10 @@ public class Player
 
     public int getFortifySoldiers() {
         return fortifySoldiers;
+    }
+
+    public void removeSoldiers(int soldiers){
+        this.soldiers -= soldiers;
     }
     
 }

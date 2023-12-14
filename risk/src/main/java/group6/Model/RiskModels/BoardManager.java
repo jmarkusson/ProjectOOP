@@ -82,13 +82,21 @@ public class BoardManager {
         
         observerManager.notifyPlanetObservers(planet.getName(), soldiers, playerManager.getOwner(planet));
 
-} 
+    } 
     public Planet getPlanetByName(String planetName){
         return board.getPlanetByName(planetName);
 
     }
     public int getSoldiers(Planet planet){
         return planet.getSoldiers();
+    }
+
+    protected void removeSoldiersFromPlanet(Planet planet, int soldiers){
+        planet.removeSoldiers(soldiers);
+    }
+
+    protected void addSoldiersToPlanet(Planet planet, int soldiers){
+        planet.addSoldiers(soldiers);
     }
 
     public String[] getPlanetNames(){
