@@ -1,6 +1,7 @@
 package group6.Model;
 
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +12,7 @@ public class Board {
     private ArrayList<Planet> listofPlanets;
     private HashMap<String, Planet> planetMap;
     private HashMap<String, SolarSystem> solarsystemMap;
+    private HashMap<String, Color> planetColorMap = new HashMap<String, Color>();
 
     private String[] planetNames;
     private Point[][] planetPositions;
@@ -31,6 +33,7 @@ public class Board {
 
         planetMap = new HashMap<String, Planet>();
         solarsystemMap = new HashMap<String, SolarSystem>();
+        
 
         for (int i = 0; i < arrayofPlanets.length; i++){
             planetMap.put(arrayofPlanets[i], new Planet(arrayofPlanets[i]));    
@@ -63,7 +66,9 @@ public class Board {
 
             for (int j = 1; j < onePlanetAdjacanecies.length; j++){
 
-                adjacentPlanets.add(planetMap.get(onePlanetAdjacanecies[j]));
+                String oneAdjacentPlanetName = onePlanetAdjacanecies[j];
+                Planet oneAdjacentPlanet = planetMap.get(oneAdjacentPlanetName);
+                adjacentPlanets.add(oneAdjacentPlanet);
 
             }
 
@@ -88,12 +93,22 @@ public class Board {
         return this.solarPositions;
     }
 
-   public ArrayList<Planet> getPlanets(){
+    public ArrayList<Planet> getPlanets(){
         return listofPlanets;
     }
 
     public void shufflePlanets() {
         Collections.shuffle(listofPlanets);
     }
+
+    public Planet getPlanetByName(String planet){
+        return planetMap.get(planet);
+    }
+
+    public HashMap<String, Color> getPlanetColorMap(){
+        return this.planetColorMap;
+    }
+
+    
 
 }

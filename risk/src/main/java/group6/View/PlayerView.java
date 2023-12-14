@@ -2,17 +2,19 @@ package group6.View;
 import javax.swing.*;
 
 import group6.Model.Player;
+import group6.Model.Interfaces.PlayerObserver;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PlayerView extends JPanel {
+public class PlayerView extends JPanel implements PlayerObserver {
 
     private Player player;
 
     private JLabel nameLabel;
     private JLabel soldiersLabel;
     private JLabel planetsOwnedLabel;
+    private JLabel reinforcementLabel;
 
     public PlayerView(Player player) {
         this.player = player;
@@ -22,19 +24,28 @@ public class PlayerView extends JPanel {
       
         nameLabel = new JLabel();
         nameLabel.setText(this.player.getName());
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        Font stateFont = nameLabel.getFont().deriveFont(20f);
+        nameLabel.setFont(stateFont);
         soldiersLabel = new JLabel();
+        soldiersLabel.setHorizontalAlignment(SwingConstants.CENTER);
         planetsOwnedLabel = new JLabel();
+        reinforcementLabel = new JLabel();
+        reinforcementLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         Color playerColor = this.player.getColor();
         nameLabel.setForeground(playerColor);
         soldiersLabel.setForeground(playerColor);
         planetsOwnedLabel.setForeground(playerColor);
+        reinforcementLabel.setForeground(playerColor);
 
-        setLayout(new GridLayout(3,1));
+        setLayout(new GridLayout(4,1));
 
         add(nameLabel);
         add(soldiersLabel);
         add(planetsOwnedLabel);
+        add(reinforcementLabel);
 
 
         updatePlayerInfo();
@@ -46,6 +57,10 @@ public class PlayerView extends JPanel {
 
     public void updatePlayerInfo() {
         soldiersLabel.setText("Soldiers: " + this.player.getSoldiers());
+
+        reinforcementLabel.setText("Reinforcements: " + this.player.getReinforceableSoldiers());
+
+
         //planetsOwnedLabel.setText("Planets Owned: " + (this.player.getPlanetsOwned().size()));
 
     }

@@ -1,36 +1,127 @@
 package group6.View;
 
-
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import javax.swing.JComboBox;
 
 public class AttackView extends JFrame{
-private JComboBox soldiersAttack;
- 
-AttackView(String[] nrOfSoldiers){
- 
-    this.soldiersAttack = new JComboBox<String>(nrOfSoldiers); 
-    this.soldiersAttack.setSelectedItem('2');
-    this.soldiersAttack.setActionCommand("combobox");
-    add(soldiersAttack);
+// Attribut för AttackView
 
+// Panels
+private JPanel mainPanel;
+private JPanel rollPanelJPanel;
+private JPanel planetPanelJPanel;
+// Buttons
+private JButton rollDiceJButton;
+private JLabel howManySoldiers;
+private JLabel attackingFrom;
+private JLabel attackThisPlanet;
+//ComboBoxes
+private JComboBox<String> planetToAttackComboBox;
+private JComboBox<Integer> soldierComboBox;
+// Attributes
+private String planetName;
+private Color playerColor;
+private Integer[] soldiersOnPlanet;
+private String[] attackablePlanets;
+
+// Alternativa grejer:
+    // private JLabel soldiersOnAttackingPlanet;
+    // private JLabel soldiersOnDefendingPlanet;
+
+
+
+
+
+// Konstruktor Planet attackingPlayersPlanet
+public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlanet, String[] attackablePlanets){
+    this.planetName = planetName;
+    this.playerColor = playerColor;
+    this.soldiersOnPlanet = soldiersOnPlanet;
+    this.attackablePlanets = attackablePlanets;
+    setTitle("Attack-View");
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setPreferredSize(new Dimension(500,200));
+    setBackground(playerColor);
+    // MainPanel init.
+    // Three different panels in order to get desired design.
+    add(initMainPanel());
+    this.mainPanel.add(initPlanetInfo());
+    this.mainPanel.add(initRollPanel());
+    setLocation(400, 300);
     pack();
     setVisible(true);
     toFront();
+}
+  private JPanel initMainPanel(){
+      this.mainPanel = new JPanel(new FlowLayout());
+      
+    return this.mainPanel;
+}
+  //ImageIcon attackingImage, ImageIcon defendingImage
+  private JPanel initPlanetInfo(){
+      this.planetPanelJPanel = new JPanel();
+      this.planetPanelJPanel.setPreferredSize(new Dimension(200,200));
+      this.attackingFrom = new JLabel("Attacking from: " + planetName);
+      this.attackThisPlanet = new JLabel("Choose a planet to attack:");
+      this.planetToAttackComboBox = new JComboBox<String>(this.attackablePlanets);
+
+      this.planetPanelJPanel.add(attackingFrom);
+      this.planetPanelJPanel.add(attackThisPlanet);
+      this.planetPanelJPanel.add(planetToAttackComboBox);
+      
+    return this.planetPanelJPanel;
+}
+  // public void addComponents(){
+  //   this.attackPanel.add(chooseAmountSoldiers);add(chooseOpponent);add(rollDice); 
+  //   add(attackingPlayerImage);add(defendingPlayerImage); 
+  //   add(soldiersOnDefendingPlanet);add(soldiersOnAttackingPlanet);
+  // }
+  private JPanel initRollPanel(){
+    this.rollPanelJPanel = new JPanel();
+    this.rollPanelJPanel.setPreferredSize(new Dimension(200,200));
+    this.rollDiceJButton = new JButton("ROLL");
+    this.rollDiceJButton.setActionCommand("ROLL");
+    this.soldierComboBox = new JComboBox<Integer>(this.soldiersOnPlanet);
+    this.howManySoldiers = new JLabel("With how many Soldiers?");
+
+    // add to Panels
+    this.rollPanelJPanel.add(this.howManySoldiers);
+    this.rollPanelJPanel.add(this.rollDiceJButton);
+    this.rollPanelJPanel.add(this.soldierComboBox);
 
     
+
+
+    return this.rollPanelJPanel;
 }
-  public void setcontroller(ActionListener e){
-        
 
+ 
+  public void setController(ActionListener e){
+      this.rollDiceJButton.addActionListener(e);
+  }
 
+  public JComboBox getSoldiersComboBox(){
+      return this.soldierComboBox;
+  }
 
-    }
+  public JComboBox getPlanetToAttackComboBox(){
+      return this.planetToAttackComboBox;
+  }
+
+  public String getPlanetName(){
+      return this.planetName;
+  }
+
 }
+
     
 
 

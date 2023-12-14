@@ -2,8 +2,8 @@ package group6.View;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -12,35 +12,40 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javafx.event.ActionEvent;
-import javafx.scene.paint.Color;
-
 public class GameOptionsView extends JFrame {
 
-    JPanel mainPanel;
+    private JPanel mainPanel;
     private GridLayout mainLayout;
     	
 	private JButton startGameButton;
     private JButton quitButton;
 
     private JPanel initPanel;
-    private GridLayout iniLayout;
 
     private JComboBox nmbrOfPlayers;
     private JButton nextButton;
 
     private ActionListener controller;
 
-    public ArrayList<JTextField> textfields = new ArrayList<>();
-    public ArrayList<JColorChooser> colorChoosers = new ArrayList<>();
+    private ArrayList<JTextField> textfields = new ArrayList<>();
+    private ArrayList<JComboBox> colorBoxes = new ArrayList<>();
+
+    public ArrayList<JTextField> getTextfields() {
+        return textfields;
+    }
+
+    public ArrayList<JComboBox> getColorBoxes() {
+        return colorBoxes;
+    }
 
 
     public GameOptionsView()
@@ -55,22 +60,29 @@ public class GameOptionsView extends JFrame {
 		toFront();
     }
 
-   public void mainView(int nmbrOfPlayers) {
+   public void mainView(int nmbrOfPlayers, Color[] colorChoices) {
+
         mainPanel = new JPanel();
-        mainLayout = new GridLayout(nmbrOfPlayers + 2, 1, 5, 5); 
+        mainLayout = new GridLayout(nmbrOfPlayers + 2, 2, 5, 5); 
         mainPanel.setLayout(mainLayout);
 
         for (int i = 0; i < nmbrOfPlayers; i++) {
             JTextField playerNameField = new JTextField();
             playerNameField.setPreferredSize(new Dimension(100, 10));
             playerNameField.setBorder(BorderFactory.createTitledBorder("Player " + (i + 1) + " Name"));
-
-            
-
-            mainPanel.add(playerNameField);
+    
+            JComboBox<Color> colorBox = new JComboBox<>(colorChoices);
+            colorBox.setRenderer(new ColorComboBoxRenderer());
+            colorBox.setActionCommand("colorChooser");
+            JPanel rowPanel = new JPanel(new GridLayout(1, 2, 5, 5));
+            rowPanel.add(playerNameField);
+            rowPanel.add(colorBox);
+    
+            mainPanel.add(rowPanel);
+            colorBoxes.add(colorBox);
             textfields.add(playerNameField);
         }
-
+        
         startGameButton = new JButton("Start Game");
         quitButton = new JButton("Quit");
 
@@ -97,9 +109,9 @@ public class GameOptionsView extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
     
-        String[] playersOption = {"2 Players", "3 Players", "4 Players"};
+        Integer[] playersOption = {2, 3, 4};
     
-        nmbrOfPlayers = new JComboBox<String>(playersOption);
+        nmbrOfPlayers = new JComboBox<Integer>(playersOption);
         nmbrOfPlayers.setSelectedItem(0);
         nmbrOfPlayers.setActionCommand("combobox");
         nmbrOfPlayers.addActionListener(controller);
@@ -137,5 +149,38 @@ public class GameOptionsView extends JFrame {
         this.controller = controller;
     }
 
+    
+    private static class ColorComboBoxRenderer extends DefaultListCellRenderer {
+        @Override
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index,
+                                                      boolean isSelected, boolean cellHasFocus) {
+            Component component = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof Color) {
+                Color color = (Color) value;
+                component.setBackground(color);
+                component.setForeground(color);
+                setText(getColorName(color));
+            }
+            return component;
+        }
+
+        private String getColorName(Color color) {
+            if (color.equals(Color.RED)) {
+                return "Red";
+            } 
+            else if (color.equals(Color.GREEN)) {
+                return "Green";
+            } 
+            else if (color.equals(Color.BLUE)) {
+                return "Blue";
+            }
+            else if (color.equals(Color.PINK)) {
+                return "Pink";
+              } 
+            else {
+                return color.toString();
+            }
+        }
+    }
 }
  
