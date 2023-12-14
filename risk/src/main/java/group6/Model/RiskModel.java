@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import group6.Model.Interfaces.PlanetObserver;
+import group6.Model.Interfaces.GameStateObserver;
 import group6.Model.Interfaces.Ownable;
 import group6.Model.Interfaces.PlayerObserver;
 
@@ -22,6 +23,7 @@ import java.util.HashMap;
 
 public class RiskModel{
 
+    private GameStateObserver gameStateObserver;
     private List<PlanetObserver> planetObservers = new ArrayList<>();
     private List<PlayerObserver> playerObservers = new ArrayList<>();
     private ArrayList<Player> players = new ArrayList<>();
@@ -30,12 +32,29 @@ public class RiskModel{
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private int currentPlayerIndex;
     private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
+    private String[] gamestates = {"REINFORCE", "ATTACK", "FORTIFY"};
+    private int currentGameState = 0;
     
 
     public RiskModel(){
          /* Nothing should happen when instance of Model is created */
     }
+
+    public void changeState(){
+        gameStateObserver.actOnStateChange();
+    }
+
+    public void changeGameStateIndex(){
+        currentGameState = (currentGameState + 1) % 3;
+    }
     
+    public String getCurrentGameState(){
+        return gamestates[currentGameState];
+    }
+
+    public void setGameStateObserver(GameStateObserver gameStateObserver){
+        this.gameStateObserver = gameStateObserver;
+    }
 
     /*public boolean initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors){
         
@@ -47,7 +66,6 @@ public class RiskModel{
         List<Point> listOfSunPositions = new ArrayList<>();
         
         String line;
-        
 
         try {
             InputStream planetStream = getClass().getClassLoader().getResourceAsStream("textfiles/planets.txt");
