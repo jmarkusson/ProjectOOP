@@ -2,9 +2,6 @@ package group6.Model;
 
 
 import java.util.List;
-
-import javax.swing.ImageIcon;
-
 import java.awt.Color;
 
 public class Player

@@ -1,8 +1,5 @@
 package group6.Controller;
 
-import javax.swing.JFrame;
-
-import group6.Controller.AttackController;
 import group6.Model.Interfaces.GameState;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.AttackView;
@@ -25,7 +22,7 @@ public class GameStateAttack implements GameState {
         this.attackablePlanets = modelFacade.getUnownedAdjecentPlanets(planet);
 
         AttackView attackVw = new AttackView(planet, modelFacade.getPlayerColor(modelFacade.getCurrentPlayer()), soldiersOnPlanetArray, attackablePlanets);
-        AttackController attackCtrl = new AttackController(attackVw, modelFacade);
+        new AttackController(attackVw, modelFacade);
 
     }
 

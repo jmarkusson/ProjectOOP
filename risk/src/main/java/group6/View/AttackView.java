@@ -28,22 +28,13 @@ private JComboBox<String> planetToAttackComboBox;
 private JComboBox<Integer> soldierComboBox;
 // Attributes
 private String planetName;
-private Color playerColor;
 private Integer[] soldiersOnPlanet;
 private String[] attackablePlanets;
-
-// Alternativa grejer:
-    // private JLabel soldiersOnAttackingPlanet;
-    // private JLabel soldiersOnDefendingPlanet;
-
-
-
 
 
 // Konstruktor Planet attackingPlayersPlanet
 public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlanet, String[] attackablePlanets){
     this.planetName = planetName;
-    this.playerColor = playerColor;
     this.soldiersOnPlanet = soldiersOnPlanet;
     this.attackablePlanets = attackablePlanets;
     setTitle("Attack-View");
@@ -79,11 +70,7 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
       
     return this.planetPanelJPanel;
 }
-  // public void addComponents(){
-  //   this.attackPanel.add(chooseAmountSoldiers);add(chooseOpponent);add(rollDice); 
-  //   add(attackingPlayerImage);add(defendingPlayerImage); 
-  //   add(soldiersOnDefendingPlanet);add(soldiersOnAttackingPlanet);
-  // }
+
   private JPanel initRollPanel(){
     this.rollPanelJPanel = new JPanel();
     this.rollPanelJPanel.setPreferredSize(new Dimension(200,200));
@@ -97,9 +84,6 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
     this.rollPanelJPanel.add(this.rollDiceJButton);
     this.rollPanelJPanel.add(this.soldierComboBox);
 
-    
-
-
     return this.rollPanelJPanel;
 }
 
@@ -108,11 +92,11 @@ public AttackView(String planetName, Color playerColor, Integer[] soldiersOnPlan
       this.rollDiceJButton.addActionListener(e);
   }
 
-  public JComboBox getSoldiersComboBox(){
+  public JComboBox<Integer> getSoldiersComboBox(){
       return this.soldierComboBox;
   }
 
-  public JComboBox getPlanetToAttackComboBox(){
+  public JComboBox<String> getPlanetToAttackComboBox(){
       return this.planetToAttackComboBox;
   }
 

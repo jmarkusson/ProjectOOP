@@ -264,10 +264,6 @@ public class RiskModel{
     }
 
     public void attack(int attackSoldiers, int defendSoldiers, String attackPlanetName, String defendPlanetName){
-        Player currentPlayer = getCurrentPlayer();
-
-        Planet attackPlanet = getPlanetByName(attackPlanetName);
-        Planet defendPlanet = getPlanetByName(defendPlanetName);
     }
 
     public void addPlayer(Player player){

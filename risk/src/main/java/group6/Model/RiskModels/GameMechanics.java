@@ -1,11 +1,5 @@
 package group6.Model.RiskModels;
 
-import java.awt.List;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
-import java.util.ArrayList;
-
 import group6.Model.Planet;
 import group6.Model.Player;
 import group6.Model.Dice;

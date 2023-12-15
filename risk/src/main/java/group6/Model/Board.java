@@ -4,9 +4,7 @@ package group6.Model;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 public class Board {
 

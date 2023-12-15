@@ -1,5 +1,4 @@
 package group6.Controller;
-import group6.Controller.ReinforceController;
 import group6.Model.Interfaces.GameState;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.ReinforceView;
@@ -8,7 +7,7 @@ public class GameStateReinforce implements GameState{
 
     @Override
     public void initState(ModelFacade modelFacade, String planet) {
-        
+    
 
         Integer[] soldiersArray = new Integer[modelFacade.getCurrentPlayersReinforcableSoldier()+1];
 
@@ -17,10 +16,7 @@ public class GameStateReinforce implements GameState{
         }
 
         ReinforceView reinforceView = new ReinforceView(planet, soldiersArray);
-        ReinforceController controller = new ReinforceController(modelFacade, reinforceView);
-        
-        
-        
+        new ReinforceController(modelFacade, reinforceView);
     }
 
     @Override
@@ -32,7 +28,5 @@ public class GameStateReinforce implements GameState{
     public String gameStateString() {
         return "REINFORCE";
     }
-
-   
     
 }

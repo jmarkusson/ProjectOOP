@@ -2,7 +2,6 @@ package group6.Model.RiskModels;
 
 import group6.Model.Dice;
 import group6.Model.Planet;
-import group6.Model.RiskModels.BattleResult;
 
 public class Battle {
     private Dice dice;

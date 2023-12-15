@@ -25,25 +25,25 @@ public class GameOptionsView extends JFrame {
 
     private JPanel mainPanel;
     private GridLayout mainLayout;
-    	
-	private JButton startGameButton;
+        
+    private JButton startGameButton;
     private JButton quitButton;
 
     private JPanel initPanel;
 
-    private JComboBox nmbrOfPlayers;
+    private JComboBox<Integer> numberOfPlayers; // Fix: Parameterize JComboBox with Integer
     private JButton nextButton;
 
     private ActionListener controller;
 
     private ArrayList<JTextField> textfields = new ArrayList<>();
-    private ArrayList<JComboBox> colorBoxes = new ArrayList<>();
+    private ArrayList<JComboBox<Color>> colorBoxes = new ArrayList<>(); // Fix: Parameterize JComboBox with Color
 
     public ArrayList<JTextField> getTextfields() {
         return textfields;
     }
 
-    public ArrayList<JComboBox> getColorBoxes() {
+    public ArrayList<JComboBox<Color>> getColorBoxes() {
         return colorBoxes;
     }
 
@@ -111,10 +111,10 @@ public class GameOptionsView extends JFrame {
     
         Integer[] playersOption = {2, 3, 4};
     
-        nmbrOfPlayers = new JComboBox<Integer>(playersOption);
-        nmbrOfPlayers.setSelectedItem(0);
-        nmbrOfPlayers.setActionCommand("combobox");
-        nmbrOfPlayers.addActionListener(controller);
+        numberOfPlayers = new JComboBox<Integer>(playersOption);
+        numberOfPlayers.setSelectedItem(0);
+        numberOfPlayers.setActionCommand("combobox");
+        numberOfPlayers.addActionListener(controller);
     
         nextButton = new JButton("Next");
         nextButton.setActionCommand("NEXT");
@@ -123,7 +123,7 @@ public class GameOptionsView extends JFrame {
         buttonPanel.add(nextButton);
     
         centerPanel.add(createHeadingLabel("Select Number of Players:"));
-        centerPanel.add(nmbrOfPlayers);
+        centerPanel.add(numberOfPlayers);
     
         initPanel.add(centerPanel, BorderLayout.CENTER);
         initPanel.add(buttonPanel, BorderLayout.SOUTH);

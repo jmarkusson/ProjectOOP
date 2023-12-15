@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 
-import group6.Model.Planet;
-import group6.Model.RiskModel;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.ReinforceView;
 
@@ -27,7 +25,7 @@ public class ReinforceController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("combobox")){
-            JComboBox source = (JComboBox) e.getSource();
+            JComboBox<?> source = (JComboBox<?>) e.getSource();
             this.soldiersAmount = source.getSelectedIndex();  
         }
         else if(e.getActionCommand().equals("addsoldiers")){
