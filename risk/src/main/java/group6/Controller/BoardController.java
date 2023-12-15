@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import group6.Model.Interfaces.GameState;
 import group6.Model.Interfaces.GameStateObserver;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.BoardView;

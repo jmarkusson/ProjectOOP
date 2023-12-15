@@ -1,6 +1,5 @@
 package group6.Controller;
 
-import group6.Model.Interfaces.GameState;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.FortifyView;
 

@@ -1,4 +1,4 @@
-package group6.Model.Interfaces;
+package group6.Controller;
 
 import group6.Model.RiskModels.ModelFacade;
 
