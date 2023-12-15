@@ -100,12 +100,12 @@ public class ModelFacade {
         notifyPlanetObservers(toPlanet, boardManager.getSoldiers(planetToFortify), owner);
     }
 
-    public void setnmbOfPlayers(int nmbrOfPlayers){
-        this.playerManager.setnmbOfPlayers(nmbrOfPlayers); 
+    public void setNumberOfPlayers(int numberOfPlayers){
+        this.playerManager.setNumberOfPlayers(numberOfPlayers); 
     }
     
-    public int getnmbrOfPlayers(){
-        return this.playerManager.getnmbrOfPlayers();
+    public int getNumberOfPlayers(){
+        return this.playerManager.getNumberOfPlayers();
     }
     
     // Entites that knows about modelFacade should not be able to call functions below:

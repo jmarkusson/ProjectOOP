@@ -14,7 +14,7 @@ public class GameStateManager {
     }
 
     public void changeState(){
-        observerManager.changeState();
+        observerManager.notifyGameStateChange();
     }
 
     public void changeGameStateIndex(){

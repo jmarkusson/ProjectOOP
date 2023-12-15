@@ -13,14 +13,11 @@ public class PlayerManager {
     private ArrayList<Player> players;
     private int currentPlayerIndex = 0;
     private PlayerOwnership playerOwnership;
-    private int nmbrOfPlayers = 2;
-    private Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
-    
-
+    private int numberOfPlayers = 2;
+    private final Color[] colorChoices = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK};
 
     public PlayerManager(PlayerOwnership playerOwnership){
         this.playerOwnership = playerOwnership;
-        
     }
 
     protected void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
@@ -38,7 +35,7 @@ public class PlayerManager {
     }
 
     public void nextPlayer(){
-        int numberOfPlayers = this.getnmbrOfPlayers();
+        int numberOfPlayers = this.getNumberOfPlayers();
         this.currentPlayerIndex = ((this.currentPlayerIndex + 1) % numberOfPlayers);
     }
 
@@ -46,7 +43,6 @@ public class PlayerManager {
         for (Player player : players){
             player.setReinforceableSoldiers(player.getSoldiers());
         }
-
     }
 
     public PlayerOwnership getPlayerOwnership(){
@@ -79,34 +75,31 @@ public class PlayerManager {
         }
     }
 
-    public int getCurrentPlayersReinforcableSoldier(){
+    protected int getCurrentPlayersReinforcableSoldier(){
         return this.getCurrentPlayer().getReinforceableSoldiers();
     }
 
-    public void setCurrentPlayersReinforcableSoldier(int soldiers){
-        getCurrentPlayer().setReinforceableSoldiers(soldiers);
-    }
     public void removeOwnership(Planet planetToAttack, Player defendingPlayer ){
         this.playerOwnership.removeOwnership(planetToAttack, defendingPlayer);
     }
 
-    public void setnmbOfPlayers(int nmbrOfPlayers){
-        this.nmbrOfPlayers = nmbrOfPlayers;
+    protected void setNumberOfPlayers(int numberOfPlayers){
+        this.numberOfPlayers = numberOfPlayers;
     }
 
-    public int getnmbrOfPlayers(){
-        return this.nmbrOfPlayers;
+    protected int getNumberOfPlayers(){
+        return this.numberOfPlayers;
     }
 
-    public Color[] getPlayerColors(){
+    protected Color[] getPlayerColors(){
         return colorChoices;
     } 
 
-    public Player getPlayer(int i){
+    protected Player getPlayer(int i){
         return this.players.get(i);
     }
 
-    public Color getPlayerColor(Player player){
+    protected Color getPlayerColor(Player player){
         return player.getColor();
     }
 
@@ -114,7 +107,7 @@ public class PlayerManager {
         return isOwned(ownable, getCurrentPlayer());
     }
 
-    public boolean isOwned(Ownable ownable, Player player){
+    private boolean isOwned(Ownable ownable, Player player){
         return this.playerOwnership.isOwned(ownable, player);
     }
     
@@ -124,10 +117,6 @@ public class PlayerManager {
 
     protected void addSoldiers(Player player, int soldiers){
         player.addSoldiers(soldiers);
-    }
-
-    protected void setSoldiers(Player player, int soldiers){
-        player.setSoldiers(soldiers);
     }
 
     protected void removeSoldiers(Player player, int soldiers){

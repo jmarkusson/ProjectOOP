@@ -31,7 +31,7 @@ public class ObserverManager {
         planetObservers.remove(planetObserver);
     }
 
-     public void changeState(){
+     public void notifyGameStateChange(){
         gameStateObserver.actOnStateChange();
     }
 
