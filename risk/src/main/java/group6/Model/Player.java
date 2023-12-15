@@ -13,7 +13,6 @@ public class Player
     private int bonusSoldiers;
     private int playerNumber;
     private List<Planet> planetsOwned;
-    private int fortifySoldiers;
 
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
@@ -52,21 +51,6 @@ public class Player
         this.soldiers += soldiers;
     }
 
-    public void addFortifySoldiers(int soldiers){
-        this.fortifySoldiers += soldiers;
-    }
-
-    public Boolean removeFortifySoldiers(int soldiers){
-        if (this.fortifySoldiers - soldiers < 0)
-        {
-            return false;
-        }
-        else{
-            this.fortifySoldiers -= soldiers;
-            return true;
-        }
-    }
-
     public void setReinforceableSoldiers(int reinforceableSoldiers){
         this.reinforceableSoldiers = reinforceableSoldiers;
     }
@@ -97,10 +81,6 @@ public class Player
 
     public int getPlayerNumber() {
     return playerNumber;
-    }
-
-    public int getFortifySoldiers() {
-        return fortifySoldiers;
     }
 
     public void removeSoldiers(int soldiers){
