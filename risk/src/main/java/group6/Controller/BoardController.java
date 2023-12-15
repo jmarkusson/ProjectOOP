@@ -12,14 +12,14 @@ public class BoardController implements ActionListener, GameStateObserver{
     
     private ModelFacade modelFacade;
     private BoardView view;
-    private GameState gameState;
+    private ControllerState gameState;
     
     protected BoardController(ModelFacade modelFacade, BoardView view){
         this.modelFacade = modelFacade;
         this.view = view;
         modelFacade.setGameStateObserver(this);
         view.initializePlanetButtons(this);
-        gameState = new GameStateReinforce();
+        gameState = new ReinforceState();
         view.getCurrentPlayerLabel().setText(modelFacade.getCurrentPlayer().getName()+ "'s TURN");
         view.getCurrentPlayerLabel().setForeground(modelFacade.getCurrentPlayer().getColor());
         modelFacade.attach(view);

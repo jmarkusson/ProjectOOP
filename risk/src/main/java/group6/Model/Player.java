@@ -6,14 +6,13 @@ import java.awt.Color;
 
 public class Player
 {
-    private Color color; 
-    private String name;
+    private final Color color; 
+    private final String name;
     private int soldiers;
     private int reinforceableSoldiers;
     private int bonusSoldiers;
     private int playerNumber;
     private List<Planet> planetsOwned;
-    private int fortifySoldiers;
 
     public Player(String name, Color color, int playerNumber) {
         this.name = name;
@@ -28,16 +27,8 @@ public class Player
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getSoldiers() {
@@ -50,21 +41,6 @@ public class Player
 
     public void addSoldiers(int soldiers){
         this.soldiers += soldiers;
-    }
-
-    public void addFortifySoldiers(int soldiers){
-        this.fortifySoldiers += soldiers;
-    }
-
-    public Boolean removeFortifySoldiers(int soldiers){
-        if (this.fortifySoldiers - soldiers < 0)
-        {
-            return false;
-        }
-        else{
-            this.fortifySoldiers -= soldiers;
-            return true;
-        }
     }
 
     public void setReinforceableSoldiers(int reinforceableSoldiers){
@@ -97,10 +73,6 @@ public class Player
 
     public int getPlayerNumber() {
     return playerNumber;
-    }
-
-    public int getFortifySoldiers() {
-        return fortifySoldiers;
     }
 
     public void removeSoldiers(int soldiers){

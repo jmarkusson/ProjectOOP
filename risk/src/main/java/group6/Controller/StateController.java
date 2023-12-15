@@ -9,12 +9,12 @@ import javax.swing.JOptionPane;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.BoardView;
 
-public class GameStateController implements ActionListener {
+public class StateController implements ActionListener {
 
     ModelFacade modelFacade;
     BoardView view;
 
-    public GameStateController(ModelFacade model, BoardView view){
+    public StateController(ModelFacade model, BoardView view){
 
         this.modelFacade = model;
         this.view = view;

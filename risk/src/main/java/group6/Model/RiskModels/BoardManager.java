@@ -18,18 +18,18 @@ public class BoardManager {
     private PlayerManager playerManager;
     private ObserverManager observerManager;
 
-    public BoardManager(Board board, PlayerManager playerManager, ObserverManager observerManager) {
-        this.board = board;
+    public BoardManager(PlayerManager playerManager, ObserverManager observerManager) {
+        this.board = new Board();
         this.playerManager = playerManager;
         this.observerManager = observerManager;
 
     }
 
-    protected void loadBoard(String[] planetNames, String[] solarsystems, String[] adjacencies, Point[][] planetPoints, Point[] solarPoints) {
+    public void loadBoard(String[] planetNames, String[] solarsystems, String[] adjacencies, Point[][] planetPoints, Point[] solarPoints) {
         this.board.loadBoard(planetNames, solarsystems, adjacencies, planetPoints, solarPoints);
     }
 
-    protected void distributePlanets() {
+    public void distributePlanets() {
         List<Planet> shuffledPlanets = getShuffledPlanets();
         playerManager.initializePlayersReinforceableSoldiers();
         evenlyDistributeInitalPlanets(shuffledPlanets);
@@ -74,7 +74,7 @@ public class BoardManager {
         observerManager.notifyPlanetObservers(planet.getName(), soldiers, playerManager.getOwner(planet));
 
     } 
-    protected Planet getPlanetByName(String planetName){
+    public Planet getPlanetByName(String planetName){
         return board.getPlanetByName(planetName);
 
     }

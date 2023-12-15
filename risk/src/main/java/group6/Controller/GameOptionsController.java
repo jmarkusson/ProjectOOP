@@ -88,7 +88,7 @@ public class GameOptionsController implements ActionListener{
             view.dispose();
             
             new GameView(boardview, playerViews);
-            new GameStateController(modelFacade, boardview);
+            new StateController(modelFacade, boardview);
             
             } 
             
