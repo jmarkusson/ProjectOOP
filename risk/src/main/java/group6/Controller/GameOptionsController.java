@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import group6.Model.RiskModel;
+import group6.Model.RiskModels.ModelFacade;
 import group6.View.BoardView;
 import group6.View.GameOptionsView;
 import group6.View.GameView;
@@ -17,14 +17,14 @@ import group6.View.PlayerView;
 
 public class GameOptionsController implements ActionListener{
 
-    private RiskModel model;
+    private ModelFacade modelFacade;
     private GameOptionsView view;
 
     private ArrayList<String> playerNames;
     private ArrayList<Color> playerColors;
 
-    public GameOptionsController(RiskModel model, GameOptionsView view){
-        this.model = model;
+    public GameOptionsController(ModelFacade modelFacade, GameOptionsView view){
+        this.modelFacade = modelFacade;
         this.view = view;
         view.setController(this);
     }
@@ -33,13 +33,13 @@ public class GameOptionsController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         if (e.getActionCommand().equals("combobox")){
-            JComboBox source = (JComboBox) e.getSource();
-            model.setnmbOfPlayers(source.getSelectedIndex()+2);
+            JComboBox<?> source = (JComboBox<?>) e.getSource();
+            modelFacade.setNumberOfPlayers(source.getSelectedIndex()+2);
         }
 
         else if (e.getActionCommand().equals("NEXT")){
     
-            view.mainView(model.getnmbrOfPlayers(), model.getColors());
+            view.mainView(modelFacade.getNumberOfPlayers(), modelFacade.getPlayerColors());
         }
         else if (e.getActionCommand().equals("colorChooser")){
 
@@ -52,19 +52,19 @@ public class GameOptionsController implements ActionListener{
             playerColors = new ArrayList<Color>();
 
             ArrayList<Color> selectedColors = new ArrayList<>();
-
+            // User errors
             for (int i = 0; i < view.getTextfields().size(); i++) {
                 JTextField playerNameField = view.getTextfields().get(i);
-                JComboBox colorBox = view.getColorBoxes().get(i);
+                JComboBox<Color> colorBox = view.getColorBoxes().get(i);
                 String playerName = playerNameField.getText();
-                if(playerName.isEmpty()){
+                if (playerName.isEmpty()) {
                     JOptionPane.showMessageDialog(view, "Playername has not been provided", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; 
+                    return;
                 }
                 Color playerColor = (Color) colorBox.getSelectedItem();
                 if (selectedColors.contains(playerColor)) {
                     JOptionPane.showMessageDialog(view, "Color already selected by another player", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; 
+                    return;
                 }
 
                 selectedColors.add(playerColor);
@@ -73,19 +73,22 @@ public class GameOptionsController implements ActionListener{
                 playerColors.add(playerColor); 
                 
             }
+            // initilize
 
-            model.initGame(playerNames, playerColors);
+            modelFacade.initGame(playerNames, playerColors);
             
-            for (int i = 0; i < model.getPlayers().size(); i++){
-                playerViews.add(new PlayerView(model.getPlayer(i)));
-                model.addPlayerObserver(playerViews.get(i));
+            BoardView boardview = new BoardView(modelFacade.getPlanetNames(), modelFacade.getPlanetPositions(), modelFacade.getSolarPositions(), modelFacade.getPlanetColorMap());
+            
+            new BoardController(modelFacade, boardview);
+            
+            for (int i = 0; i < modelFacade.getPlayers().size(); i++){
+                playerViews.add(new PlayerView(modelFacade.getPlayer(i)));
+                modelFacade.addPlayerObserver(playerViews.get(i));
             }
             view.dispose();
-            BoardView boardview = new BoardView(model.getPlanetNames(), model.getPlanetPositions(), model.getSolarPositions(), model.getPlanetColorMap());
             
-            BoardController boardViewController = new BoardController(model, boardview);
-            GameView gameView = new GameView(boardview, playerViews);
-            GameStateController gameStateController = new GameStateController(model, boardview);
+            new GameView(boardview, playerViews);
+            new GameStateController(modelFacade, boardview);
             
             } 
             

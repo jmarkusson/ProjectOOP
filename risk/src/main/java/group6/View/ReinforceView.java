@@ -51,7 +51,7 @@ public class ReinforceView extends JFrame {
         return planetName;
     }
 
-    public JComboBox getComboBox(){
+    public JComboBox<Integer> getComboBox(){
         return soldiersAmountBox;
     }
 

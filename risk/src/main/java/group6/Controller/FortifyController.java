@@ -2,18 +2,19 @@ package group6.Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import group6.Model.RiskModel;
 import group6.View.FortifyView;
+import group6.Model.RiskModels.ModelFacade;
 
 public class FortifyController implements ActionListener {
 
     FortifyView view;
-    RiskModel model;
+    // RiskModel model;
+    private ModelFacade modelFacade;
    
 
-    public FortifyController(RiskModel model, FortifyView view){
+    public FortifyController(ModelFacade modelFacade, FortifyView view){
         
-        this.model = model;
+        this.modelFacade = modelFacade;
         this.view = view;
 
         view.addController(this);
@@ -27,7 +28,7 @@ public class FortifyController implements ActionListener {
             String fortifyPlanet = (String) view.getAdjecentPlanetsBox().getSelectedItem();
             Integer soldiersAmount = (Integer) view.getAmountOfSoldiersBox().getSelectedItem();
 
-            model.fortifyPlanet(originPlanet, fortifyPlanet, soldiersAmount);
+            modelFacade.fortifyPlanet(originPlanet, fortifyPlanet, soldiersAmount);
             view.dispose();   
         }
     }

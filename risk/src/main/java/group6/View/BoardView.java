@@ -1,8 +1,5 @@
 package group6.View;
 
-
-
-
 import javax.swing.*;
 
 import group6.Model.Interfaces.PlanetObserver;
