@@ -3,7 +3,7 @@ package group6.Controller;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.FortifyView;
 
-public class GameStateFortify implements GameState {
+public class FortifyState implements ControllerState {
 
     String[] ownedAdjecentPlanets;
     Integer[] soldiersArray;
@@ -29,8 +29,8 @@ public class GameStateFortify implements GameState {
     }
 
     @Override
-    public GameState changeState() {
-        return new GameStateReinforce();
+    public ControllerState changeState() {
+        return new ReinforceState();
     }
 
     @Override

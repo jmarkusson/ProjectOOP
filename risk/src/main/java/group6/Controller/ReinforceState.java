@@ -2,7 +2,7 @@ package group6.Controller;
 import group6.Model.RiskModels.ModelFacade;
 import group6.View.ReinforceView;
 
-public class GameStateReinforce implements GameState{
+public class ReinforceState implements ControllerState{
 
     @Override
     public void initState(ModelFacade modelFacade, String planet) {
@@ -19,8 +19,8 @@ public class GameStateReinforce implements GameState{
     }
 
     @Override
-    public GameState changeState() {
-        return new GameStateAttack();
+    public ControllerState changeState() {
+        return new AttackState();
     }
 
     @Override

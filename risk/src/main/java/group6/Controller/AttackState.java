@@ -4,7 +4,7 @@ import group6.Model.RiskModels.ModelFacade;
 import group6.View.AttackView;
 
 
-public class GameStateAttack implements GameState {
+public class AttackState implements ControllerState {
     private Integer[] soldiersOnPlanetArray;
     private String[] attackablePlanets;
 
@@ -26,8 +26,8 @@ public class GameStateAttack implements GameState {
     }
 
     @Override
-    public GameState changeState() {
-        return new GameStateFortify();
+    public ControllerState changeState() {
+        return new FortifyState();
     }
 
     @Override
