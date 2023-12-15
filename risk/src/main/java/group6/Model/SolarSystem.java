@@ -17,7 +17,16 @@ public class SolarSystem implements Ownable{
         this.planetsinSolarsystem = planetsinSolarsystem;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public int getExtraTroops() {
+        return extraTroops;
+    }
 
+    public ArrayList<Planet> getPlanetsinSolarsystem() {
+        return planetsinSolarsystem;
+    }
 }
 
