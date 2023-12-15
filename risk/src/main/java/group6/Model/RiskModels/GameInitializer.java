@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class GameInitializer {
-    
+
     private FileParser fileParser;
     private BoardManager boardManager;
     private PlayerManager playerManager;

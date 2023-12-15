@@ -22,18 +22,15 @@ public class ModelFacade {
     private BoardManager boardManager;
     
     private FileParser fileParser;
-    private Board board;
     private GameStateManager gameStateManager;
     private PlayerOwnership playerOwnership = new PlayerOwnership();
     private ObserverManager observerManager;
     private Dice dice = new Dice();
 
     public ModelFacade() {
-        this.board = new Board();
-
         this.observerManager = new ObserverManager();
         this.playerManager = new PlayerManager(this.playerOwnership);
-        this.boardManager = new BoardManager(this.board, this.playerManager, this.observerManager);
+        this.boardManager = new BoardManager(this.playerManager, this.observerManager);
         this.gameMechanics = new GameMechanics(this.playerManager, this.boardManager, this.dice);
         
         this.fileParser = new FileParser();
@@ -42,7 +39,7 @@ public class ModelFacade {
     }
 
     public ArrayList<Planet> getPlanets(){
-        return board.getPlanets();
+        return boardManager.getPlanets();
     }
 
     public void initGame(ArrayList<String> playerNames, ArrayList<Color> playerColors) {

@@ -9,12 +9,12 @@ import group6.View.AttackView;
 public class AttackController implements ActionListener {
     
     private AttackView attackView;
-    private ModelFacade rModel;
+    private ModelFacade modelFacade;
     
-    public AttackController (AttackView attackView, ModelFacade rModel)
+    public AttackController (AttackView attackView, ModelFacade modelFacade)
     {
         this.attackView = attackView;
-        this.rModel = rModel;
+        this.modelFacade = modelFacade;
         attackView.setController(this);
     }
 
@@ -28,7 +28,7 @@ public class AttackController implements ActionListener {
             String planetToAttack = (String) attackView.getPlanetToAttackComboBox().getSelectedItem();
             Integer amountOfSoldiers = (Integer) attackView.getSoldiersComboBox().getSelectedItem();
 
-            rModel.attackPlanet(attackFromPlanet, planetToAttack, amountOfSoldiers);
+            modelFacade.attackPlanet(attackFromPlanet, planetToAttack, amountOfSoldiers);
             
 
         }
