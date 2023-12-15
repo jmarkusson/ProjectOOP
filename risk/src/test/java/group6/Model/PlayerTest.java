@@ -40,5 +40,5 @@ class PlayerTest {
         Player player = new Player("Alice", Color.RED, 0);
         assertEquals("Alice", player.getName(), "Player name should be set correctly");
         assertEquals(Color.RED, player.getColor(), "Player color should be set correctly");
+    }
 }
-
