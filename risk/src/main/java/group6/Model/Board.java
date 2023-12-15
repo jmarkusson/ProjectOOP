@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Board {
 
@@ -25,31 +26,49 @@ public class Board {
 
     }
 
-    public void loadBoard(String[] arrayofPlanets, String[] arrayofSolarsystems, String[] arrayofAdjacencies, Point[][] arrayofPlanetPositions, Point[] arrayofSolarPoints){
-        this.planetNames = arrayofPlanets;
-        this.planetPositions = arrayofPlanetPositions;
-        this.solarPositions = arrayofSolarPoints;
-        this.solarSystems = arrayofSolarsystems;
-        this.planetMap = populatePlanetHashMap(this.planetNames);
-        this.solarsystemMap = populateSolarSystemHashMap(this.solarSystems);
-        this.listofPlanets = convertPlanetHashMapToArrayList(this.planetMap);
+    public void loadBoard(String[] planetNames, String[] solarSystems, String[] adjacencies, Point[][] planetPositions, Point[] solarPoints){
+        this.planetNames = planetNames;
+        this.planetPositions = planetPositions;
+        this.solarPositions = solarPoints;
+        this.solarSystems = solarSystems;
 
+        createPlanets();
+        createSolarSystems();
+        setPlanetAdjacencies(adjacencies);
+    }
 
-        for (int i = 0; i < arrayofAdjacencies.length; i++){
+    private void createPlanets() {
+        planetMap = new HashMap<>();
+        for (String planetName : planetNames) {
+            planetMap.put(planetName, new Planet(planetName));
+        }
+        listofPlanets = new ArrayList<>(planetMap.values());
+    }
 
-            String[] onePlanetAdjacanecies = arrayofAdjacencies[i].split(",");
-
-            ArrayList<Planet> adjacentPlanets = new ArrayList<Planet>();
-
-            for (int j = 1; j < onePlanetAdjacanecies.length; j++){
-
-                String oneAdjacentPlanetName = onePlanetAdjacanecies[j];
-                Planet oneAdjacentPlanet = planetMap.get(oneAdjacentPlanetName);
-                adjacentPlanets.add(oneAdjacentPlanet);
-
+    private void createSolarSystems() {
+        solarsystemMap = new HashMap<>();
+        for (String solarSystem : solarSystems) {
+            String[] parts = solarSystem.split(",");
+            String name = parts[0];
+            int bonus = Integer.parseInt(parts[1]);
+            ArrayList<Planet> planetsInSystem = new ArrayList<>();
+            for (int j = 2; j < parts.length; j++) {
+                planetsInSystem.add(planetMap.get(parts[j]));
             }
+            solarsystemMap.put(name, new SolarSystem(name, bonus, planetsInSystem));
+        }
+    }
 
-            planetMap.get(onePlanetAdjacanecies[0]).setAdjacencies(adjacentPlanets);
+    private void setPlanetAdjacencies(String[] adjacencies){
+        for (String adjacency : adjacencies){
+            String[] parts = adjacency.split(",");
+            String planetName = parts[0];
+            ArrayList<Planet> adjacentPlanets = new ArrayList<>();
+            for (int i = 1; i < parts.length; i++){
+                String adjacentPlanetName = parts[i];
+                adjacentPlanets.add(planetMap.get(adjacentPlanetName));
+            }
+            planetMap.get(planetName).setAdjacencies(adjacentPlanets);
         }
     }
 
@@ -74,40 +93,6 @@ public class Board {
 
     public HashMap<String, Color> getPlanetColorMap(){
         return this.planetColorMap;
-    }
-    
-    private HashMap<String, Planet> populatePlanetHashMap(String[] arrayofPlanets){
-
-        planetMap = new HashMap<String, Planet>();
-
-        for (int i = 0; i < arrayofPlanets.length; i++){
-            planetMap.put(arrayofPlanets[i], new Planet(arrayofPlanets[i]));    
-        }
-        return planetMap;
-    }
-    
-    private HashMap<String, SolarSystem> populateSolarSystemHashMap(String[] arrayofSolarsystems){
-            
-        HashMap<String, SolarSystem> solarsystemMap = new HashMap<String, SolarSystem>();
-
-        for (int i = 0; i < arrayofSolarsystems.length; i++){
-
-            String[] oneSolarsystemArray = arrayofSolarsystems[i].split(",");
-
-            ArrayList<Planet> planetsinSolarsystem = new ArrayList<Planet>();
-
-            for (int j = 2; j < oneSolarsystemArray.length; j++){
-                planetsinSolarsystem.add(planetMap.get(oneSolarsystemArray[j]));
-            }
-            
-            solarsystemMap.put(oneSolarsystemArray[0], new SolarSystem(oneSolarsystemArray[0], Integer.parseInt(oneSolarsystemArray[1]), planetsinSolarsystem));
-            
-        }
-        return solarsystemMap;
-    }
-    
-    private ArrayList<Planet> convertPlanetHashMapToArrayList(HashMap<String, Planet> planetMap){
-        return new ArrayList<Planet>(planetMap.values());
     }
 }
 

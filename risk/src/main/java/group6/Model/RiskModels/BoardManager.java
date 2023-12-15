@@ -22,13 +22,11 @@ import group6.Model.Interfaces.Ownable;
 
 public class BoardManager {
     private Board board;
-    private ArrayList<Planet> planets;
     private PlayerManager playerManager;
     private ObserverManager observerManager;
 
     public BoardManager(Board board, PlayerManager playerManager, ObserverManager observerManager) {
         this.board = board;
-        this.planets = planets;
         this.playerManager = playerManager;
         this.observerManager = observerManager;
 
@@ -83,7 +81,7 @@ public class BoardManager {
         observerManager.notifyPlanetObservers(planet.getName(), soldiers, playerManager.getOwner(planet));
 
     } 
-    public Planet getPlanetByName(String planetName){
+    protected Planet getPlanetByName(String planetName){
         return board.getPlanetByName(planetName);
 
     }
