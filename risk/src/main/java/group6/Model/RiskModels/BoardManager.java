@@ -29,7 +29,7 @@ public class BoardManager {
         this.board.loadBoard(planetNames, solarsystems, adjacencies, planetPoints, solarPoints);
     }
 
-    protected void distributePlanets() {
+    public void distributePlanets() {
         List<Planet> shuffledPlanets = getShuffledPlanets();
         playerManager.initializePlayersReinforceableSoldiers();
         evenlyDistributeInitalPlanets(shuffledPlanets);

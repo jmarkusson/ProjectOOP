@@ -20,7 +20,7 @@ public class PlayerManager {
         this.playerOwnership = playerOwnership;
     }
 
-    protected void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
+    public void initPlayers(ArrayList<String> playerNames, ArrayList<Color> playerColors){
     players = new ArrayList<Player>();
 
         for(int i = 0; i < playerNames.size(); i++){

@@ -1,6 +1,5 @@
 package group6.Model.RiskModels;
 
-import group6.Model.Board;
 import group6.Model.Dice;
 import group6.Model.Planet;
 import group6.Model.Player;
