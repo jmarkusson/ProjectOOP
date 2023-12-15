@@ -6,8 +6,8 @@ import java.awt.Color;
 
 public class Player
 {
-    private Color color; 
-    private String name;
+    private final Color color; 
+    private final String name;
     private int soldiers;
     private int reinforceableSoldiers;
     private int bonusSoldiers;
@@ -27,16 +27,8 @@ public class Player
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getSoldiers() {
